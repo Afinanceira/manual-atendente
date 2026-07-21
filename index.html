@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Conhecimento</title>
+    <style>
+        :root {
+            --bg-main: #0b0b0b;
+            --bg-sidebar: #121212;
+            --bg-card: #1a1a1a;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #facc15;
+            --border: #27272a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 10px;
+            box-sizing: border-box;
+            gap: 15px;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-area h1 {
+            color: var(--accent);
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: lowercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(250, 204, 21, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+            padding: 40px;
+            box-sizing: border-box;
+            background: radial-gradient(circle at right bottom, #18181b 0%, #0b0b0b 70%);
+        }
+
+        .content-header {
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-header h2 {
+            font-size: 32px;
+            margin: 0 0 10px 0;
+            color: var(--text-main);
+        }
+
+        .content-header p {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* Watermark Background Logo */
+        .watermark {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 14vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            user-select: none;
+            pointer-events: none;
+            line-height: 1;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        .dynamic-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            border-color: rgba(250, 204, 21, 0.4);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(250, 204, 21, 0.1);
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 12px;
+            border: 1px solid rgba(250, 204, 21, 0.2);
+        }
+
+        .casa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .casa-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .casa-card h3 {
+            margin-top: 0;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        .casa-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="logo-area">
+            <h1>pixbet</h1>
+        </div>
+        <div class="nav-menu">
+            <button class="nav-item active" onclick="show('pontos', this)">⚡ Pontos de Contato</button>
+            <button class="nav-item" onclick="show('interacoes', this)">🛡️ Melhorando Interações</button>
+            <button class="nav-item" onclick="show('estrategia', this)">🚀 Estratégia</button>
+            <button class="nav-item" onclick="show('feedback', this)">📊 Feedback</button>
+            <button class="nav-item" onclick="show('dicasRapidas', this)">💡 Dicas Rápidas</button>
+            <button class="nav-item" onclick="show('metodoCasa', this)">🎯 Método C.A.S.A.</button>
+        </div>
+    </aside>
+
+    <main>
+        <div class="watermark">pixbet</div>
+        <div id="content-header" class="content-header">
+            <h2>📍 Pontos de Contato</h2>
+            <p>Selecione uma categoria no menu lateral para visualizar os manuais detalhados.</p>
+        </div>
+        <div id="display-area" class="dynamic-content">
+            <!-- Conteúdo carregado via script -->
+        </div>
+    </main>
+
+    <script>
+        const db = {
+            pontos: { 
+                title: "📍 Pontos de Contato", 
+                desc: "Diretrizes completas para padronizar e otimizar cada ponto de contato com o usuário.",
+                type: "content", 
+                html: `
+    <div class="card">
+        <h3>📞 Pontos de Contato</h3>
+        <p>Cada interação com o cliente representa uma oportunidade de fortalecer a confiança na empresa. Independentemente do canal utilizado, o atendimento deve manter o mesmo padrão de excelência, respeito e eficiência.</p>
+    </div>
+    <div class="card">
+        <h3>🌐 Conheça Todos os Canais</h3>
+        <p>Cada canal possui características próprias. Os principais pontos de contato são:</p>
+        <p>💬 Chat Online<br>📧 E-mail<br>📱 WhatsApp<br>☎️ Atendimento Telefônico<br>🎟️ Tickets<br>💻 Redes Sociais<br>🖥️ Plataforma de Suporte</p>
+        <p><i>O objetivo é proporcionar uma experiência consistente em todos eles.</i></p>
+    </div>
+    <div class="card">
+        <h3>🤝 Mantenha o Mesmo Padrão de Qualidade</h3>
+        <p>Independentemente do canal utilizado:</p>
+        <p>😊 Seja cordial.<br>📖 Utilize linguagem clara.<br>⚡ Responda com agilidade.<br>🎯 Busque resolver o problema.<br>💙 Demonstre empatia.</p>
+    </div>
+    <div class="card">
+        <h3>💬 Comunicação Adequada</h3>
+        <p>Adapte sua linguagem conforme o canal. Exemplos:</p>
+        <p><b>💬 Chat:</b> Respostas rápidas, frases objetivas e conversa dinâmica.<br><b>📧 E-mail:</b> Comunicação formal, informações completas, boa estrutura e revisão antes do envio.<br><b>☎️ Telefone:</b> Escuta ativa, clareza na fala, confirmação das informações e tom de voz profissional.</p>
+    </div>
+    <div class="card">
+        <h3>👀 A Primeira Impressão Importa</h3>
+        <p>Os primeiros segundos do atendimento fazem diferença. Sempre:</p>
+        <p>👋 Cumprimente o cliente.<br>😊 Demonstre disposição.<br>💬 Apresente-se quando necessário.<br>🎯 Mostre interesse em ajudar.</p>
+    </div>
+    <div class="card">
+        <h3>⏳ Gerencie o Tempo de Resposta</h3>
+        <p>Cada canal possui expectativa de retorno. Boas práticas:</p>
+        <p>⚡ Responda rapidamente.<br>📢 Informe quando estiver analisando.<br>🔄 Atualize o cliente durante o processo.<br>⏱️ Evite longos períodos sem comunicação.</p>
+    </div>
+    <div class="card">
+        <h3>📖 Registre Todas as Interações</h3>
+        <p>Toda comunicação deve ser documentada. Registre:</p>
+        <p>📝 Procedimentos realizados.<br>📌 Informações importantes.<br>📂 Evidências.<br>📋 Encaminhamentos.<br>📊 Histórico do atendimento.</p>
+    </div>
+    <div class="card">
+        <h3>🔄 Mantenha Continuidade</h3>
+        <p>O cliente não deve repetir informações diversas vezes. Sempre consulte:</p>
+        <p>📚 Histórico.<br>📄 Atendimentos anteriores.<br>🗂️ Registros internos.<br>💬 Conversas anteriores.</p>
+    </div>
+    <div class="card">
+        <h3>❤️ Demonstre Empatia em Todos os Canais</h3>
+        <p>Mesmo quando o atendimento ocorre por texto. Utilize expressões como:</p>
+        <p>🤝 <i>"Entendo sua situação."</i><br>💙 <i>"Vou verificar isso para você."</i><br>🙏 <i>"Obrigado por aguardar."</i><br>😊 <i>"Conte comigo para ajudá-lo."</i></p>
+    </div>
+    <div class="card">
+        <h3>🎯 Direcione Corretamente</h3>
+        <p>Nem toda solicitação será resolvida pelo primeiro agente. Quando necessário:</p>
+        <p>📌 Encaminhe ao setor responsável.<br>📢 Explique o motivo.<br>📝 Informe o próximo passo.<br>🤝 Oriente o cliente durante a transição.</p>
+    </div>
+    <div class="card">
+        <h3>🔒 Proteja Informações</h3>
+        <p>Em qualquer canal:</p>
+        <p>🛡️ Preserve dados pessoais.<br>🔐 Nunca compartilhe informações confidenciais.<br>📋 Confirme dados antes de realizar alterações.<br>⚖️ Siga as políticas de segurança.</p>
+    </div>
+    <div class="card">
+        <h3>📈 Busque uma Experiência Única</h3>
+        <p>O cliente deve sentir que recebeu atenção personalizada através de:</p>
+        <p>😊 Cordialidade.<br>💬 Comunicação clara.<br>⚡ Agilidade.<br>❤️ Empatia.<br>🎯 Resolução eficiente.</p>
+    </div>
+    <div class="card">
+        <h3>🚫 Evite Estes Erros</h3>
+        <p>❌ Respostas copiadas sem contexto.<br>❌ Demorar para responder.<br>❌ Ignorar mensagens.<br>❌ Informações contraditórias.<br>❌ Encerrar o atendimento sem confirmar a solução.<br>❌ Falta de cordialidade.</p>
+    </div>
+    <div class="card">
+        <h3>🌟 Os 7 Pilares dos Pontos de Contato</h3>
+        <p>💬 Comunicação.<br>⚡ Agilidade.<br>🤝 Empatia.<br>📖 Clareza.<br>🔒 Segurança.<br>📋 Organização.<br>🎯 Resolução.</p>
+    </div>
+    <div class="card">
+        <h3>🏆 Atendimento Omnichannel</h3>
+        <p>Um excelente agente garante que o cliente tenha uma experiência consistente em qualquer canal, percebendo:</p>
+        <p>✨ Agilidade.<br>✨ Respeito.<br>✨ Segurança.<br>✨ Organização.<br>✨ Eficiência.<br>✨ Profissionalismo.</p>
+    </div>
+    <div class="card">
+        <h3>📋 Checklist Antes de Encerrar</h3>
+        <p>Antes de finalizar qualquer atendimento, confirme:</p>
+        <p>✅ O cliente recebeu todas as informações?<br>✅ Todas as dúvidas foram respondidas?<br>✅ Os registros foram atualizados?<br>✅ O próximo passo foi informado?<br>✅ O atendimento foi encerrado com cordialidade?</p>
+    </div>
+    <div class="card">
+        <h3>💎 Dica de Ouro</h3>
+        <p>O cliente pode esquecer o canal utilizado, mas dificilmente esquecerá a forma como foi atendido. Cada ponto de contato é uma oportunidade para transmitir confiança, solucionar problemas e fortalecer a reputação da empresa.</p>
+    </div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Mapeamento da Trajetória</h3><p>Identificar e eliminar atritos em todos os estágios da jornada. 🗺️</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Consistência de Voz</h3><p>Padronizar o tom de voz em todos os canais de comunicação. 🗣️</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Redução de Latência</h3><p>Otimizar o tempo de resposta em cada interação. ⏱️</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Ponto Único de Resolução</h3><p>Empoderar o agente para resolver o problema sem transferências excessivas. 🎯</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Feedback em Tempo Real</h3><p>Coletar a percepção do cliente imediatamente após o suporte. 📋</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Omnichannel Integrado</h3><p>Garantir que o histórico do cliente esteja disponível em qualquer canal. 🔄</p></div>`
+            },
+            interacoes: { 
+                title: "🛡️ Melhorando Interações", 
+                desc: "Estratégias avançadas para aprimorar o rapport, a escuta ativa e a condução de diálogos difíceis.",
+                type: "content", 
+                html: `
+    <div class="card">
+        <h3>💬 Melhorando Interações</h3>
+        <p>Cada interação é uma oportunidade para gerar confiança, fortalecer a imagem da empresa e proporcionar uma experiência positiva ao cliente.</p>
+    </div>
+    <div class="card">
+        <h3>😊 Crie uma Boa Primeira Impressão</h3>
+        <p>Os primeiros segundos do atendimento são fundamentais. Sempre:</p>
+        <p>👋 Cumprimente com cordialidade.<br>😊 Demonstre disposição para ajudar.<br>💬 Utilize uma linguagem acolhedora.<br>✨ Faça o cliente sentir que recebeu atenção desde o início.</p>
+    </div>
+    <div class="card">
+        <h3>👂 Pratique a Escuta Ativa</h3>
+        <p>Antes de responder, procure compreender completamente a necessidade do cliente.</p>
+        <p>👀 Leia toda a conversa.<br>🧠 Identifique o verdadeiro problema.<br>❓ Faça perguntas quando necessário.<br>📖 Analise o contexto antes de responder.</p>
+    </div>
+    <div class="card">
+        <h3>❤️ Demonstre Empatia</h3>
+        <p>O cliente deseja sentir que foi compreendido. Utilize frases como:</p>
+        <p>❤️ <i>"Entendo sua preocupação."</i><br>💙 <i>"Vou analisar seu caso com atenção."</i><br>🙏 <i>"Obrigado por compartilhar essas informações."</i><br>😊 <i>"Estou aqui para ajudá-lo."</i></p>
+    </div>
+    <div class="card">
+        <h3>🎯 Personalize Cada Atendimento</h3>
+        <p>Evite que o cliente receba respostas que pareçam automáticas. Sempre que possível:</p>
+        <p>👤 Utilize o nome do cliente.<br>📌 Considere o histórico.<br>💬 Adapte a resposta ao contexto.<br>🎯 Demonstre atenção aos detalhes.</p>
+    </div>
+    <div class="card">
+        <h3>🗣️ Utilize uma Comunicação Positiva</h3>
+        <p>Prefira soluções em vez de negativas:</p>
+        <p>❌ <i>"Não posso fazer isso."</i> ➔ ✅ <i>"Posso oferecer esta alternativa."</i><br>❌ <i>"Não temos essa opção."</i> ➔ ✅ <i>"Atualmente trabalhamos desta forma."</i></p>
+    </div>
+    <div class="card">
+        <h3>📖 Explique os Procedimentos</h3>
+        <p>Nunca suponha que o cliente conhece os processos internos. Sempre:</p>
+        <p>📋 Explique o motivo da solicitação.<br>📌 Oriente passo a passo.<br>🧩 Utilize exemplos quando necessário.<br>💬 Certifique-se de que tudo ficou claro.</p>
+    </div>
+    <div class="card">
+        <h3>⚡ Mantenha o Cliente Atualizado</h3>
+        <p>Durante análises mais demoradas:</p>
+        <p>⏳ Informe o andamento.<br>📢 Explique o que está sendo verificado.<br>🤝 Agradeça pela paciência.<br>🔄 Evite períodos longos sem retorno.</p>
+    </div>
+    <div class="card">
+        <h3>🤝 Gere Confiança</h3>
+        <p>A confiança é construída por meio de pequenas atitudes. Transmita:</p>
+        <p>✔️ Segurança.<br>✔️ Transparência.<br>✔️ Honestidade.<br>✔️ Clareza.<br>✔️ Compromisso.</p>
+    </div>
+    <div class="card">
+        <h3>🧠 Antecipe Dúvidas</h3>
+        <p>Antes de finalizar, pergunte a si mesmo: O cliente pode ter outra dúvida? Existe alguma orientação adicional? Posso evitar um novo contato?</p>
+    </div>
+    <div class="card">
+        <h3>🎓 Eduque o Cliente</h3>
+        <p>Além de resolver o problema: explique como evitar situações semelhantes, oriente sobre boas práticas, compartilhe informações úteis e ajude o cliente a utilizar melhor os serviços.</p>
+    </div>
+    <div class="card">
+        <h3>💙 Demonstre Interesse Genuíno</h3>
+        <p>O cliente percebe quando existe atenção verdadeira. Pratique: educação, respeito, paciência e interesse em compreender.</p>
+    </div>
+    <div class="card">
+        <h3>🔍 Revise Antes de Enviar</h3>
+        <p>Uma resposta bem revisada transmite profissionalismo. Confira: ortografia, clareza, objetividade, informações corretas e tom cordial.</p>
+    </div>
+    <div class="card">
+        <h3>🌟 Encante Além da Solução</h3>
+        <p>Um excelente atendimento vai além da resolução do problema. Busque: superar expectativas, explicar claramente, criar uma experiência agradável e fazer o cliente sentir-se valorizado.</p>
+    </div>
+    <div class="card">
+        <h3>🚫 Evite Estas Atitudes</h3>
+        <p>❌ Interromper o cliente.<br>❌ Responder sem analisar o contexto.<br>❌ Utilizar linguagem fria.<br>❌ Ignorar informações importantes.<br>❌ Demonstrar impaciência.<br>❌ Encerrar o atendimento abruptamente.<br>❌ Fornecer respostas incompletas.</p>
+    </div>
+    <div class="card">
+        <h3>📊 Indicadores de uma Boa Interação</h3>
+        <p>Uma interação de qualidade apresenta: resposta rápida, solução eficiente, comunicação clara, empatia, informações completas, respeito e cliente satisfeito.</p>
+    </div>
+    <div class="card">
+        <h3>🏆 Os 7 Segredos das Interações Memoráveis</h3>
+        <p>🌟 Ouça atentamente antes de responder.<br>🤝 Trate cada cliente com respeito.<br>💬 Explique de forma simples e objetiva.<br>⚡ Seja ágil sem perder a qualidade.<br>📚 Demonstre conhecimento dos processos.<br>❤️ Mantenha empatia durante toda a conversa.<br>🎯 Finalize garantindo que todas as dúvidas foram resolvidas.</p>
+    </div>
+    <div class="card">
+        <h3>📋 Checklist da Interação Perfeita</h3>
+        <p>Antes de encerrar, confirme:</p>
+        <p>✅ Cumprimentei o cliente cordialmente?<br>✅ Compreendi totalmente a necessidade?<br>✅ Expliquei o procedimento de forma clara?<br>✅ Mantive o cliente informado durante todo o processo?<br>✅ Demonstrei empatia e respeito?<br>✅ Resolvi ou encaminhei corretamente a solicitação?<br>✅ Finalizei perguntando se havia mais alguma dúvida?</p>
+    </div>
+    <div class="card">
+        <h3>💎 Dica de Ouro</h3>
+        <p>Uma boa interação não é apenas aquela que resolve um problema, mas aquela que faz o cliente sentir que foi ouvido, respeitado e acompanhado durante toda a sua jornada. Cada conversa é uma oportunidade de construir confiança e fortalecer o relacionamento com a empresa.</p>
+    </div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Vínculo e Rapport</h3><p>Saudação personalizada com contexto imediato, demonstrando que o agente conhece a necessidade do jogador. 🤝</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Responsabilização Ativa</h3><p>Assunção de falhas ou limitações sem defensividade, focando na solução e na transparência. 🛡️</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Neutralização sob Pressão</h3><p>Técnicas avançadas de desescalonamento para acalmar usuários em situações críticas. 🧊</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Comunicação Assertiva</h3><p>Equilíbrio entre a empatia e a diretividade, evitando rodeios desnecessários. 🎯</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Escuta Qualificada</h3><p>Identificar não apenas o problema explícito, mas a necessidade implícita do cliente por trás da dúvida. 🔍</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Fechamento de Ciclo</h3><p>Certificar-se de que o usuário compreendeu a solução e se sente satisfeito antes de encerrar. ✅</p></div>`
+            },
+            estrategia: { 
+                title: "🚀 Estratégia de Atendimento", 
+                desc: "Planejamento estruturado para diagnósticos assertivos, tomadas de decisão e condução lógica.",
+                type: "content", 
+                html: `
+    <div class="card">
+        <h3>🎯 Estratégia de Atendimento</h3>
+        <p>Um atendimento estratégico vai além da resolução de um problema. Ele busca compreender a necessidade do cliente, oferecer soluções eficientes e construir uma relação de confiança em cada interação.</p>
+    </div>
+    <div class="card">
+        <h3>🧭 Entenda Antes de Agir</h3>
+        <p>O primeiro passo para um bom atendimento é compreender completamente a situação. Antes de responder:</p>
+        <p>👂 Ouça atentamente.<br>📖 Leia todo o histórico.<br>🔍 Analise as informações disponíveis.<br>❓ Esclareça dúvidas, se necessário.</p>
+        <p><i>Diagnosticar corretamente é o primeiro passo para solucionar com eficiência.</i></p>
+    </div>
+    <div class="card">
+        <h3>🎯 Defina o Objetivo do Atendimento</h3>
+        <p>Pergunte-se: Qual é a necessidade do cliente? O que precisa ser resolvido? Existe uma solução imediata? Será necessário envolver outro setor?</p>
+        <p><i>Ter clareza sobre o objetivo torna o atendimento mais eficiente.</i></p>
+    </div>
+    <div class="card">
+        <h3>📋 Planeje Antes de Responder</h3>
+        <p>Evite responder por impulso. Organize mentalmente:</p>
+        <p>1️⃣ Identifique o problema.<br>2️⃣ Consulte os procedimentos.<br>3️⃣ Verifique as informações.<br>4️⃣ Defina a melhor solução.<br>5️⃣ Explique de forma clara.</p>
+    </div>
+    <div class="card">
+        <h3>💬 Conduza a Conversa</h3>
+        <p>O agente deve liderar o atendimento de forma organizada. Boas práticas:</p>
+        <p>🧭 Mantenha o foco no assunto principal.<br>📢 Oriente cada etapa.<br>🤝 Demonstre segurança.<br>🎯 Evite conversas paralelas que possam gerar confusão.</p>
+    </div>
+    <div class="card">
+        <h3>⚡ Equilibre Agilidade e Qualidade</h3>
+        <p>Responder rápido é importante. Responder corretamente é indispensável. Sempre:</p>
+        <p>⚡ Seja ágil.<br>🧠 Analise antes de agir.<br>📖 Consulte procedimentos.<br>🎯 Priorize a qualidade.</p>
+    </div>
+    <div class="card">
+        <h3>🤝 Adapte sua Estratégia ao Perfil do Cliente</h3>
+        <p>Cada cliente possui necessidades diferentes. Observe:</p>
+        <p>😊 Nível de conhecimento.<br>📖 Clareza das informações.<br>😟 Estado emocional.<br>💬 Forma de comunicação.</p>
+        <p><i>Adapte sua abordagem para oferecer um atendimento mais eficaz.</i></p>
+    </div>
+    <div class="card">
+        <h3>❤️ Utilize Empatia Estratégica</h3>
+        <p>Empatia fortalece a relação com o cliente. Demonstre:</p>
+        <p>💙 Interesse genuíno.<br>🤝 Respeito.<br>😊 Paciência.<br>📢 Transparência.</p>
+        <p><i>Mesmo quando não for possível atender a solicitação, explique os motivos de forma clara e cordial.</i></p>
+    </div>
+    <div class="card">
+        <h3>🔍 Antecipe Necessidades</h3>
+        <p>Um atendimento estratégico busca prevenir novos contatos. Antes de finalizar:</p>
+        <p>📌 Oriente sobre próximos passos.<br>📄 Informe documentos necessários.<br>💡 Compartilhe informações úteis.<br>🚀 Esclareça dúvidas frequentes relacionadas ao caso.</p>
+    </div>
+    <div class="card">
+        <h3>📚 Utilize os Recursos Corretos</h3>
+        <p>Não dependa apenas da memória. Consulte sempre:</p>
+        <p>📖 Base de conhecimento.<br>📋 Procedimentos internos.<br>📢 Comunicados atualizados.<br>📝 Histórico do cliente.</p>
+    </div>
+    <div class="card">
+        <h3>📊 Analise Antes de Escalar</h3>
+        <p>Nem toda situação precisa ser encaminhada. Antes de escalar um caso:</p>
+        <p>✔️ Confirme todas as informações.<br>✔️ Verifique procedimentos.<br>✔️ Avalie alternativas.<br>✔️ Certifique-se de que o encaminhamento é realmente necessário.</p>
+    </div>
+    <div class="card">
+        <h3>🔄 Mantenha o Cliente Informado</h3>
+        <p>Durante qualquer análise:</p>
+        <p>📢 Explique o andamento.<br>⏳ Informe prazos quando disponíveis.<br>🤝 Agradeça pela paciência.<br>💬 Evite deixar o cliente sem retorno.</p>
+    </div>
+    <div class="card">
+        <h3>🛡️ Tome Decisões com Responsabilidade</h3>
+        <p>Cada ação representa a empresa. Sempre:</p>
+        <p>🔒 Proteja informações sensíveis.<br>📜 Respeite os procedimentos internos.<br>⚖️ Atue com ética.<br>📋 Registre todas as ações importantes.</p>
+    </div>
+    <div class="card">
+        <h3>📈 Avalie o Resultado do Atendimento</h3>
+        <p>Antes de encerrar, reflita:</p>
+        <p>🎯 O problema foi resolvido?<br>😊 O cliente compreendeu as orientações?<br>📌 Há alguma pendência?<br>📋 O registro foi atualizado corretamente?</p>
+    </div>
+    <div class="card">
+        <h3>🚫 Evite Estas Estratégias</h3>
+        <p>❌ Responder sem analisar o caso.<br>❌ Fazer promessas que não podem ser cumpridas.<br>❌ Encaminhar atendimentos sem necessidade.<br>❌ Utilizar respostas genéricas.<br>❌ Ignorar o histórico do cliente.<br>❌ Encerrar o atendimento sem confirmar a solução.</p>
+    </div>
+    <div class="card">
+        <h3>🌟 Os 7 Pilares da Estratégia de Atendimento</h3>
+        <p>🧠 Análise antes da ação.<br>👂 Escuta ativa.<br>💬 Comunicação clara.<br>⚡ Agilidade com qualidade.<br>🤝 Empatia.<br>📚 Conhecimento dos processos.<br>🎯 Foco na resolução.</p>
+    </div>
+    <div class="card">
+        <h3>🏆 Método A.C.T.I.O.N.</h3>
+        <p>Um modelo simples para conduzir qualquer atendimento:</p>
+        <p>👀 <b>A — Analisar:</b> Leia o histórico, identifique a necessidade e reúna todas as informações antes de agir.<br>💬 <b>C — Comunicar:</b> Explique cada etapa com clareza, utilizando uma linguagem simples e objetiva.<br>🛠️ <b>T — Tratar:</b> Aplique o procedimento correto, garantindo que a solução esteja alinhada às políticas da empresa.<br>📢 <b>I — Informar:</b> Mantenha o cliente atualizado durante toda a análise, evitando períodos sem retorno.<br>🎯 <b>O — Orientar:</b> Apresente os próximos passos, prazos e recomendações para evitar novas dúvidas.<br>🤝 <b>N — Normalizar:</b> Confirme que o problema foi resolvido, registre o atendimento e finalize de forma cordial.</p>
+    </div>
+    <div class="card">
+        <h3>📋 Checklist Estratégico</h3>
+        <p>Antes de concluir o atendimento, confirme:</p>
+        <p>✅ Compreendi completamente a solicitação?<br>✅ Consultei os procedimentos corretos?<br>✅ Ofereci a melhor solução disponível?<br>✅ Mantive o cliente informado durante todo o processo?<br>✅ Registrei corretamente todas as ações?<br>✅ O cliente sabe exatamente qual é o próximo passo?</p>
+    </div>
+    <div class="card">
+        <h3>💎 Dica de Ouro</h3>
+        <p>A melhor estratégia de atendimento é aquela que une análise, comunicação, empatia e resolução. Um agente estratégico não apenas responde perguntas, mas conduz o cliente com segurança, clareza e profissionalismo do início ao fim da jornada.</p>
+    </div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Personalização de Contexto</h3><p>Consulta obrigatória ao histórico e perfil antes de qualquer interação, evitando redundâncias. 🧠</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Proatividade Preditiva</h3><p>Identificação e resolução de dúvidas antes mesmo que o usuário as formalize, baseada no comportamento comum. 🔮</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Sinergia Homem-IA</h3><p>Uso da IA para triagem e automação de rotinas, reservando o atendimento humano para casos de alta complexidade emocional. 🤖</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Jornada do Cliente Integrada</h3><p>Garantir que a transição entre canais seja invisível, mantendo o nível de serviço em todos os pontos. 🔗</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Cultura de Melhoria Contínua</h3><p>Utilização do feedback coletado para ajustes rápidos nos fluxos e scripts de atendimento. 🔄</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Monitoramento de Riscos</h3><p>Análise contínua de padrões de atendimento para identificar possíveis fraudes ou erros sistêmicos. 🛡️</p></div>`
+            },
+            feedback: { 
+                title: "📊 Sistemas de Feedback e Performance", 
+                desc: "Métricas de qualidade, CSAT, NPS, FCR e planos de desenvolvimento contínuo.",
+                type: "content", 
+                html: `
+    <div class="card">
+        <h3>📊 Sistemas de Feedback e Performance</h3>
+        <p>O feedback é uma oportunidade de crescimento. A performance é construída diariamente por meio da dedicação, aprendizado e compromisso com a excelência.</p>
+    </div>
+    <div class="card">
+        <h3>🎯 Objetivo do Feedback</h3>
+        <p>O feedback tem como finalidade:</p>
+        <p>📈 Melhorar a qualidade dos atendimentos.<br>🧠 Desenvolver novas habilidades.<br>💬 Aprimorar a comunicação.<br>🚀 Incentivar a evolução contínua.<br>🏆 Reconhecer bons resultados.</p>
+    </div>
+    <div class="card">
+        <h3>💡 Encare o Feedback como Crescimento</h3>
+        <p>Todo feedback possui um propósito. Ao recebê-lo:</p>
+        <p>👂 Ouça atentamente.<br>📝 Anote os principais pontos.<br>🤝 Tire dúvidas.<br>🎯 Transforme orientações em ações.</p>
+        <p><i>O verdadeiro crescimento acontece quando o feedback é colocado em prática.</i></p>
+    </div>
+    <div class="card">
+        <h3>🌱 Evolução Contínua</h3>
+        <p>Cada atendimento representa uma oportunidade de aprender. Busque constantemente:</p>
+        <p>📚 Novos conhecimentos.<br>🧠 Aprimorar habilidades.<br>⚡ Melhorar sua produtividade.<br>💬 Aperfeiçoar sua comunicação.</p>
+    </div>
+    <div class="card">
+        <h3>📊 Indicadores de Performance</h3>
+        <p>Sua evolução pode ser acompanhada por diferentes indicadores. Exemplos:</p>
+        <p>⚡ Tempo médio de resposta.<br>🎯 Resolução no primeiro contato.<br>😊 Satisfação do cliente.<br>📈 Qualidade das respostas.<br>📋 Cumprimento dos procedimentos.<br>⏳ Tempo médio de atendimento.<br>📚 Atualização dos registros.</p>
+    </div>
+    <div class="card">
+        <h3>🏆 Reconheça seus Resultados</h3>
+        <p>Valorize cada conquista. Comemore:</p>
+        <p>🌟 Melhoria dos indicadores.<br>📈 Evolução pessoal.<br>💬 Feedbacks positivos.<br>🤝 Reconhecimento da equipe.<br>🚀 Desenvolvimento profissional.</p>
+    </div>
+    <div class="card">
+        <h3>🔍 Faça Autoavaliações</h3>
+        <p>Antes de esperar um feedback formal, reflita sobre seu desempenho. Pergunte-se:</p>
+        <p>❓ Atendi com qualidade?<br>❓ Resolvi corretamente?<br>❓ Fui claro nas orientações?<br>❓ Mantive uma postura profissional?<br>❓ Existe algo que posso melhorar?</p>
+    </div>
+    <div class="card">
+        <h3>💬 Dê e Receba Feedback com Respeito</h3>
+        <p>Um bom feedback deve ser:</p>
+        <p>🤝 Respeitoso.<br>🎯 Objetivo.<br>📖 Baseado em fatos.<br>💡 Construtivo.<br>❤️ Voltado para o desenvolvimento.</p>
+    </div>
+    <div class="card">
+        <h3>📚 Aprenda com os Melhores</h3>
+        <p>Observe profissionais de destaque. Analise:</p>
+        <p>🌟 Comunicação.<br>⚡ Agilidade.<br>🧠 Organização.<br>🎯 Resolução de problemas.<br>🤝 Relacionamento com clientes.</p>
+    </div>
+    <div class="card">
+        <h3>🚀 Transforme Feedback em Ação</h3>
+        <p>Após receber uma orientação:</p>
+        <p>📋 Crie um plano de melhoria.<br>🎯 Defina metas.<br>📈 Acompanhe sua evolução.<br>📝 Revise seus resultados.</p>
+    </div>
+    <div class="card">
+        <h3>🤝 Compartilhe Conhecimento</h3>
+        <p>O desenvolvimento da equipe depende da colaboração. Contribua com:</p>
+        <p>💡 Boas práticas.<br>📚 Novos aprendizados.<br>🧩 Soluções encontradas.<br>🎓 Apoio aos colegas.</p>
+    </div>
+    <div class="card">
+        <h3>❤️ Mantenha uma Mentalidade Positiva</h3>
+        <p>Feedback não é punição. É uma oportunidade para:</p>
+        <p>🌱 Crescer.<br>📈 Evoluir.<br>🎯 Aprimorar habilidades.<br>🚀 Tornar-se um profissional melhor.</p>
+    </div>
+    <div class="card">
+        <h3>📋 Plano de Desenvolvimento Individual (PDI)</h3>
+        <p>Após cada ciclo de avaliação:</p>
+        <p>🎯 Defina um objetivo.<br>📚 Escolha uma habilidade para desenvolver.<br>📝 Estabeleça ações práticas.<br>📅 Determine um prazo.<br>📊 Acompanhe sua evolução.</p>
+    </div>
+    <div class="card">
+        <h3>🏅 Hábitos dos Agentes de Alta Performance</h3>
+        <p>Os profissionais de destaque costumam:</p>
+        <p>📖 Estudar constantemente.<br>⚡ Buscar eficiência.<br>🤝 Trabalhar em equipe.<br>💬 Comunicar-se com clareza.<br>❤️ Receber feedback com maturidade.<br>🎯 Aprender com os próprios erros.<br>📈 Buscar evolução contínua.</p>
+    </div>
+    <div class="card">
+        <h3>📊 Os 7 Indicadores de Excelência</h3>
+        <p>🟢 Tempo de resposta.<br>🟢 Qualidade do atendimento.<br>🟢 Resolução no primeiro contato.<br>🟢 Organização dos registros.<br>🟢 Cumprimento dos procedimentos.<br>🟢 Satisfação do cliente.<br>🟢 Colaboração com a equipe.</p>
+    </div>
+    <div class="card">
+        <h3>🚫 Evite Estes Comportamentos</h3>
+        <p>❌ Ignorar feedbacks.<br>❌ Repetir os mesmos erros.<br>❌ Resistir a mudanças.<br>❌ Trabalhar sem acompanhar indicadores.<br>❌ Não buscar aprendizado.<br>❌ Receber críticas de forma defensiva.<br>❌ Deixar de compartilhar conhecimento.</p>
+    </div>
+    <div class="card">
+        <h3>🌟 Método C.R.E.S.C.E.R.</h3>
+        <p>Uma estratégia simples para transformar feedback em resultados:</p>
+        <p>👂 <b>C — Compreender:</b> Escute atentamente e compreenda o objetivo do feedback.<br>📝 <b>R — Registrar:</b> Anote os principais pontos de melhoria e os aspectos positivos.<br>🚀 <b>E — Executar:</b> Coloque em prática as orientações recebidas.<br>📊 <b>S — Supervisionar:</b> Acompanhe sua evolução por meio de indicadores e resultados.<br>🤝 <b>C — Compartilhar:</b> Troque experiências com colegas e peça orientações quando necessário.<br>📈 <b>E — Evoluir:</b> Busque aprendizado contínuo e aperfeiçoe suas habilidades.<br>🏆 <b>R — Reconhecer:</b> Valorize seu progresso e celebre cada conquista alcançada.</p>
+    </div>
+    <div class="card">
+        <h3>📋 Checklist de Performance</h3>
+        <p>Ao final da semana, reflita:</p>
+        <p>✅ Cumpri todos os procedimentos?<br>✅ Evoluí em relação à semana anterior?<br>✅ Recebi algum feedback importante?<br>✅ Coloquei as orientações em prática?<br>✅ Alcancei minhas metas de qualidade?<br>✅ Ajudei colegas durante o trabalho?<br>✅ Aprendi algo novo?</p>
+    </div>
+    <div class="card">
+        <h3>💎 Dica de Ouro</h3>
+        <p>A performance não é medida apenas pelos números, mas pela capacidade de evoluir continuamente. O profissional que busca aprendizado, aceita feedbacks com maturidade e transforma orientações em ações constrói uma carreira sólida e contribui para o sucesso de toda a equipe.</p>
+    </div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>CSAT</h3><p>Satisfação pontual após cada interação. 🎯</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>NPS</h3><p>Lealdade e percepção de longo prazo. 📈</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>FCR</h3><p>Resolução no primeiro contato. ⚡</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>CES</h3><p>Esforço que o cliente teve. 🛡️</p></div>`
+            },
+            dicasRapidas: { 
+                title: "💡 Dicas Rápidas", 
+                desc: "Pequenas ações de grande impacto para otimizar o dia a dia do suporte.",
+                type: "content", 
+                html: `
+    <div class="card">
+        <h3>⚡ Dicas Rápidas</h3>
+        <p>Pequenas ações fazem grandes diferenças. Aplicar boas práticas diariamente aumenta a qualidade do atendimento, reduz erros e melhora a experiência do cliente.</p>
+    </div>
+    <div class="card">
+        <h3>😊 Cumprimente Sempre</h3>
+        <p>Comece cada atendimento com educação e cordialidade:</p>
+        <p>✔️ Seja simpático.<br>✔️ Demonstre disposição para ajudar.<br>✔️ Utilize uma saudação adequada.</p>
+        <p><i>A primeira impressão influencia toda a experiência do cliente.</i></p>
+    </div>
+    <div class="card">
+        <h3>👂 Leia Antes de Responder</h3>
+        <p>Nunca responda apenas pela primeira mensagem. Sempre:</p>
+        <p>📖 Leia toda a conversa.<br>🔍 Analise o contexto.<br>📋 Consulte o histórico.</p>
+    </div>
+    <div class="card">
+        <h3>💬 Escreva com Clareza</h3>
+        <p>Facilite o entendimento do cliente. Utilize:</p>
+        <p>📝 Frases curtas.<br>🎯 Informações objetivas.<br>📖 Linguagem simples.</p>
+        <p><i>🚫 Evite termos técnicos desnecessários.</i></p>
+    </div>
+    <div class="card">
+        <h3>⚡ Responda com Agilidade</h3>
+        <p>Não deixe o cliente esperando:</p>
+        <p>⏱️ Responda rapidamente.<br>📢 Informe quando estiver analisando.<br>🔄 Atualize sempre que houver novidades.</p>
+    </div>
+    <div class="card">
+        <h3>🎯 Resolva na Primeira Oportunidade</h3>
+        <p>Sempre que possível:</p>
+        <p>✔️ Solucione completamente.<br>✔️ Evite retornos.<br>✔️ Oriente corretamente.<br>✔️ Confirme que o cliente compreendeu.</p>
+    </div>
+    <div class="card">
+        <h3>❤️ Demonstre Empatia</h3>
+        <p>Lembre-se de que há uma pessoa do outro lado da tela. Utilize expressões como:</p>
+        <p>🤝 <i>"Entendo sua situação."</i><br>🙏 <i>"Obrigado pela paciência."</i><br>😊 <i>"Vou ajudá-lo."</i></p>
+    </div>
+    <div class="card">
+        <h3>🔍 Revise Antes de Enviar</h3>
+        <p>Antes de clicar em "Enviar":</p>
+        <p>✔️ Verifique ortografia.<br>✔️ Confira informações.<br>✔️ Revise valores e datas.<br>✔️ Certifique-se de que tudo está claro.</p>
+    </div>
+    <div class="card">
+        <h3>📚 Consulte a Base de Conhecimento</h3>
+        <p>Se surgir uma dúvida:</p>
+        <p>📖 Consulte os procedimentos.<br>📋 Verifique comunicados.<br>🧠 Não responda com base em suposições.</p>
+    </div>
+    <div class="card">
+        <h3>🔒 Proteja Informações</h3>
+        <p>Nunca compartilhe dados sem autorização. Sempre:</p>
+        <p>🛡️ Confirme a identidade do cliente.<br>🔐 Preserve informações sensíveis.<br>📜 Respeite as políticas internas.</p>
+    </div>
+    <div class="card">
+        <h3>🤝 Trabalhe em Equipe</h3>
+        <p>Quando necessário:</p>
+        <p>👥 Peça apoio.<br>💬 Compartilhe conhecimento.<br>📚 Ajude colegas.<br>🚀 Colabore para melhorar os processos.</p>
+    </div>
+    <div class="card">
+        <h3>📈 Aprenda Todos os Dias</h3>
+        <p>Busque evolução constante:</p>
+        <p>🌱 Leia novos procedimentos.<br>💡 Aprenda com os feedbacks.<br>🎓 Participe dos treinamentos.</p>
+    </div>
+    <div class="card">
+        <h3>🚫 Evite Esses Erros</h3>
+        <p>❌ Responder sem analisar.<br>❌ Utilizar linguagem inadequada.<br>❌ Ignorar o histórico.<br>❌ Prometer o que não pode cumprir.<br>❌ Encerrar o atendimento sem confirmar a solução.</p>
+    </div>
+    <div class="card">
+        <h3>🏆 As 10 Regras de Ouro</h3>
+        <p>⭐ Seja cordial.<br>⭐ Escute com atenção.<br>⭐ Analise antes de responder.<br>⭐ Utilize linguagem clara.<br>⭐ Seja ágil.<br>⭐ Demonstre empatia.<br>⭐ Siga os procedimentos.<br>⭐ Mantenha organização.<br>⭐ Registre corretamente.<br>⭐ Busque melhorar continuamente.</p>
+    </div>
+    <div class="card">
+        <h3>💎 Atitudes que Fazem Diferença</h3>
+        <p>🌟 Sorria ao escrever (isso influencia o tom da mensagem).<br>📌 Organize suas tarefas por prioridade.<br>📖 Leia o atendimento completo antes de agir.<br>🧠 Pense antes de responder.<br>🎯 Foque na solução, não apenas no problema.<br>❤️ Trate todos os clientes com respeito.<br>🚀 Busque sempre superar expectativas.</p>
+    </div>
+    <div class="card">
+        <h3>📋 Mini Checklist</h3>
+        <p>Antes de finalizar qualquer atendimento:</p>
+        <p>✅ Li todo o histórico?<br>✅ Entendi a necessidade?<br>✅ Consultei o procedimento correto?<br>✅ Minha resposta está clara?<br>✅ Revisei antes de enviar?<br>✅ Registrei todas as informações?</p>
+    </div>
+    <div class="card">
+        <h3>🌟 Frases que Transmitem Profissionalismo</h3>
+        <p>💬 <i>"Vou verificar essa informação para você."</i><br>💬 <i>"Obrigado por aguardar."</i><br>💬 <i>"Entendo sua necessidade."</i><br>💬 <i>"Já estou analisando sua solicitação."</i><br>💬 <i>"Posso orientá-lo da seguinte forma..."</i><br>💬 <i>"Fico à disposição caso tenha mais dúvidas."</i><br>💬 <i>"Conte conosco sempre que precisar."</i></p>
+    </div>
+    <div class="card">
+        <h3>🧠 Dica de Produtividade</h3>
+        <p>Para manter um atendimento eficiente durante todo o expediente:</p>
+        <p>⏰ Organize seu tempo.<br>📌 Priorize atendimentos críticos.<br>📚 Mantenha a base de conhecimento aberta.<br>📝 Faça registros claros e completos.<br>🔄 Revise periodicamente os comunicados internos.<br>💡 Compartilhe boas práticas com a equipe.</p>
+    </div>
+    <div class="card">
+        <h3>🌟 Os 7 Hábitos dos Agentes de Excelência</h3>
+        <p>🧠 Pensam antes de agir.<br>⚡ Respondem com rapidez e precisão.<br>📚 Estão sempre atualizados.<br>🤝 Trabalham em equipe.<br>❤️ Demonstram empatia.<br>🎯 Focam na resolução.<br>📈 Buscam evolução contínua.</p>
+    </div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Agilidade na Resposta</h3><p>Se precisar de tempo para buscar informações, avise-o. 👍</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Blocos de Texto</h3><p>Use frases curtas, pule linhas e utilize tópicos. ✍️</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Humanização</h3><p>Use emojis com moderação para tornar o papo leve. 😊</p></div>
+    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Objetividade</h3><p>Responda de forma simples e confirme entendimento. 🎯</p></div>`
+            },
+            metodoCasa: { 
+                title: "🎯 Método C.A.S.A. de Atendimento", 
+                desc: "A estrutura fundamentada para conectar, analisar, solucionar e acompanhar com excelência.",
+                type: "custom", 
+                html: `
+    <div class="casa-grid">
+        <div class="casa-card"><h3>📢 C – Canal Aberto</h3><p>Sua voz importa. Tragam sugestões; minha porta está sempre aberta para ouvir vocês.</p></div>
+        <div class="casa-card"><h3>🏆 A – Autonomia e Reconhecimento</h3><p>Seu esforço vale. Excelência será sempre vista, recompensada e celebrada.</p></div>
+        <div class="casa-card"><h3>🛡️ S – Suporte e Segurança</h3><p>Eu sou o seu escudo. Em casos complexos ou agressivos, respire e me chame: eu assumo.</p></div>
+        <div class="casa-card"><h3>🌱 A – Aprendizado Crítico e Diagnóstico</h3><p>Errar é evolução. Transparência total em cada <b>diagnóstico</b>: corrigimos juntos e aprendemos sempre.</p></div>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🏡 Método C.A.S.A. de Atendimento</h3>
+        <p>Assim como uma casa é construída sobre uma base sólida, um atendimento de excelência também precisa seguir uma estrutura organizada. O Método C.A.S.A. ajuda o agente a conduzir cada interação com confiança, qualidade e eficiência.</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🤝 C — Conectar</h3>
+        <p>Crie uma conexão positiva desde o primeiro contato. O início do atendimento define a experiência do cliente. Boas práticas:</p>
+        <p>👋 Cumprimente cordialmente.<br>😊 Demonstre disposição para ajudar.<br>👤 Utilize o nome do cliente quando possível.<br>💬 Mantenha uma comunicação acolhedora.<br>❤️ Faça o cliente sentir que foi ouvido.</p>
+        <p><i>Objetivo: Criar confiança logo nos primeiros segundos da conversa.</i></p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🔍 A — Analisar</h3>
+        <p>Entenda completamente a situação antes de agir. Nunca responda apenas pela primeira mensagem. Sempre:</p>
+        <p>📖 Leia todo o histórico.<br>🧠 Identifique a causa do problema.<br>📋 Consulte procedimentos internos.<br>🔎 Analise evidências.<br>📂 Verifique informações da conta.</p>
+        <p><i>Objetivo: Tomar decisões baseadas em informações corretas.</i></p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🛠️ S — Solucionar</h3>
+        <p>Apresente a melhor solução disponível. Durante essa etapa:</p>
+        <p>🎯 Resolva o problema sempre que possível.<br>📢 Explique cada procedimento.<br>💡 Ofereça alternativas quando necessário.<br>⚡ Busque resolver no primeiro contato.<br>🤝 Demonstre segurança durante toda a orientação.</p>
+        <p><i>Objetivo: Resolver o problema com qualidade e eficiência.</i></p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🌟 A — Acompanhar</h3>
+        <p>Finalize garantindo que o cliente tenha segurança sobre o próximo passo. Antes de encerrar:</p>
+        <p>📌 Confirme se todas as dúvidas foram esclarecidas.<br>📋 Oriente sobre próximos procedimentos.<br>📢 Informe prazos quando existirem.<br>😊 Pergunte se ainda existe alguma necessidade.<br>📝 Atualize corretamente o registro do atendimento.</p>
+        <p><i>Objetivo: Encerrar o atendimento deixando o cliente seguro e bem orientado.</i></p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🚀 Os 4 Pilares do Método C.A.S.A.</h3>
+        <p>🏡 <b>Conectar</b> → Criar confiança.<br>🔍 <b>Analisar</b> → Compreender o problema.<br>🛠️ <b>Solucionar</b> → Resolver com eficiência.<br>🌟 <b>Acompanhar</b> → Garantir uma experiência completa.</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>📊 Fluxo Visual</h3>
+        <p>👋 Cliente chega ➔ 🤝 Conectar ➔ 🔍 Analisar ➔ 🛠️ Solucionar ➔ 🌟 Acompanhar ➔ 😊 Cliente satisfeito</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>❤️ Durante Todo o Processo</h3>
+        <p>Independentemente da etapa, mantenha sempre: comunicação clara, agilidade, empatia, conhecimento, segurança das informações, transparência e foco na solução.</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>📋 Checklist C.A.S.A.</h3>
+        <p>Antes de finalizar qualquer atendimento, confirme:</p>
+        <p><b>🤝 Conectar:</b> Cumprimentei cordially? Demonstrei interesse em ajudar?<br><b>🔍 Analisar:</b> Li todo o histórico? Consultei os procedimentos? Entendi completamente a solicitação?<br><b>🛠️ Solucionar:</b> Resolvi corretamente? Expliquei os procedimentos? Informei os próximos passos?<br><b>🌟 Acompanhar:</b> O cliente compreendeu? Atualizei os registros? Perguntei se havia mais alguma dúvida?</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🌟 As Competências do Método C.A.S.A.</h3>
+        <p>Pensamento analítico, comunicação eficiente, inteligência emocional, resolução de problemas, agilidade, empatia, conhecimento técnico e organização.</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🚫 Erros que o Método Evita</h3>
+        <p>❌ Responder sem analisar.<br>❌ Ignorar o histórico do cliente.<br>❌ Utilizar respostas genéricas.<br>❌ Não explicar o procedimento.<br>❌ Encerrar o atendimento abruptamente.<br>❌ Deixar dúvidas sem esclarecimento.<br>❌ Não registrar corretamente o atendimento.</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>🏆 Exemplo Prático</h3>
+        <p><b>👤 Situação:</b> O cliente informa que realizou um depósito, mas o valor ainda não foi creditado.<br><b>🤝 Conectar:</b> "Olá! Seja bem-vindo. Vou analisar sua solicitação e ajudá-lo da melhor forma possível."<br><b>🔍 Analisar:</b> Conferir comprovante, verificar a transação, consultar o histórico da conta e confirmar o prazo de processamento.<br><b>🛠️ Solucionar:</b> Explicar a situação encontrada, orientar sobre o procedimento correto, abrir um chamado se necessário e informar o prazo estimado.<br><b>🌟 Acompanhar:</b> "Sua solicitação foi registrada e continuará em acompanhamento. Caso precise de qualquer outra orientação, nossa equipe estará à disposição."</p>
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+        <h3>💡 Dicas para Aplicar o Método</h3>
+        <p>🚀 Não tenha pressa para responder sem entender o problema.<br>📚 Utilize sempre a base de conhecimento.<br>💬 Adapte a linguagem ao perfil do cliente.<br>🤝 Demonstre interesse genuíno pela solução.<br>📈 Aproveite cada atendimento como uma oportunidade para evoluir.<br>🎯 Busque resolver a necessidade de forma completa, evitando novos contatos.</p>
+    </div>
+    <div class="card">
+        <h3>💎 Filosofia do Método C.A.S.A.</h3>
+        <p>Uma casa sólida é construída sobre bons alicerces. Da mesma forma, um atendimento de excelência nasce da combinação entre conexão, análise, solução e acompanhamento. Quando essas quatro etapas são aplicadas com consistência, o cliente sente confiança, segurança e percebe o verdadeiro compromisso da equipe com a qualidade do atendimento.</p>
+    </div>
+`
+            }
+        };
+
+        function show(key, btnElement) {
+            const area = document.getElementById('display-area');
+            const header = document.getElementById('content-header');
+            const d = db[key];
+            if (!d) return;
+
+            // Atualiza cabeçalho
+            header.innerHTML = `<h2>${d.title}</h2><p>${d.desc}</p>`;
+
+            // Atualiza botões ativos
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            // Renderiza conteúdo
+            let html = '';
+            if (d.type === "custom") {
+                html += d.html;
+            } else {
+                html += `<div class="grid-container">${d.html}</div>`;
+            }
+            area.innerHTML = html;
+        }
+
+        // Inicializa com a primeira opção ao carregar
+        window.onload = function() {
+            show('pontos', document.querySelector('.nav-item'));
+        };
+    </script>
+</body>
+</html>
