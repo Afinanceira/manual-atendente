@@ -162,14 +162,19 @@
             border-color: rgba(250, 204, 21, 0.4);
         }
 
-        .card h3 {
-            margin-top: 0;
-            color: var(--accent);
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.casa-card h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.casa-card h3:hover {
+    font-weight: 900;
+    transform: scale(1.02);
+}
 
         .card p {
             color: var(--text-muted);
