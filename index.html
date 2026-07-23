@@ -202,13 +202,23 @@
             margin-bottom: 25px;
         }
 
-        .casa-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            border-radius: 8px;
-        }
+       .casa-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 20px;
+    border-radius: 8px;
+    
+    /* Adicione estas propriedades para preparar o efeito 3D */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.casa-card:hover {
+    /* Inclina o card em 3D e o projeta levemente para frente */
+    transform: translateY(-5px) rotateX(4deg) rotateY(-4deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
 
         .casa-card h3 {
     margin-top: 0;
