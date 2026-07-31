@@ -1,1294 +1,1325 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Central de Conhecimento</title>
-    <!-- Importando React e ReactDOM via CDN para renderizar o componente LEDTicker -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
-        :root {
-            --bg-main: #0b0b0b;
-            --bg-sidebar: #121212;
-            --bg-card: #1a1a1a;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --accent: #facc15;
-            --border: #27272a;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Sidebar */
-        aside {
-            width: 280px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 20px 10px;
-            box-sizing: border-box;
-            gap: 15px;
-        }
-
-        .logo-area {
-            text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Container ajustado para o LED Display no lugar do H1 */
-        .logo-area h1 {
-            margin: 0;
-            height: 45px;
-            display: block;
-            width: 100%;
-        }
-
-        /* SVG Filter container oculto para o efeito */
-        .svg-filters {
-            position: absolute;
-            width: 0;
-            height: 0;
-            pointer-events: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            overflow-y: auto;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 15px;
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-muted);
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .nav-item:hover, .nav-item.active {
-            background-color: rgba(250, 204, 21, 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(250, 204, 21, 0.3);
-        }
-
-        /* Main Content Area */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow-y: auto;
-            padding: 40px;
-            box-sizing: border-box;
-            background: radial-gradient(circle at right bottom, #18181b 0%, #0b0b0b 70%);
-        }
-
-        .content-header {
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .content-header h2 {
-            font-size: 32px;
-            margin: 0 0 10px 0;
-            color: var(--text-main);
-        }
-
-        .content-header p {
-            color: var(--text-muted);
-            font-size: 16px;
-            margin: 0;
-        }
-
-        /* Watermark Background Logo */
-        .watermark {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            font-size: 14vw;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.02);
-            user-select: none;
-            pointer-events: none;
-            line-height: 1;
-            z-index: 1;
-            text-transform: uppercase;
-        }
-
-        .dynamic-content {
-            position: relative;
-            z-index: 2;
-            flex: 1;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-.card, .casa-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform-style: preserve-3d;
-}
-
-.card:hover, .casa-card:hover {
-    border-color: rgba(250, 204, 21, 0.4);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-.card h3, .casa-card h3 {
-    margin-top: 0;
-    font-size: 16px;
-    color: var(--accent);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.card h3:hover, .casa-card h3:hover {
-    font-weight: 900;
-    transform: scale(1.02);
-}
-
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 0;
-        }
-
-        .tag {
-            display: inline-block;
-            background: rgba(250, 204, 21, 0.1);
-            color: var(--accent);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 12px;
-            border: 1px solid rgba(250, 204, 21, 0.2);
-        }
-
-        .casa-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-       .casa-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    padding: 20px;
-    border-radius: 8px;
-    
-    /* Adicione estas propriedades para preparar o efeito 3D */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform-style: preserve-3d;
-}
-
-.casa-card:hover {
-    /* Inclina o card em 3D e o projeta levemente para frente */
-    transform: translateY(-5px) rotateX(4deg) rotateY(-4deg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-}
-
-        .casa-card h3 {
-    margin-top: 0;
-    font-size: 16px;
-    color: var(--accent);
-    font-weight: 400;
-    transition: font-weight 0.3s ease;
-}
-
-.casa-card h3:hover {
-    font-weight: 900;
-}
-        }
-
-        .casa-card p {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-bottom: 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Atendente — Suporte iGaming</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+  </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
 
-    <!-- Filtro SVG para o efeito de sangramento/borrão de tinta dinâmico -->
-    <svg class="svg-filters">
-        <filter id="ink-bleed-filter">
-            <feGaussianBlur id="blur-effect" in="SourceGraphic" stdDeviation="0" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-        </filter>
-    </svg>
+  <!-- Header / Topbar -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <div class="p-2.5 bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 rounded-xl font-bold shadow-lg shadow-amber-500/20">
+        <i data-lucide="headphones" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold text-white tracking-wide flex items-center gap-2">
+          Central Operacional de Atendimento
+          <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">iGaming Pro</span>
+        </h1>
+        <p class="text-xs text-slate-400">Manual Interativo, Dicionário Operacional, Tags Blip & Base de Conhecimento</p>
+      </div>
+    </div>
 
-    <aside>
-        <div class="logo-area">
-            <h1><div id="led-ticker-root"></div></h1>
+    <!-- Indicadores de SLA e Performance -->
+    <div class="flex flex-wrap items-center gap-3 text-xs">
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-2 rounded-lg border border-slate-800 shadow-inner">
+        <i data-lucide="zap" class="w-4 h-4 text-emerald-400 animate-pulse"></i>
+        <span class="text-slate-400">Primeira Resposta (FRT):</span>
+        <span class="font-bold text-emerald-400">&le; 30 seg</span>
+      </div>
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-2 rounded-lg border border-slate-800 shadow-inner">
+        <i data-lucide="timer" class="w-4 h-4 text-amber-400"></i>
+        <span class="text-slate-400">Tempo Médio (TMA):</span>
+        <span class="font-bold text-amber-400">3 - 5 min</span>
+      </div>
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-2 rounded-lg border border-slate-800 shadow-inner">
+        <i data-lucide="users" class="w-4 h-4 text-blue-400"></i>
+        <span class="text-slate-400">Chats Simultâneos:</span>
+        <span class="font-bold text-blue-400">2 a 3 telas</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar Navegação -->
+    <aside class="w-72 bg-slate-900/90 border-r border-slate-800 p-4 flex flex-col gap-3">
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-2">Menu de Navegação</div>
+      <nav class="space-y-1.5">
+        <button onclick="switchTab('diretrizes')" id="btn-diretrizes" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20">
+          <div class="flex items-center gap-3">
+            <i data-lucide="message-square-code" class="w-4 h-4"></i>
+            <span>Tom & Dicionário</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+
+        <button onclick="switchTab('macros')" id="btn-macros" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center gap-3">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span>Biblioteca de Macros</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+
+        <button onclick="switchTab('tags-blip')" id="btn-tags-blip" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+              <i data-lucide="tag" class="w-4 h-4 text-cyan-400"></i>
+              <span>Tags do Blip Desk</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400 text-[10px] font-bold">COMPLETO</span>
+          </div>
+        </button>
+
+        <button onclick="switchTab('protocolos')" id="btn-protocolos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-red-400"></i>
+              <span>Protocolos Críticos</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold">URGENTE</span>
+          </div>
+        </button>
+
+        <button onclick="switchTab('procedimentos')" id="btn-procedimentos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+              <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+              <span>Base de Conhecimento</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold">12 TÓPICOS</span>
+          </div>
+        </button>
+      </nav>
+
+      <!-- Card LGPD Fixo na Sidebar -->
+      <div class="mt-auto p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Checklist de Segurança</span>
         </div>
-        <div class="nav-menu" style="margin-top: 40px;">
-            <button class="nav-item active" onclick="show('pontos', this)">⚡ Pontos de Contato</button>
-            <button class="nav-item" onclick="show('interacoes', this)">🛡️ Melhorando Interações</button>
-            <button class="nav-item" onclick="show('estrategia', this)">🚀 Estratégia</button>
-            <button class="nav-item" onclick="show('feedback', this)">📊 Feedback</button>
-            <button class="nav-item" onclick="show('dicasRapidas', this)">💡 Dicas Rápidas</button>
-            <button class="nav-item" onclick="show('metodoCasa', this)">🎯 Método C.A.S.A.</button>
-        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          <strong>1.</strong> Jamais envie prints do Backoffice.<br>
+          <strong>2.</strong> Valide sempre 2 dados pessoais.<br>
+          <strong>3.</strong> Nunca atenda terceiros sem procuração.
+        </p>
+      </div>
     </aside>
 
-    <main>
-        <div class="watermark">pixbet</div>
-        <div id="content-header" class="content-header">
-            
-            <h2>📍 Pontos de Contato</h2>
-            <p>Selecione uma categoria no menu lateral para visualizar os manuais detalhados.</p>
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
+
+      <!-- TAB 1: TOM DE VOZ, DICIONÁRIO E REGRAS DE COMUNICAÇÃO -->
+      <section id="tab-diretrizes" class="tab-content active space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="message-square" class="w-7 h-7 text-amber-500"></i>
+            Padrão de Comunicação, Tom de Voz & Dicionário Operacional
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Transforme termos técnicos complexos em respostas diretas, cordiais e transparentes.</p>
         </div>
-        <div id="display-area" class="dynamic-content">
-            <!-- Conteúdo carregado via script -->
+
+        <!-- 3 Pilares do Tom de Voz -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/30 space-y-2">
+            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+              <i data-lucide="target" class="w-4 h-4"></i> 1. Objetividade sem Frieza
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              O apostador quer solução rápida. Evite rodeios ou introduções longas. Vá direto ao status da solicitação mantendo a cordialidade.
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-blue-500/30 space-y-2">
+            <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
+              <i data-lucide="heart-handshake" class="w-4 h-4"></i> 2. Empatia Neutra
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Valide a insatisfação do cliente ("Compreendo sua dúvida"), mas **nunca assuma culpa operacional** antes da confirmação dos logs do sistema.
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/30 space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> 3. Clareza Educativa
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Explique o *porquê* das regras (ex: regulamentação bancária, regras esportivas). Clientes instruídos geram menos reincidência de chamados.
+            </p>
+          </div>
         </div>
+
+        <!-- Tabela Tradutora de Jargões -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <i data-lucide="languages" class="w-4 h-4 text-amber-400"></i>
+            Dicionário Interno: Traduzindo o "Jargão do Sistema" para o Cliente
+          </h3>
+          <p class="text-xs text-slate-400">O cliente não entende nomes de sistemas ou integrações. Use obrigatoriamente a versão traduzida:</p>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr>
+                  <th class="p-3 rounded-l-lg">Termo Interno / Backoffice</th>
+                  <th class="p-3">O que significa na prática</th>
+                  <th class="p-3 rounded-r-lg text-emerald-400">Como explicar ao apostador</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 font-medium">
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Aguardando Feed / Opta / Sportradar</td>
+                  <td class="p-3">O provedor estatístico ainda não enviou os dados finais do jogo.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Estamos aguardando a consolidação das estatísticas oficiais da partida."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Erro no Gateway / Webhook Pix</td>
+                  <td class="p-3">Instabilidade na comunicação entre o banco e a plataforma.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Identificamos uma oscilação temporária na rede bancária do processador."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Turnover de Bônus / Rollover Não Cump.</td>
+                  <td class="p-3">O cliente não apostou o montante mínimo necessário para liberar o saque.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Ainda há um requisito de movimentação de apostas pendente no saldo do bônus."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Sessão Expirada / Token Inválido</td>
+                  <td class="p-3">O aplicativo ou navegador do usuário desconectou por inatividade.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Recomendamos atualizar a página ou reconectar a sua conta para reestabelecer o sinal."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">GGR Negativo / Loss na Casa</td>
+                  <td class="p-3">Métrica interna em que o jogador ganhou mais prêmios do que depositou.</td>
+                  <td class="p-3 text-emerald-300 font-semibold"><em>Termo estritamente interno. Nunca mencione termos de faturamento com o cliente.</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Guia de Encerramento e Hold -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400 flex items-center gap-2">
+              <i data-lucide="pause-circle" class="w-4 h-4"></i> Protocolo de Espera (Hold)
+            </div>
+            <p class="text-slate-300">Nunca deixe o cliente sem resposta por mais de <strong>2 minutos</strong> enquanto pesquisa no Backoffice.</p>
+            <div class="p-2.5 bg-slate-950 rounded border border-slate-800 font-mono text-slate-300">
+              "Estou consultando os detalhes no sistema para você. Por favor, aguarde só 2 minutinhos que já retorno com a posição."
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center gap-2 font-bold text-emerald-400">
+              <i data-lucide="check-check" class="w-4 h-4"></i> Protocolo de Encerramento Perfeito
+            </div>
+            <p class="text-slate-300">Sempre confirme se a dúvida foi sanada antes de fechar a aba de atendimento.</p>
+            <div class="p-2.5 bg-slate-950 rounded border border-slate-800 font-mono text-slate-300">
+              "Ficou alguma dúvida sobre este procedimento? Caso precise de mais algo, estou à disposição. Tenha um ótimo dia!"
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) -->
+      <section id="tab-macros" class="tab-content space-y-6">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-black text-white flex items-center gap-3">
+              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i>
+              Biblioteca Oficial de Respostas Rápidas (Macros)
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">Copie scripts validados com um clique e agilize seu tempo de resposta.</p>
+          </div>
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
+            <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave (ex: Pix, Saque)..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-72 focus:outline-none focus:border-amber-500 font-medium">
+          </div>
+        </div>
+
+        <div id="macros-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Macro 1 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito</span>
+              <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Depósito de Terceiros / CPF Divergente</h4>
+            <p id="macro-1" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas ao mesmo CPF cadastrado em seu perfil na plataforma. Caso o Pix tenha sido realizado a partir da conta de outra pessoa, o valor é estornado automaticamente para a conta de origem no prazo established pelo seu banco.
+            </p>
+          </div>
+
+          <!-- Macro 2 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Apostas Esportivas</span>
+              <button onclick="copiarTexto('macro-2')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Aposta Pendente / Aguardando Súmula Oficial</h4>
+            <p id="macro-2" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Compreendo sua ansiedade para ver seu bilhete encerrado! A partida já finalizou em campo, e no momento estamos apenas aguardando a transmissão do relatório de estatísticas oficiais enviado pelo nosso provedor de dados parceiro. Assim que a súmula for validada no sistema, seu bilhete será processado e o resultado atualizado automaticamente.
+            </p>
+          </div>
+
+          <!-- Macro 3 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20 uppercase">Segurança / KYC</span>
+              <button onclick="copiarTexto('macro-3')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Solicitação de Documentos de Verificação (KYC)</h4>
+            <p id="macro-3" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Para liberar a funcionalidade de saques em sua conta e proteger seu saldo contra acessos não autorizados, precisamos realizar a validação de identidade. Por gentileza, acesse a opção 'Minha Conta' > 'Verificação de Perfil' e envie uma foto legível do seu documento oficial (RG ou CNH) com foto recente, além de uma foto sua segurando o documento.
+            </p>
+          </div>
+
+          <!-- Macro 4 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 uppercase">Cassino / Crash</span>
+              <button onclick="copiarTexto('macro-4')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Explicação sobre Algoritmo RNG / Imparcialidade</h4>
+            <p id="macro-4" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Garantimos 100% de transparência em nossos jogos! Todos os títulos de Cassino e jogos de Crash utilizam algoritmos de Gerador de Números Aleatórios (RNG), testados e certificados por laboratórios internacionais independentes de auditoria. Isso significa que o resultado de cada rodada é totalmente imparcial e imprevisível, sem qualquer intervenção humana ou ajuste de probabilidade.
+            </p>
+          </div>
+
+          <!-- Macro 5 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-red-500/10 text-red-400 rounded border border-red-500/20 uppercase">Financeiro / Saque</span>
+              <button onclick="copiarTexto('macro-5')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Saque Retido por Rollover de Bônus</h4>
+            <p id="macro-5" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Identifiquei que sua solicitação de saque não foi concluída porque há uma regra de requisito de apostas (Rollover) ativa vinculada ao bônus que você resgatou. Para converter os prêmios do bônus em saldo sacável real, é necessário realizar o montante de apostas exigido nas regras da promoção. Você pode acompanhar o progresso da barra de rollover no menu 'Minha Conta' > 'Bônus'.
+            </p>
+          </div>
+
+          <!-- Macro 6 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20 uppercase">Suporte Técnico</span>
+              <button onclick="copiarTexto('macro-6')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Limpeza de Cache e Erro de Carregamento</h4>
+            <p id="macro-6" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Se você está enfrentando lentidão ou falha no carregamento dos jogos, orientamos que faça a limpeza do cache do seu navegador ou do aplicativo. Para isso, acesse as configurações do navegador, limpe o histórico e os cookies, e em seguida reconecte sua conta em uma aba anônima ou através de uma rede Wi-Fi estável.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 3: TAGS DO BLIP DESK (EXPANDIDO E COMPLETO) -->
+      <section id="tab-tags-blip" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="tag" class="w-7 h-7 text-cyan-400"></i>
+            Biblioteca Completa de Tags Operacionais — Blip Desk
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Classifique os tickets de atendimento com precisão para direcionamento automático de fila e métricas no Blip.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- Categoria 1: Financeiro & Pagamentos -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="wallet" class="w-4 h-4 text-emerald-400"></i> Financeiro & Pagamentos
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-emerald-400">#fin-pix-pendente</span>
+                <button onclick="copiarTextoDirect('#fin-pix-pendente')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-emerald-400">#fin-pix-nao-creditado</span>
+                <button onclick="copiarTextoDirect('#fin-pix-nao-creditado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-emerald-400">#fin-saque-retido</span>
+                <button onclick="copiarTextoDirect('#fin-saque-retido')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-emerald-400">#fin-saque-cancelado</span>
+                <button onclick="copiarTextoDirect('#fin-saque-cancelado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-emerald-400">#fin-dep-terceiros</span>
+                <button onclick="copiarTextoDirect('#fin-dep-terceiros')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-emerald-400">#fin-estorno-solicitado</span>
+                <button onclick="copiarTextoDirect('#fin-estorno-solicitado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 2: KYC, Segurança & Risco -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="shield" class="w-4 h-4 text-purple-400"></i> Segurança, KYC & Risco
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-purple-400">#sec-kyc-pendente</span>
+                <button onclick="copiarTextoDirect('#sec-kyc-pendente')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-purple-400">#sec-kyc-reprovado</span>
+                <button onclick="copiarTextoDirect('#sec-kyc-reprovado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-purple-400">#sec-conta-bloqueada</span>
+                <button onclick="copiarTextoDirect('#sec-conta-bloqueada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-purple-400">#sec-conta-duplicada</span>
+                <button onclick="copiarTextoDirect('#sec-conta-duplicada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-purple-400">#sec-autoexclusao</span>
+                <button onclick="copiarTextoDirect('#sec-autoexclusao')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-purple-400">#sec-suspeita-fraude</span>
+                <button onclick="copiarTextoDirect('#sec-suspeita-fraude')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 3: Apostas, Cassino & Bônus -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="gamepad-2" class="w-4 h-4 text-amber-400"></i> Apostas, Cassino & Bônus
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#bet-aguardando-sumula</span>
+                <button onclick="copiarTextoDirect('#bet-aguardando-sumula')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#bet-anulada-var</span>
+                <button onclick="copiarTextoDirect('#bet-anulada-var')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#bet-erro-cassino</span>
+                <button onclick="copiarTextoDirect('#bet-erro-cassino')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#bet-rollover-bonus</span>
+                <button onclick="copiarTextoDirect('#bet-rollover-bonus')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#bet-cashout-indisponivel</span>
+                <button onclick="copiarTextoDirect('#bet-cashout-indisponivel')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#bet-limite-excedido</span>
+                <button onclick="copiarTextoDirect('#bet-limite-excedido')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 4: Suporte Técnico & Sistema -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-blue-400"></i> Suporte Técnico & Sistema
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-blue-400">#sys-erro-login</span>
+                <button onclick="copiarTextoDirect('#sys-erro-login')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-blue-400">#sys-app-instavel</span>
+                <button onclick="copiarTextoDirect('#sys-app-instavel')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-blue-400">#sys-geolocalizacao</span>
+                <button onclick="copiarTextoDirect('#sys-geolocalizacao')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-blue-400">#sys-limpeza-cache</span>
+                <button onclick="copiarTextoDirect('#sys-limpeza-cache')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 5: Escalamento & Prioridades -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400"></i> SLA, Prioridade & Ouvidoria
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-red-400">#sla-urgente-n3</span>
+                <button onclick="copiarTextoDirect('#sla-urgente-n3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-amber-400">#sla-media-n2</span>
+                <button onclick="copiarTextoDirect('#sla-media-n2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-red-400">#esc-reclame-aqui</span>
+                <button onclick="copiarTextoDirect('#esc-reclame-aqui')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-red-400">#esc-ouvidoria</span>
+                <button onclick="copiarTextoDirect('#esc-ouvidoria')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categoria 6: Retenção & VIP -->
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="crown" class="w-4 h-4 text-yellow-400"></i> VIP & Retenção
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-yellow-400">#vip-atendimento-prioritario</span>
+                <button onclick="copiarTextoDirect('#vip-atendimento-prioritario')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-yellow-400">#retention-solicitacao-bonus</span>
+                <button onclick="copiarTextoDirect('#retention-solicitacao-bonus')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
+                <span class="font-mono text-yellow-400">#retention-insatisfacao-odds</span>
+                <button onclick="copiarTextoDirect('#retention-insatisfacao-odds')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+  </section>
+
+      <!-- TAB 3: TAGS DO BLIP DESK -->
+      <section id="tab-tags-blip" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="tag" class="w-7 h-7 text-cyan-400"></i>
+            Biblioteca Completa de Tags Operacionais — Blip Desk
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Classifique os tickets de atendimento com precisão para direcionamento automático de fila e métricas no Blip.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- Bloco 1 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="tag" class="w-4 h-4 text-emerald-400"></i> Tags Operacionais (1 - 15)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pixbet-acesso-conta</span>
+                <button onclick="copiarTextoDirect('pixbet-acesso-conta')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#med-2</span>
+                <button onclick="copiarTextoDirect('med-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#med</span>
+                <button onclick="copiarTextoDirect('med')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#mtr-avaliação-2</span>
+                <button onclick="copiarTextoDirect('mtr-avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#mtr-avaliação-1</span>
+                <button onclick="copiarTextoDirect('mtr-avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#mtr-avaliação</span>
+                <button onclick="copiarTextoDirect('mtr-avaliação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pagamento-antecipado-argumento1</span>
+                <button onclick="copiarTextoDirect('pagamento-antecipado-argumento1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pagamento-antecipado</span>
+                <button onclick="copiarTextoDirect('pagamento-antecipado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#monitoramento-tempo-real</span>
+                <button onclick="copiarTextoDirect('monitoramento-tempo-real')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#aguarde-avaliação-2</span>
+                <button onclick="copiarTextoDirect('aguarde-avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#aguarde-avaliação-1</span>
+                <button onclick="copiarTextoDirect('aguarde-avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#aguarde-avaliação</span>
+                <button onclick="copiarTextoDirect('aguarde-avaliação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#relatorio-ir</span>
+                <button onclick="copiarTextoDirect('relatorio-ir')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#ludopatia-demais-casas</span>
+                <button onclick="copiarTextoDirect('ludopatia-demais-casas')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#ludopatia-bloqueio-informativo</span>
+                <button onclick="copiarTextoDirect('ludopatia-bloqueio-informativo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 2 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="shield" class="w-4 h-4 text-purple-400"></i> Tags Operacionais (16 - 30)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#ludopatia-bloqueio</span>
+                <button onclick="copiarTextoDirect('ludopatia-bloqueio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#ludopatia-questionamento-vicio</span>
+                <button onclick="copiarTextoDirect('ludopatia-questionamento-vicio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#somente-imagem-chat</span>
+                <button onclick="copiarTextoDirect('somente-imagem-chat')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#pixbet-canal-telegram</span>
+                <button onclick="copiarTextoDirect('pixbet-canal-telegram')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#acompanhar-resultado</span>
+                <button onclick="copiarTextoDirect('acompanhar-resultado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aguarde-1</span>
+                <button onclick="copiarTextoDirect('aguarde-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aguarde-2</span>
+                <button onclick="copiarTextoDirect('aguarde-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aguarde-3</span>
+                <button onclick="copiarTextoDirect('aguarde-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aposta-alterada</span>
+                <button onclick="copiarTextoDirect('aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aposta-cashout-indisponível</span>
+                <button onclick="copiarTextoDirect('aposta-cashout-indisponível')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aposta-cotação-irregular</span>
+                <button onclick="copiarTextoDirect('aposta-cotação-irregular')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#atualização-de-partida</span>
+                <button onclick="copiarTextoDirect('atualização-de-partida')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#atualização-de-partida2</span>
+                <button onclick="copiarTextoDirect('atualização-de-partida2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#Avaliação-1</span>
+                <button onclick="copiarTextoDirect('Avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#Avaliação-2</span>
+                <button onclick="copiarTextoDirect('Avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 3 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="gamepad-2" class="w-4 h-4 text-amber-400"></i> Tags Operacionais (31 - 45)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#Avaliação-3</span>
+                <button onclick="copiarTextoDirect('Avaliação-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#Avaliação-4</span>
+                <button onclick="copiarTextoDirect('Avaliação-4')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#avaliação-enviado-suporte</span>
+                <button onclick="copiarTextoDirect('avaliação-enviado-suporte')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#avaliação-resolvido-em-atendimento</span>
+                <button onclick="copiarTextoDirect('avaliação-resolvido-em-atendimento')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#avaliação-resposta-negativa</span>
+                <button onclick="copiarTextoDirect('avaliação-resposta-negativa')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#boa-noite</span>
+                <button onclick="copiarTextoDirect('boa-noite')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#boa-tarde</span>
+                <button onclick="copiarTextoDirect('boa-tarde')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#bom-dia</span>
+                <button onclick="copiarTextoDirect('bom-dia')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cashout-como-fazer</span>
+                <button onclick="copiarTextoDirect('cashout-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cashout-o-que-é</span>
+                <button onclick="copiarTextoDirect('cashout-o-que-é')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-dados-data-hora</span>
+                <button onclick="copiarTextoDirect('cassino-dados-data-hora')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-maré-de-azar</span>
+                <button onclick="copiarTextoDirect('cassino-maré-de-azar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-maré-de-azar2</span>
+                <button onclick="copiarTextoDirect('cassino-maré-de-azar2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-maré-de-azar3</span>
+                <button onclick="copiarTextoDirect('cassino-maré-de-azar3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cookies-como-limpar</span>
+                <button onclick="copiarTextoDirect('cookies-como-limpar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 4 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> Tags Operacionais (46 - 60)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#cookies-ios</span>
+                <button onclick="copiarTextoDirect('cookies-ios')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#criptografia</span>
+                <button onclick="copiarTextoDirect('criptografia')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#dados-rememorar-email</span>
+                <button onclick="copiarTextoDirect('dados-rememorar-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#dados-rememorar-fone</span>
+                <button onclick="copiarTextoDirect('dados-rememorar-fone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deleção-com-saldo</span>
+                <button onclick="copiarTextoDirect('deleção-com-saldo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito-CNPJ</span>
+                <button onclick="copiarTextoDirect('deposito-CNPJ')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito-devolvido-24h</span>
+                <button onclick="copiarTextoDirect('deposito-devolvido-24h')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito-devolvido-motivo</span>
+                <button onclick="copiarTextoDirect('deposito-devolvido-motivo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito-direto-prazo</span>
+                <button onclick="copiarTextoDirect('deposito-direto-prazo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito-erro-sem-conta-bancaria</span>
+                <button onclick="copiarTextoDirect('deposito-erro-sem-conta-bancaria')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito-terceiros</span>
+                <button onclick="copiarTextoDirect('deposito-terceiros')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#deposito30</span>
+                <button onclick="copiarTextoDirect('deposito30')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#desbloqueio-encaminhado</span>
+                <button onclick="copiarTextoDirect('desbloqueio-encaminhado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#despedida</span>
+                <button onclick="copiarTextoDirect('despedida')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#despedida2</span>
+                <button onclick="copiarTextoDirect('despedida2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 5 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i> Tags Operacionais (61 - 75)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#desrespeito-1</span>
+                <button onclick="copiarTextoDirect('desrespeito-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#desrespeito-2</span>
+                <button onclick="copiarTextoDirect('desrespeito-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#desrespeito-3</span>
+                <button onclick="copiarTextoDirect('desrespeito-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#dificuldade-login</span>
+                <button onclick="copiarTextoDirect('dificuldade-login')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#dificuldade-print</span>
+                <button onclick="copiarTextoDirect('dificuldade-print')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#enviado</span>
+                <button onclick="copiarTextoDirect('enviado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#enviar-imagem</span>
+                <button onclick="copiarTextoDirect('enviar-imagem')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#erro-aposta-ao-vivo</span>
+                <button onclick="copiarTextoDirect('erro-aposta-ao-vivo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#feedback</span>
+                <button onclick="copiarTextoDirect('feedback')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#inatividade</span>
+                <button onclick="copiarTextoDirect('inatividade')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#localizar-comprovante-caixa-tem</span>
+                <button onclick="copiarTextoDirect('localizar-comprovante-caixa-tem')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#localizar-comprovante-inter</span>
+                <button onclick="copiarTextoDirect('localizar-comprovante-inter')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#nitido-comprovante</span>
+                <button onclick="copiarTextoDirect('nitido-comprovante')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#não-entendi</span>
+                <button onclick="copiarTextoDirect('não-entendi')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-rose-400">#odd-aplicação</span>
+                <button onclick="copiarTextoDirect('odd-aplicação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 6 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="crown" class="w-4 h-4 text-yellow-400"></i> Tags Operacionais (76 - 83 e Pixbet)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#palpite-grátis-resgatar-saldo-regulamentação</span>
+                <button onclick="copiarTextoDirect('palpite-grátis-resgatar-saldo-regulamentação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-acesso-câmera-android</span>
+                <button onclick="copiarTextoDirect('pixbet-acesso-câmera-android')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-acesso-câmera-IOS</span>
+                <button onclick="copiarTextoDirect('pixbet-acesso-câmera-IOS')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-afiliados-suspenso</span>
+                <button onclick="copiarTextoDirect('pixbet-afiliados-suspenso')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-dados</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-email</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-encaminhada</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-encaminhada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-telefone</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-telefone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-alterada</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-beneficio-social</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-beneficio-social')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-dados</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-fazer</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-não-reembolsada</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-não-reembolsada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-app</span>
+                <button onclick="copiarTextoDirect('pixbet-app')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-assunto-aleatorio</span>
+                <button onclick="copiarTextoDirect('pixbet-assunto-aleatorio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-autoexclusão-como-fazer</span>
+                <button onclick="copiarTextoDirect('pixbet-autoexclusão-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-autoexclusão-retorno</span>
+                <button onclick="copiarTextoDirect('pixbet-autoexclusão-retorno')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-definitivo-informações</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-definitivo-informações')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-definitivo-retorno</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-definitivo-retorno')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-encaminhado</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-encaminhado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-múltiplas-tentativas</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-múltiplas-tentativas')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-período</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-período')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-programa-social</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-programa-social')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-programa-social-saldo</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-programa-social-saldo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-boa-noite-personalizado</span>
+                <button onclick="copiarTextoDirect('pixbet-boa-noite-personalizado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 5: BASE DE CONHECIMENTO COMPLETA (12 TÓPICOS INDIVIDUAIS) -->
+      <section id="tab-procedimentos" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                <i data-lucide="book-open" class="w-7 h-7 text-amber-500"></i>
+                Guia Completo da Base de Conhecimento (12 Tópicos Essenciais)
+              </h2>
+              <p class="text-sm text-slate-400 mt-1">Manual Prático de Onboarding, Diagnósticos de Sistema e Tratativas Operacionais.</p>
+            </div>
+            <span class="hidden md:inline-block px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold">
+              12 TÓPICOS ATIVOS
+            </span>
+          </div>
+        </div>
+
+        <!-- Grade Completa dos 12 Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- TÓPICO 1 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg font-bold text-xs">01</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Checklist Inicial & Postura do Atendente Novato</h3>
+                <span class="text-[11px] text-slate-400">Primeiros passos ao iniciar o turno de atendimento</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Ao iniciar o plantão, abra imediatamente as abas essenciais: Painel do Blip, Backoffice de Jogadores e esta Central de Atendimento.</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1">
+                <strong class="text-amber-400 block font-semibold">Ações Iniciais do Turno:</strong>
+                <ul class="list-disc list-inside text-slate-400 space-y-0.5">
+                  <li>Verifique os alertas no canal interno do Slack/Discord sobre instabilidades.</li>
+                  <li>Inicie o atendimento saudando o cliente pelo primeiro nome em até 30s.</li>
+                  <li>Jamais atenda um chamado sem antes identificar o CPF ou ID do jogador na plataforma.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 2 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg font-bold text-xs">02</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Navegação e Leitura de Perfil no Backoffice</h3>
+                <span class="text-[11px] text-slate-400">Como analisar os dados do cliente em 30 segundos</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Ao abrir a conta do jogador no Backoffice, foque nos 4 campos estruturais:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1">
+                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                  <li><strong>Status da Conta:</strong> 'Ativa', 'Bloqueada por KYC', 'Bloqueada por Risco' ou 'Autoexcluída'.</li>
+                  <li><strong>Divisão de Saldo:</strong> Separe sempre <em>Saldo Real Sacável</em> de <em>Saldo de Bônus Pessoal</em>.</li>
+                  <li><strong>Histórico de Transações:</strong> Confira o status de depósitos (Aprovado, Pendente ou Cancelado).</li>
+                  <li><strong>Flag de Segurança:</strong> Veja se há anotações de suspeita de fraude efetuadas pela equipe de Risco.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 3 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-purple-500/10 text-purple-400 rounded-lg font-bold text-xs">03</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Tratativa de Pix Não Creditado (Passo a Passo)</h3>
+                <span class="text-[11px] text-slate-400">Protocolo completo para solucionar dúvidas de depósitos</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>O Pix é instantâneo, porém instabilidades na rede bancária podem causar atrasos. Siga esta ordem exata de análise:</p>
+              <ol class="list-decimal list-inside text-slate-400 space-y-1 bg-slate-950 p-2.5 rounded border border-slate-800">
+                <li>Peça o comprovante oficial do banco no formato PDF ou foto visível.</li>
+                <li>Localize o código <strong>End-to-End ID</strong> (chave de 32 caracteres do Banco Central).</li>
+                <li>Confira se o CPF de origem bate com o perfil do cadastrado (Regra Anti-Terceiros).</li>
+                <li>Se for o mesmo CPF e ultrapassar 15 min, abra ticket com o End-to-End ID para a equipe do Financeiro.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- TÓPICO 4 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-red-500/10 text-red-400 rounded-lg font-bold text-xs">04</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Saques Cancelados ou Retidos (Principais Motivos)</h3>
+                <span class="text-[11px] text-slate-400">Como explicar o motivo da rejeição do saque com clareza</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Nunca informe apenas "seu saque falhou". Explique a causa raiz ao apostador:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Falta de Rollover Obrigatório:</strong> Por norma antilavagem de dinheiro, todo depósito deve ser apostado pelo menos 1x antes do saque.</p>
+                <p>• <strong>Bônus Ativo:</strong> Se houver barra de progresso de bônus não concluída, o saque do saldo promocional permanece travado.</p>
+                <p>• <strong>Chave Pix Divergente:</strong> A chave Pix de destino deve ser cadastrada obrigatoriamente no CPF do titular.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 5 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg font-bold text-xs">05</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Regras de Validação de Documentos e KYC</h3>
+                <span class="text-[11px] text-slate-400">Critérios de aprovação e recusa de fotos e documentos</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>A auditoria de Know Your Customer (KYC) previne fraudes e criação de contas por menores de idade.</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <strong class="text-amber-400 block font-semibold">Documentos Aceitos:</strong>
+                <p>RG, CNH, Passaporte ou Documentos de Identidade Profissional (OAB, CRM) emitidos em território nacional dentro do prazo de validade.</p>
+                <strong class="text-red-400 block font-semibold mt-1">Motivos para Reprovação Imediata:</strong>
+                <p>Fotos cortadas, reflexos cobrindo os números, documentos vencidos há mais de 10 anos ou selfies com óculos escuros/chapéu.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 6 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg font-bold text-xs">06</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Regras Esportivas: Liquidação e Status de Bilhetes</h3>
+                <span class="text-[11px] text-slate-400">Como funciona o processamento de apostas em partidas reais</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Erros comuns de novatos ocorrem por desconhecer regras de esportes. Tenha sempre em mente:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Tempo Regulamentar:</strong> Resultados valem até o encerramento do 2º tempo + acréscimos (exclui prorrogação e pênaltis, exceto mercado específico).</p>
+                <p>• <strong>Estatísticas de Cartões e Escanteios:</strong> Contam estritamente o que for publicado na súmula oficial e nos feeds homologados (Opta/Sportradar).</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 7 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-pink-500/10 text-pink-400 rounded-lg font-bold text-xs">07</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Cassino & Jogos Crash: Provedores e Algoritmo RNG</h3>
+                <span class="text-[11px] text-slate-400">Esclarecendo dúvidas sobre integridade e histórico de jogadas</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Quando o cliente alega travamento durante uma rodada de Cassino ao Vivo ou Aviator/Spaceman:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• Abra a aba 'Histórico de Apostas em Jogos' e pesquise pelo <strong>Round ID</strong> da jogada.</p>
+                <p>• Se a aposta foi registrada no servidor do provedor antes da desconexão do usuário, a rodada é válida e o resultado processado normalmente.</p>
+                <p>• Explique que o sistema utiliza algoritmo RNG (Random Number Generator) certificado e sem manipulação manual.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 8 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg font-bold text-xs">08</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Gestão de Bônus, Freebets e Cálculo de Rollover</h3>
+                <span class="text-[11px] text-slate-400">Regras e conversão de saldo promocional em dinheiro real</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Aprenda a explicar ao jogador a mecânica de liberação das promoções ativas:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Multiplicador de Rollover:</strong> Se o bônus for de R$ 50 com rollover de 5x, o valor total apostado deve atingir R$ 250.</p>
+                <p>• <strong>Odd Mínima:</strong> Apostas esportivas feitas com odds inferiores à regra do regulamento (ex: odd &lt; 1.80) não contam para o progresso do rollover.</p>
+                <p>• <strong>Apostas Gratuitas (Freebet):</strong> Em vitórias com freebet, o jogador recebe apenas o lucro líquido, excluindo o valor da aposta grátis original.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 9 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-red-500/10 text-red-400 rounded-lg font-bold text-xs">09</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Jogo Responsável: Limites e Pausas Temporárias</h3>
+                <span class="text-[11px] text-slate-400">Ferramentas de proteção e controle de comportamento de jogo</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Promova o ambiente seguro e oriente o cliente a configurar limites de proteção no painel:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Limites de Depósito:</strong> Podem ser configurados por período diário, semanal ou mensal diretamente nas configurações do perfil.</p>
+                <p>• <strong>Pausa Temporária (Cool-off):</strong> O cliente pode solicitar a suspensão temporária do acesso pelo prazo de 24 horas até 30 dias.</p>
+                <p>• <strong>Autoexclusão Permanente:</strong> Ação irreversível solicitada quando o cliente percebe perda de controle financeiro ou emocional.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 10 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-teal-500/10 text-teal-400 rounded-lg font-bold text-xs">10</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Tratativa de Falhas Técnicas, Limpeza de Cache e App</h3>
+                <span class="text-[11px] text-slate-400">Resolução de problemas de navegação e aplicativo móvel</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Script de atendimento para reclamações de tela preta, travamentos e erro de carregamento:</p>
+              <ol class="list-decimal list-inside text-slate-400 space-y-1 bg-slate-950 p-2.5 rounded border border-slate-800">
+                <li>Instrua o cliente a fechar todas as guias abertas e realizar a limpeza de dados de navegação/cache.</li>
+                <li>Solicite o teste de acesso utilizando uma guia anônima no navegador Google Chrome ou Safari.</li>
+                <li>Caso utilize o aplicativo Android/iOS, solicite a verificação de atualizações pendentes na loja de aplicativos.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- TÓPICO 11 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-yellow-500/10 text-yellow-400 rounded-lg font-bold text-xs">11</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Prevenção a Fraudes: Contas Duplicadas e IP Compartilhado</h3>
+                <span class="text-[11px] text-slate-400">Detecção e conduta diante de abusos de bônus e múltiplas contas</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Diretrizes operacionais para tratar tentativas de abuso no sistema:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Regra de 1 Conta por CPF/IP:</strong> É estritamente proibido possuir mais de um cadastro sob o mesmo titular ou rede para resgate de bônus.</p>
+                <p>• <strong>Ação Operacional:</strong> Em caso de confirmação de conta duplicada pelo Backoffice, aplique o bloqueio do perfil secundário e direcione para a auditoria.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 12 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-orange-500/10 text-orange-400 rounded-lg font-bold text-xs">12</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Atendimento ao Cliente VIP e Retenção Operacional</h3>
+                <span class="text-[11px] text-slate-400">Tratativa diferenciada para apostadores de alto volume</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Boas práticas ao identificar apostadores da categoria VIP no Backoffice:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• Priorize o atendimento garantindo resposta imediata dentro do SLA de prioridade alta.</p>
+                <p>• Mantenha tom altamente personalizado e, caso necessário, solicite acompanhamento do gerente de contas dedicado.</p>
+                <p>• Encaminhe solicitações de benefícios especiais para a equipe comercial usando a tag <strong>#vip-atendimento-prioritario</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </main>
+  </div>
 
-    <!-- Script contendo o componente React LEDTicker adaptado para o ambiente HTML estático -->
-    <script type="text/babel">
-        const { useRef, useEffect, useMemo } = React;
+  <!-- Scripts JavaScript do Painel -->
+  <script>
+    // Inicialização dos Ícones Lucide
+    lucide.createIcons();
 
-        const ROWS = 7;
-        const GLYPH_COLS = 5;
-        const QUANTITY_MID = 10;
-        const QUANTITY_MIN_ROWS = 3;
-        const QUANTITY_MAX_ROWS = 21;
+    // Função de Troca de Abas
+    function switchTab(tabId) {
+      // Oculta todas as abas
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
 
-        function rowsForQuantity(quantity) {
-            const q = Math.min(20, Math.max(1, Math.round(quantity)));
-            const rows =
-                q <= QUANTITY_MID
-                    ? QUANTITY_MIN_ROWS +
-                      ((q - 1) * (ROWS - QUANTITY_MIN_ROWS)) / (QUANTITY_MID - 1)
-                    : ROWS +
-                      ((q - QUANTITY_MID) * (QUANTITY_MAX_ROWS - ROWS)) / QUANTITY_MID;
-            return Math.max(1, Math.round(rows));
+      // Reseta estilo de todos os botões da sidebar
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
+        btn.classList.add('text-slate-300', 'font-medium');
+      });
+
+      // Ativa a aba desejada
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+
+      // Estiliza o botão selecionado
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-300', 'font-medium');
+        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
+      }
+    }
+
+    // Copia de texto de Macros pelo ID do Elemento
+    function copiarTexto(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Script copiado com sucesso para a área de transferência!');
+      }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+      });
+    }
+
+    // Copia direta de texto enviado por parâmetro (Tags)
+    function copiarTextoDirect(texto) {
+      navigator.clipboard.writeText(texto).then(() => {
+        alert(`Tag ${texto} copiada com sucesso!`);
+      }).catch(err => {
+        console.error('Erro ao copiar tag: ', err);
+      });
+    }
+
+    // Filtro em tempo real de Macros
+    function filtrarMacros() {
+      const query = document.getElementById('filter-macros').value.toLowerCase();
+      const cards = document.querySelectorAll('.macro-card');
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
         }
-
-        const WORD_GAP_EXTRA = 3;
-        const SEPARATOR_PAD_EXTRA = 5;
-
-        const FONT = [
-            [0x00, 0x00, 0x00, 0x00, 0x00],
-            [0x00, 0x00, 0x5f, 0x00, 0x00],
-            [0x00, 0x07, 0x00, 0x07, 0x00],
-            [0x14, 0x7f, 0x14, 0x7f, 0x14],
-            [0x24, 0x2a, 0x7f, 0x2a, 0x12],
-            [0x23, 0x13, 0x08, 0x64, 0x62],
-            [0x36, 0x49, 0x55, 0x22, 0x50],
-            [0x00, 0x05, 0x03, 0x00, 0x00],
-            [0x00, 0x1c, 0x22, 0x41, 0x00],
-            [0x00, 0x41, 0x22, 0x1c, 0x00],
-            [0x14, 0x08, 0x3e, 0x08, 0x14],
-            [0x08, 0x08, 0x3e, 0x08, 0x08],
-            [0x00, 0x50, 0x30, 0x00, 0x00],
-            [0x08, 0x08, 0x08, 0x08, 0x08],
-            [0x00, 0x60, 0x60, 0x00, 0x00],
-            [0x20, 0x10, 0x08, 0x04, 0x02],
-            [0x3e, 0x51, 0x49, 0x45, 0x3e],
-            [0x00, 0x42, 0x7f, 0x40, 0x00],
-            [0x42, 0x61, 0x51, 0x49, 0x46],
-            [0x21, 0x41, 0x45, 0x4b, 0x31],
-            [0x18, 0x14, 0x12, 0x7f, 0x10],
-            [0x27, 0x45, 0x45, 0x45, 0x39],
-            [0x3c, 0x4a, 0x49, 0x49, 0x30],
-            [0x01, 0x71, 0x09, 0x05, 0x03],
-            [0x36, 0x49, 0x49, 0x49, 0x36],
-            [0x06, 0x49, 0x49, 0x29, 0x1e],
-            [0x00, 0x36, 0x36, 0x00, 0x00],
-            [0x00, 0x56, 0x36, 0x00, 0x00],
-            [0x00, 0x08, 0x14, 0x22, 0x41],
-            [0x14, 0x14, 0x14, 0x14, 0x14],
-            [0x41, 0x22, 0x14, 0x08, 0x00],
-            [0x02, 0x01, 0x51, 0x09, 0x06],
-            [0x32, 0x49, 0x79, 0x41, 0x3e],
-            [0x7e, 0x11, 0x11, 0x11, 0x7e],
-            [0x7f, 0x49, 0x49, 0x49, 0x36],
-            [0x3e, 0x41, 0x41, 0x41, 0x22],
-            [0x7f, 0x41, 0x41, 0x22, 0x1c],
-            [0x7f, 0x49, 0x49, 0x49, 0x41],
-            [0x7f, 0x09, 0x09, 0x01, 0x01],
-            [0x3e, 0x41, 0x41, 0x51, 0x32],
-            [0x7f, 0x08, 0x08, 0x08, 0x7f],
-            [0x00, 0x41, 0x7f, 0x41, 0x00],
-            [0x20, 0x40, 0x41, 0x3f, 0x01],
-            [0x7f, 0x08, 0x14, 0x22, 0x41],
-            [0x7f, 0x40, 0x40, 0x40, 0x40],
-            [0x7f, 0x02, 0x04, 0x02, 0x7f],
-            [0x7f, 0x04, 0x08, 0x10, 0x7f],
-            [0x3e, 0x41, 0x41, 0x41, 0x3e],
-            [0x7f, 0x09, 0x09, 0x09, 0x06],
-            [0x3e, 0x41, 0x51, 0x21, 0x5e],
-            [0x7f, 0x09, 0x19, 0x29, 0x46],
-            [0x46, 0x49, 0x49, 0x49, 0x31],
-            [0x01, 0x01, 0x7f, 0x01, 0x01],
-            [0x3f, 0x40, 0x40, 0x40, 0x3f],
-            [0x1f, 0x20, 0x40, 0x20, 0x1f],
-            [0x7f, 0x20, 0x18, 0x20, 0x7f],
-            [0x63, 0x14, 0x08, 0x14, 0x63],
-            [0x03, 0x04, 0x78, 0x04, 0x03],
-            [0x61, 0x51, 0x49, 0x45, 0x43],
-            [0x00, 0x00, 0x7f, 0x41, 0x41],
-            [0x02, 0x04, 0x08, 0x10, 0x20],
-            [0x41, 0x41, 0x7f, 0x00, 0x00],
-            [0x04, 0x02, 0x01, 0x02, 0x04],
-            [0x40, 0x40, 0x40, 0x40, 0x40],
-        ];
-
-        const EXTRA = {
-            "●": [0x1c, 0x3e, 0x3e, 0x3e, 0x1c],
-            "•": [0x00, 0x1c, 0x1c, 0x1c, 0x00],
-            "·": [0x00, 0x00, 0x18, 0x00, 0x00],
-            "°": [0x00, 0x03, 0x03, 0x00, 0x00],
-            "★": [0x24, 0x2a, 0x7f, 0x2a, 0x24],
-            "→": [0x08, 0x08, 0x2a, 0x1c, 0x08],
-            "←": [0x08, 0x1c, 0x2a, 0x08, 0x08],
-        };
-        const FOLD = { "–": "-", "—": "-" };
-
-        function glyphFor(char) {
-            const extra = EXTRA[char];
-            if (extra) return extra;
-            const folded = FOLD[char] ?? char;
-            const code = folded.toUpperCase().charCodeAt(0);
-            const glyph = FONT[code - 32];
-            return glyph ?? FONT[0];
-        }
-
-        function flickerNoise(t) {
-            const i = Math.floor(t);
-            const f = t - i;
-            const hash = (n) => {
-                const s = Math.sin(n * 127.1 + 311.7) * 43758.5453;
-                return s - Math.floor(s);
-            };
-            const smooth = f * f * (3 - 2 * f);
-            const value = hash(i) * (1 - smooth) + hash(i + 1) * smooth;
-            return value * value;
-        }
-
-        function buildColumns(items, separator, spread) {
-            const parts = (items ?? []).map((item) => item.trim()).filter(Boolean);
-            const joiner = (separator ?? "").trim();
-            const columns = [];
-            const blanks = (count) => {
-                for (let i = 0; i < count; i++) columns.push(0);
-            };
-
-            const writeText = (text) => {
-                const chars = [...text];
-                chars.forEach((char, index) => {
-                    if (char === " ") {
-                        blanks(spread + WORD_GAP_EXTRA);
-                        return;
-                    }
-                    const glyph = glyphFor(char);
-                    for (let i = 0; i < GLYPH_COLS; i++) columns.push(glyph[i]);
-                    const next = chars[index + 1];
-                    if (next !== undefined && next !== " ") blanks(spread);
-                });
-            };
-
-            if (parts.length === 0) {
-                blanks(GLYPH_COLS + spread);
-                return columns;
-            }
-
-            for (const part of parts) {
-                writeText(part);
-                blanks(spread + SEPARATOR_PAD_EXTRA);
-                if (joiner) {
-                    writeText(joiner);
-                    blanks(spread + SEPARATOR_PAD_EXTRA);
-                }
-            }
-            return columns;
-        }
-
-        function LEDTicker({
-            items = ["PIXBET"],
-            separator = "●",
-            speed = 15,
-            direction = "left",
-            textSize = 60,
-            dotSize = 14,
-            dotQuantity = 10,
-            spread = 1,
-            dotShape = "round",
-            onColor = "#facc15",
-            offColor = "rgba(250, 204, 21, 0.05)",
-            glow = true,
-            glowOptions = { strength: 60, size: 8 },
-            flicker = false,
-            flickerOptions = { strength: 40, speed: 50 },
-            style,
-        }) {
-            const canvasRef = useRef(null);
-
-            const glowStrength = glow ? (glowOptions?.strength ?? 0) / 100 : 0;
-            const glowSize = glow ? (glowOptions?.size ?? 0) / 10 : 0;
-            const flickerStrength = flicker ? (flickerOptions?.strength ?? 0) / 100 : 0;
-            const flickerSpeed = flicker ? (flickerOptions?.speed ?? 0) / 10 : 0;
-
-            const itemsKey = JSON.stringify(items ?? []);
-            const columns = useMemo(
-                () => buildColumns(JSON.parse(itemsKey), separator, spread),
-                [itemsKey, separator, spread]
-            );
-
-            useEffect(() => {
-                const el = canvasRef.current;
-                if (!el) return;
-                const context = el.getContext("2d");
-                if (!context) return;
-                const canvas = el;
-                const ctx = context;
-
-                const total = columns.length;
-                let alive = true;
-                let raf = 0;
-                let last = 0;
-                let offset = 0;
-
-                let dpr = 1;
-                let cell = 1;
-                let radius = 1;
-                let visibleCols = 0;
-                let boardRows = ROWS;
-                let yPad = 0;
-                let scale = 1;
-                let rowSource = [];
-
-                function measure() {
-                    dpr = Math.min(window.devicePixelRatio || 1, 2);
-                    const w = canvas.clientWidth || 260;
-                    const h = canvas.clientHeight || 45;
-                    canvas.width = Math.max(1, Math.round(w * dpr));
-                    canvas.height = Math.max(1, Math.round(h * dpr));
-                    boardRows = rowsForQuantity(dotQuantity);
-                    scale = boardRows / ROWS;
-                    cell = Math.max(1, (textSize / boardRows) * dpr);
-                    radius = (dotSize * dpr) / 2;
-                    visibleCols = Math.ceil(canvas.width / cell) + 1;
-                    yPad = (canvas.height - boardRows * cell) / 2;
-                    rowSource = [];
-                    for (let row = 0; row < boardRows; row++) {
-                        rowSource.push(Math.min(ROWS - 1, Math.floor(row / scale)));
-                    }
-                }
-
-                function dotPath(x, y) {
-                    if (dotShape === "square") {
-                        const s = radius * 2;
-                        ctx.rect(x - radius, y - radius, s, s);
-                    } else {
-                        ctx.moveTo(x + radius, y);
-                        ctx.arc(x, y, radius, 0, Math.PI * 2);
-                    }
-                }
-
-                function draw(time) {
-                    const w = canvas.width;
-                    const h = canvas.height;
-                    ctx.clearRect(0, 0, w, h);
-
-                    const boardOffset = offset * scale;
-                    const whole = Math.floor(boardOffset);
-                    const shift = (boardOffset - whole) * cell;
-                    const sign = direction === "right" ? -1 : 1;
-                    const xBase = -sign * shift;
-
-                    ctx.beginPath();
-                    for (let cx = 0; cx < visibleCols; cx++) {
-                        const px = xBase + cx * cell + cell / 2;
-                        for (let row = 0; row < boardRows; row++) {
-                            dotPath(px, yPad + row * cell + cell / 2);
-                        }
-                    }
-                    ctx.fillStyle = offColor;
-                    ctx.fill();
-
-                    ctx.beginPath();
-                    for (let cx = 0; cx < visibleCols; cx++) {
-                        const source = Math.floor((cx + sign * whole) / scale);
-                        const index = ((source % total) + total) % total;
-                        const bits = columns[index];
-                        if (!bits) continue;
-                        const px = xBase + cx * cell + cell / 2;
-                        for (let row = 0; row < boardRows; row++) {
-                            if (!((bits >> rowSource[row]) & 1)) continue;
-                            dotPath(px, yPad + row * cell + cell / 2);
-                        }
-                    }
-
-                    const wobble =
-                        flickerStrength > 0
-                            ? 1 - flickerStrength * flickerNoise((time / 1000) * flickerSpeed)
-                            : 1;
-                    ctx.globalAlpha = wobble;
-                    ctx.fillStyle = onColor;
-
-                    if (glowStrength > 0) {
-                        ctx.save();
-                        ctx.globalCompositeOperation = "lighter";
-                        ctx.shadowColor = onColor;
-                        ctx.shadowBlur = radius * 2 * glowSize;
-                        ctx.globalAlpha = wobble * glowStrength;
-                        ctx.fill();
-                        ctx.restore();
-                        ctx.globalAlpha = wobble;
-                        ctx.fillStyle = onColor;
-                    }
-                    ctx.fill();
-                    ctx.globalAlpha = 1;
-                }
-
-                function frame(time) {
-                    if (!alive) return;
-                    const dt = last ? Math.min((time - last) / 1000, 0.05) : 0;
-                    last = time;
-                    offset = (offset + speed * dt) % total;
-                    draw(time);
-                    raf = requestAnimationFrame(frame);
-                }
-
-                measure();
-                draw(0);
-
-                let ro = null;
-                if (typeof ResizeObserver !== "undefined") {
-                    ro = new ResizeObserver(() => {
-                        measure();
-                        draw(last);
-                    });
-                    ro.observe(canvas);
-                }
-                raf = requestAnimationFrame(frame);
-
-                return () => {
-                    alive = false;
-                    cancelAnimationFrame(raf);
-                    ro?.disconnect();
-                };
-            }, [
-                columns,
-                speed,
-                direction,
-                textSize,
-                dotSize,
-                dotQuantity,
-                dotShape,
-                onColor,
-                offColor,
-                glowStrength,
-                glowSize,
-                flickerStrength,
-                flickerSpeed,
-            ]);
-
-            return (
-                <canvas
-                    ref={canvasRef}
-                    style={{
-                        ...style,
-                        display: "block",
-                        width: "100%",
-                        height: "100%",
-                    }}
-                />
-            );
-        }
-
-        // Renderiza o LED Ticker no elemento dedicado da barra lateral
-        const root = ReactDOM.createRoot(document.getElementById('led-ticker-root'));
-        root.render(<LEDTicker items={["PIXBET"]} />);
-    </script>
-
-    
-    <script>
-        const db = {
-            pontos: { 
-                title: "📍 Pontos de Contato", 
-                desc: "Diretrizes completas para padronizar e otimizar cada ponto de contato com o usuário.",
-                type: "content", 
-                html: `
-    <div class="card">
-        <h3>📞 Pontos de Contato</h3>
-        <p>Cada interação com o cliente representa uma oportunidade de fortalecer a confiança na empresa. Independentemente do canal utilizado, o atendimento deve manter o mesmo padrão de excelência, respeito e eficiência.</p>
-    </div>
-    <div class="card">
-        <h3>🌐 Conheça Todos os Canais</h3>
-        <p>Cada canal possui características próprias. Os principais pontos de contato são:</p>
-        <p>💬 Chat Online<br>📧 E-mail<br>📱 WhatsApp<br>☎️ Atendimento Telefônico<br>🎟️ Tickets<br>💻 Redes Sociais<br>🖥️ Plataforma de Suporte</p>
-        <p><i>O objetivo é proporcionar uma experiência consistente em todos eles.</i></p>
-    </div>
-    <div class="card">
-        <h3>🤝 Mantenha o Mesmo Padrão de Qualidade</h3>
-        <p>Independentemente do canal utilizado:</p>
-        <p>😊 Seja cordial.<br>📖 Utilize linguagem clara.<br>⚡ Responda com agilidade.<br>🎯 Busque resolver o problema.<br>💙 Demonstre empatia.</p>
-    </div>
-    <div class="card">
-        <h3>💬 Comunicação Adequada</h3>
-        <p>Adapte sua linguagem conforme o canal. Exemplos:</p>
-        <p><b>💬 Chat:</b> Respostas rápidas, frases objetivas e conversa dinâmica.<br><b>📧 E-mail:</b> Comunicação formal, informações completas, boa estrutura e revisão antes do envio.<br><b>☎️ Telefone:</b> Escuta ativa, clareza na fala, confirmação das informações e tom de voz profissional.</p>
-    </div>
-    <div class="card">
-        <h3>👀 A Primeira Impressão Importa</h3>
-        <p>Os primeiros segundos do atendimento fazem diferença. Sempre:</p>
-        <p>👋 Cumprimente o cliente.<br>😊 Demonstre disposição.<br>💬 Apresente-se quando necessário.<br>🎯 Mostre interesse em ajudar.</p>
-    </div>
-    <div class="card">
-        <h3>⏳ Gerencie o Tempo de Resposta</h3>
-        <p>Cada canal possui expectativa de retorno. Boas práticas:</p>
-        <p>⚡ Responda rapidamente.<br>📢 Informe quando estiver analisando.<br>🔄 Atualize o cliente durante o processo.<br>⏱️ Evite longos períodos sem comunicação.</p>
-    </div>
-    <div class="card">
-        <h3>📖 Registre Todas as Interações</h3>
-        <p>Toda comunicação deve ser documentada. Registre:</p>
-        <p>📝 Procedimentos realizados.<br>📌 Informações importantes.<br>📂 Evidências.<br>📋 Encaminhamentos.<br>📊 Histórico do atendimento.</p>
-    </div>
-    <div class="card">
-        <h3>🔄 Mantenha Continuidade</h3>
-        <p>O cliente não deve repetir informações diversas vezes. Sempre consulte:</p>
-        <p>📚 Histórico.<br>📄 Atendimentos anteriores.<br>🗂️ Registros internos.<br>💬 Conversas anteriores.</p>
-    </div>
-    <div class="card">
-        <h3>❤️ Demonstre Empatia em Todos os Canais</h3>
-        <p>Mesmo quando o atendimento ocorre por texto. Utilize expressões como:</p>
-        <p>🤝 <i>"Entendo sua situação."</i><br>💙 <i>"Vou verificar isso para você."</i><br>🙏 <i>"Obrigado por aguardar."</i><br>😊 <i>"Conte comigo para ajudá-lo."</i></p>
-    </div>
-    <div class="card">
-        <h3>🎯 Direcione Corretamente</h3>
-        <p>Nem toda solicitação será resolvida pelo primeiro agente. Quando necessário:</p>
-        <p>📌 Encaminhe ao setor responsável.<br>📢 Explique o motivo.<br>📝 Informe o próximo passo.<br>🤝 Oriente o cliente durante a transição.</p>
-    </div>
-    <div class="card">
-        <h3>🔒 Proteja Informações</h3>
-        <p>Em qualquer canal:</p>
-        <p>🛡️ Preserve dados pessoais.<br>🔐 Nunca compartilhe informações confidenciais.<br>📋 Confirme dados antes de realizar alterações.<br>⚖️ Siga as políticas de segurança.</p>
-    </div>
-    <div class="card">
-        <h3>📈 Busque uma Experiência Única</h3>
-        <p>O cliente deve sentir que recebeu atenção personalizada através de:</p>
-        <p>😊 Cordialidade.<br>💬 Comunicação clara.<br>⚡ Agilidade.<br>❤️ Empatia.<br>🎯 Resolução eficiente.</p>
-    </div>
-    <div class="card">
-        <h3>🚫 Evite Estes Erros</h3>
-        <p>❌ Respostas copiadas sem contexto.<br>❌ Demorar para responder.<br>❌ Ignorar mensagens.<br>❌ Informações contraditórias.<br>❌ Encerrar o atendimento sem confirmar a solução.<br>❌ Falta de cordialidade.</p>
-    </div>
-    <div class="card">
-        <h3>🌟 Os 7 Pilares dos Pontos de Contato</h3>
-        <p>💬 Comunicação.<br>⚡ Agilidade.<br>🤝 Empatia.<br>📖 Clareza.<br>🔒 Segurança.<br>📋 Organização.<br>🎯 Resolução.</p>
-    </div>
-    <div class="card">
-        <h3>🏆 Atendimento Omnichannel</h3>
-        <p>Um excelente agente garante que o cliente tenha uma experiência consistente em qualquer canal, percebendo:</p>
-        <p>✨ Agilidade.<br>✨ Respeito.<br>✨ Segurança.<br>✨ Organização.<br>✨ Eficiência.<br>✨ Profissionalismo.</p>
-    </div>
-    <div class="card">
-        <h3>📋 Checklist Antes de Encerrar</h3>
-        <p>Antes de finalizar qualquer atendimento, confirme:</p>
-        <p>✅ O cliente recebeu todas as informações?<br>✅ Todas as dúvidas foram respondidas?<br>✅ Os registros foram atualizados?<br>✅ O próximo passo foi informado?<br>✅ O atendimento foi encerrado com cordialidade?</p>
-    </div>
-    <div class="card">
-        <h3>💎 Dica de Ouro</h3>
-        <p>O cliente pode esquecer o canal utilizado, mas dificilmente esquecerá a forma como foi atendido. Cada ponto de contato é uma oportunidade para transmitir confiança, solucionar problemas e fortalecer a reputação da empresa.</p>
-    </div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Mapeamento da Trajetória</h3><p>Identificar e eliminar atritos em todos os estágios da jornada. 🗺️</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Consistência de Voz</h3><p>Padronizar o tom de voz em todos os canais de comunicação. 🗣️</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Redução de Latência</h3><p>Otimizar o tempo de resposta em cada interação. ⏱️</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Ponto Único de Resolução</h3><p>Empoderar o agente para resolver o problema sem transferências excessivas. 🎯</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Feedback em Tempo Real</h3><p>Coletar a percepção do cliente imediatamente após o suporte. 📋</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Omnichannel Integrado</h3><p>Garantir que o histórico do cliente esteja disponível em qualquer canal. 🔄</p></div>`
-            },
-            interacoes: { 
-                title: "🛡️ Melhorando Interações", 
-                desc: "Estratégias avançadas para aprimorar o rapport, a escuta ativa e a condução de diálogos difíceis.",
-                type: "content", 
-                html: `
-    <div class="card">
-        <h3>💬 Melhorando Interações</h3>
-        <p>Cada interação é uma oportunidade para gerar confiança, fortalecer a imagem da empresa e proporcionar uma experiência positiva ao cliente.</p>
-    </div>
-    <div class="card">
-        <h3>😊 Crie uma Boa Primeira Impressão</h3>
-        <p>Os primeiros segundos do atendimento são fundamentais. Sempre:</p>
-        <p>👋 Cumprimente com cordialidade.<br>😊 Demonstre disposição para ajudar.<br>💬 Utilize uma linguagem acolhedora.<br>✨ Faça o cliente sentir que recebeu atenção desde o início.</p>
-    </div>
-    <div class="card">
-        <h3>👂 Pratique a Escuta Ativa</h3>
-        <p>Antes de responder, procure compreender completamente a necessidade do cliente.</p>
-        <p>👀 Leia toda a conversa.<br>🧠 Identifique o verdadeiro problema.<br>❓ Faça perguntas quando necessário.<br>📖 Analise o contexto antes de responder.</p>
-    </div>
-    <div class="card">
-        <h3>❤️ Demonstre Empatia</h3>
-        <p>O cliente deseja sentir que foi compreendido. Utilize frases como:</p>
-        <p>❤️ <i>"Entendo sua preocupação."</i><br>💙 <i>"Vou analisar seu caso com atenção."</i><br>🙏 <i>"Obrigado por compartilhar essas informações."</i><br>😊 <i>"Estou aqui para ajudá-lo."</i></p>
-    </div>
-    <div class="card">
-        <h3>🎯 Personalize Cada Atendimento</h3>
-        <p>Evite que o cliente receba respostas que pareçam automáticas. Sempre que possível:</p>
-        <p>👤 Utilize o nome do cliente.<br>📌 Considere o histórico.<br>💬 Adapte a resposta ao contexto.<br>🎯 Demonstre atenção aos detalhes.</p>
-    </div>
-    <div class="card">
-        <h3>🗣️ Utilize uma Comunicação Positiva</h3>
-        <p>Prefira soluções em vez de negativas:</p>
-        <p>❌ <i>"Não posso fazer isso."</i> ➔ ✅ <i>"Posso oferecer esta alternativa."</i><br>❌ <i>"Não temos essa opção."</i> ➔ ✅ <i>"Atualmente trabalhamos desta forma."</i></p>
-    </div>
-    <div class="card">
-        <h3>📖 Explique os Procedimentos</h3>
-        <p>Nunca suponha que o cliente conhece os processos internos. Sempre:</p>
-        <p>📋 Explique o motivo da solicitação.<br>📌 Oriente passo a passo.<br>🧩 Utilize exemplos quando necessário.<br>💬 Certifique-se de que tudo ficou claro.</p>
-    </div>
-    <div class="card">
-        <h3>⚡ Mantenha o Cliente Atualizado</h3>
-        <p>Durante análises mais demoradas:</p>
-        <p>⏳ Informe o andamento.<br>📢 Explique o que está sendo verificado.<br>🤝 Agradeça pela paciência.<br>🔄 Evite períodos longos sem retorno.</p>
-    </div>
-    <div class="card">
-        <h3>🤝 Gere Confiança</h3>
-        <p>A confiança é construída por meio de pequenas atitudes. Transmita:</p>
-        <p>✔️ Segurança.<br>✔️ Transparência.<br>✔️ Honestidade.<br>✔️ Clareza.<br>✔️ Compromisso.</p>
-    </div>
-    <div class="card">
-        <h3>🧠 Antecipe Dúvidas</h3>
-        <p>Antes de finalizar, pergunte a si mesmo: O cliente pode ter outra dúvida? Existe alguma orientação adicional? Posso evitar um novo contato?</p>
-    </div>
-    <div class="card">
-        <h3>🎓 Eduque o Cliente</h3>
-        <p>Além de resolver o problema: explique como evitar situações semelhantes, oriente sobre boas práticas, compartilhe informações úteis e ajude o cliente a utilizar melhor os serviços.</p>
-    </div>
-    <div class="card">
-        <h3>💙 Demonstre Interesse Genuíno</h3>
-        <p>O cliente percebe quando existe atenção verdadeira. Pratique: educação, respeito, paciência e interesse em compreender.</p>
-    </div>
-    <div class="card">
-        <h3>🔍 Revise Antes de Enviar</h3>
-        <p>Uma resposta bem revisada transmite profissionalismo. Confira: ortografia, clareza, objetividade, informações corretas e tom cordial.</p>
-    </div>
-    <div class="card">
-        <h3>🌟 Encante Além da Solução</h3>
-        <p>Um excelente atendimento vai além da resolução do problema. Busque: superar expectativas, explicar claramente, criar uma experiência agradável e fazer o cliente sentir-se valorizado.</p>
-    </div>
-    <div class="card">
-        <h3>🚫 Evite Estas Atitudes</h3>
-        <p>❌ Interromper o cliente.<br>❌ Responder sem analisar o contexto.<br>❌ Utilizar linguagem fria.<br>❌ Ignorar informações importantes.<br>❌ Demonstrar impaciência.<br>❌ Encerrar o atendimento abruptamente.<br>❌ Fornecer respostas incompletas.</p>
-    </div>
-    <div class="card">
-        <h3>📊 Indicadores de uma Boa Interação</h3>
-        <p>Uma interação de qualidade apresenta: resposta rápida, solução eficiente, comunicação clara, empatia, informações completas, respeito e cliente satisfeito.</p>
-    </div>
-    <div class="card">
-        <h3>🏆 Os 7 Segredos das Interações Memoráveis</h3>
-        <p>🌟 Ouça atentamente antes de responder.<br>🤝 Trate cada cliente com respeito.<br>💬 Explique de forma simples e objetiva.<br>⚡ Seja ágil sem perder a qualidade.<br>📚 Demonstre conhecimento dos processos.<br>❤️ Mantenha empatia durante toda a conversa.<br>🎯 Finalize garantindo que todas as dúvidas foram resolvidas.</p>
-    </div>
-    <div class="card">
-        <h3>📋 Checklist da Interação Perfeita</h3>
-        <p>Antes de encerrar, confirme:</p>
-        <p>✅ Cumprimentei o cliente cordialmente?<br>✅ Compreendi totalmente a necessidade?<br>✅ Expliquei o procedimento de forma clara?<br>✅ Mantive o cliente informado durante todo o processo?<br>✅ Demonstrei empatia e respeito?<br>✅ Resolvi ou encaminhei corretamente a solicitação?<br>✅ Finalizei perguntando se havia mais alguma dúvida?</p>
-    </div>
-    <div class="card">
-        <h3>💎 Dica de Ouro</h3>
-        <p>Uma boa interação não é apenas aquela que resolve um problema, mas aquela que faz o cliente sentir que foi ouvido, respeitado e acompanhado durante toda a sua jornada. Cada conversa é uma oportunidade de construir confiança e fortalecer o relacionamento com a empresa.</p>
-    </div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Vínculo e Rapport</h3><p>Saudação personalizada com contexto imediato, demonstrando que o agente conhece a necessidade do jogador. 🤝</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Responsabilização Ativa</h3><p>Assunção de falhas ou limitações sem defensividade, focando na solução e na transparência. 🛡️</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Neutralização sob Pressão</h3><p>Técnicas avançadas de desescalonamento para acalmar usuários em situações críticas. 🧊</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Comunicação Assertiva</h3><p>Equilíbrio entre a empatia e a diretividade, evitando rodeios desnecessários. 🎯</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Escuta Qualificada</h3><p>Identificar não apenas o problema explícito, mas a necessidade implícita do cliente por trás da dúvida. 🔍</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Fechamento de Ciclo</h3><p>Certificar-se de que o usuário compreendeu a solução e se sente satisfeito antes de encerrar. ✅</p></div>`
-            },
-            estrategia: { 
-                title: "🚀 Estratégia de Atendimento", 
-                desc: "Planejamento estruturado para diagnósticos assertivos, tomadas de decisão e condução lógica.",
-                type: "content", 
-                html: `
-    <div class="card">
-        <h3>🎯 Estratégia de Atendimento</h3>
-        <p>Um atendimento estratégico vai além da resolução de um problema. Ele busca compreender a necessidade do cliente, oferecer soluções eficientes e construir uma relação de confiança em cada interação.</p>
-    </div>
-    <div class="card">
-        <h3>🧭 Entenda Antes de Agir</h3>
-        <p>O primeiro passo para um bom atendimento é compreender completamente a situação. Antes de responder:</p>
-        <p>👂 Ouça atentamente.<br>📖 Leia todo o histórico.<br>🔍 Analise as informações disponíveis.<br>❓ Esclareça dúvidas, se necessário.</p>
-        <p><i>Diagnosticar corretamente é o primeiro passo para solucionar com eficiência.</i></p>
-    </div>
-    <div class="card">
-        <h3>🎯 Defina o Objetivo do Atendimento</h3>
-        <p>Pergunte-se: Qual é a necessidade do cliente? O que precisa ser resolvido? Existe uma solução imediata? Será necessário envolver outro setor?</p>
-        <p><i>Ter clareza sobre o objetivo torna o atendimento mais eficiente.</i></p>
-    </div>
-    <div class="card">
-        <h3>📋 Planeje Antes de Responder</h3>
-        <p>Evite responder por impulso. Organize mentalmente:</p>
-        <p>1️⃣ Identifique o problema.<br>2️⃣ Consulte os procedimentos.<br>3️⃣ Verifique as informações.<br>4️⃣ Defina a melhor solução.<br>5️⃣ Explique de forma clara.</p>
-    </div>
-    <div class="card">
-        <h3>💬 Conduza a Conversa</h3>
-        <p>O agente deve liderar o atendimento de forma organizada. Boas práticas:</p>
-        <p>🧭 Mantenha o foco no assunto principal.<br>📢 Oriente cada etapa.<br>🤝 Demonstre segurança.<br>🎯 Evite conversas paralelas que possam gerar confusão.</p>
-    </div>
-    <div class="card">
-        <h3>⚡ Equilibre Agilidade e Qualidade</h3>
-        <p>Responder rápido é importante. Responder corretamente é indispensável. Sempre:</p>
-        <p>⚡ Seja ágil.<br>🧠 Analise antes de agir.<br>📖 Consulte procedimentos.<br>🎯 Priorize a qualidade.</p>
-    </div>
-    <div class="card">
-        <h3>🤝 Adapte sua Estratégia ao Perfil do Cliente</h3>
-        <p>Cada cliente possui necessidades diferentes. Observe:</p>
-        <p>😊 Nível de conhecimento.<br>📖 Clareza das informações.<br>😟 Estado emocional.<br>💬 Forma de comunicação.</p>
-        <p><i>Adapte sua abordagem para oferecer um atendimento mais eficaz.</i></p>
-    </div>
-    <div class="card">
-        <h3>❤️ Utilize Empatia Estratégica</h3>
-        <p>Empatia fortalece a relação com o cliente. Demonstre:</p>
-        <p>💙 Interesse genuíno.<br>🤝 Respeito.<br>😊 Paciência.<br>📢 Transparência.</p>
-        <p><i>Mesmo quando não for possível atender a solicitação, explique os motivos de forma clara e cordial.</i></p>
-    </div>
-    <div class="card">
-        <h3>🔍 Antecipe Necessidades</h3>
-        <p>Um atendimento estratégico busca prevenir novos contatos. Antes de finalizar:</p>
-        <p>📌 Oriente sobre próximos passos.<br>📄 Informe documentos necessários.<br>💡 Compartilhe informações úteis.<br>🚀 Esclareça dúvidas frequentes relacionadas ao caso.</p>
-    </div>
-    <div class="card">
-        <h3>📚 Utilize os Recursos Corretos</h3>
-        <p>Não dependa apenas da memória. Consulte sempre:</p>
-        <p>📖 Base de conhecimento.<br>📋 Procedimentos internos.<br>📢 Comunicados atualizados.<br>📝 Histórico do cliente.</p>
-    </div>
-    <div class="card">
-        <h3>📊 Analise Antes de Escalar</h3>
-        <p>Nem toda situação precisa ser encaminhada. Antes de escalar um caso:</p>
-        <p>✔️ Confirme todas as informações.<br>✔️ Verifique procedimentos.<br>✔️ Avalie alternativas.<br>✔️ Certifique-se de que o encaminhamento é realmente necessário.</p>
-    </div>
-    <div class="card">
-        <h3>🔄 Mantenha o Cliente Informado</h3>
-        <p>Durante qualquer análise:</p>
-        <p>📢 Explique o andamento.<br>⏳ Informe prazos quando disponíveis.<br>🤝 Agradeça pela paciência.<br>💬 Evite deixar o cliente sem retorno.</p>
-    </div>
-    <div class="card">
-        <h3>🛡️ Tome Decisões com Responsabilidade</h3>
-        <p>Cada ação representa a empresa. Sempre:</p>
-        <p>🔒 Proteja informações sensíveis.<br>📜 Respeite os procedimentos internos.<br>⚖️ Atue com ética.<br>📋 Registre todas as ações importantes.</p>
-    </div>
-    <div class="card">
-        <h3>📈 Avalie o Resultado do Atendimento</h3>
-        <p>Antes de encerrar, reflita:</p>
-        <p>🎯 O problema foi resolvido?<br>😊 O cliente compreendeu as orientações?<br>📌 Há alguma pendência?<br>📋 O registro foi atualizado corretamente?</p>
-    </div>
-    <div class="card">
-        <h3>🚫 Evite Estas Estratégias</h3>
-        <p>❌ Responder sem analisar o caso.<br>❌ Fazer promessas que não podem ser cumpridas.<br>❌ Encaminhar atendimentos sem necessidade.<br>❌ Utilizar respostas genéricas.<br>❌ Ignorar o histórico do cliente.<br>❌ Encerrar o atendimento sem confirmar a solução.</p>
-    </div>
-    <div class="card">
-        <h3>🌟 Os 7 Pilares da Estratégia de Atendimento</h3>
-        <p>🧠 Análise antes da ação.<br>👂 Escuta ativa.<br>💬 Comunicação clara.<br>⚡ Agilidade com qualidade.<br>🤝 Empatia.<br>📚 Conhecimento dos processos.<br>🎯 Foco na resolução.</p>
-    </div>
-    <div class="card">
-        <h3>🏆 Método A.C.T.I.O.N.</h3>
-        <p>Um modelo simples para conduzir qualquer atendimento:</p>
-        <p>👀 <b>A — Analisar:</b> Leia o histórico, identifique a necessidade e reúna todas as informações antes de agir.<br>💬 <b>C — Comunicar:</b> Explique cada etapa com clareza, utilizando uma linguagem simples e objetiva.<br>🛠️ <b>T — Tratar:</b> Aplique o procedimento correto, garantindo que a solução esteja alinhada às políticas da empresa.<br>📢 <b>I — Informar:</b> Mantenha o cliente atualizado durante toda a análise, evitando períodos sem retorno.<br>🎯 <b>O — Orientar:</b> Apresente os próximos passos, prazos e recomendações para evitar novas dúvidas.<br>🤝 <b>N — Normalizar:</b> Confirme que o problema foi resolvido, registre o atendimento e finalize de forma cordial.</p>
-    </div>
-    <div class="card">
-        <h3>📋 Checklist Estratégico</h3>
-        <p>Antes de concluir o atendimento, confirme:</p>
-        <p>✅ Compreendi completamente a solicitação?<br>✅ Consultei os procedimentos corretos?<br>✅ Ofereci a melhor solução disponível?<br>✅ Mantive o cliente informado durante todo o processo?<br>✅ Registrei corretamente todas as ações?<br>✅ O cliente sabe exatamente qual é o próximo passo?</p>
-    </div>
-    <div class="card">
-        <h3>💎 Dica de Ouro</h3>
-        <p>A melhor estratégia de atendimento é aquela que une análise, comunicação, empatia e resolução. Um agente estratégico não apenas responde perguntas, mas conduz o cliente com segurança, clareza e profissionalismo do início ao fim da jornada.</p>
-    </div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Personalização de Contexto</h3><p>Consulta obrigatória ao histórico e perfil antes de qualquer interação, evitando redundâncias. 🧠</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Proatividade Preditiva</h3><p>Identificação e resolução de dúvidas antes mesmo que o usuário as formalize, baseada no comportamento comum. 🔮</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Sinergia Homem-IA</h3><p>Uso da IA para triagem e automação de rotinas, reservando o atendimento humano para casos de alta complexidade emocional. 🤖</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Jornada do Cliente Integrada</h3><p>Garantir que a transição entre canais seja invisível, mantendo o nível de serviço em todos os pontos. 🔗</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Cultura de Melhoria Contínua</h3><p>Utilização do feedback coletado para ajustes rápidos nos fluxos e scripts de atendimento. 🔄</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Monitoramento de Riscos</h3><p>Análise contínua de padrões de atendimento para identificar possíveis fraudes ou erros sistêmicos. 🛡️</p></div>`
-            },
-            feedback: { 
-                title: "📊 Sistemas de Feedback e Performance", 
-                desc: "Métricas de qualidade, CSAT, NPS, FCR e planos de desenvolvimento contínuo.",
-                type: "content", 
-                html: `
-    <div class="card">
-        <h3>📊 Sistemas de Feedback e Performance</h3>
-        <p>O feedback é uma oportunidade de crescimento. A performance é construída diariamente por meio da dedicação, aprendizado e compromisso com a excelência.</p>
-    </div>
-    <div class="card">
-        <h3>🎯 Objetivo do Feedback</h3>
-        <p>O feedback tem como finalidade:</p>
-        <p>📈 Melhorar a qualidade dos atendimentos.<br>🧠 Desenvolver novas habilidades.<br>💬 Aprimorar a comunicação.<br>🚀 Incentivar a evolução contínua.<br>🏆 Reconhecer bons resultados.</p>
-    </div>
-    <div class="card">
-        <h3>💡 Encare o Feedback como Crescimento</h3>
-        <p>Todo feedback possui um propósito. Ao recebê-lo:</p>
-        <p>👂 Ouça atentamente.<br>📝 Anote os principais pontos.<br>🤝 Tire dúvidas.<br>🎯 Transforme orientações em ações.</p>
-        <p><i>O verdadeiro crescimento acontece quando o feedback é colocado em prática.</i></p>
-    </div>
-    <div class="card">
-        <h3>🌱 Evolução Contínua</h3>
-        <p>Cada atendimento representa uma oportunidade de aprender. Busque constantemente:</p>
-        <p>📚 Novos conhecimentos.<br>🧠 Aprimorar habilidades.<br>⚡ Melhorar sua produtividade.<br>💬 Aperfeiçoar sua comunicação.</p>
-    </div>
-    <div class="card">
-        <h3>📊 Indicadores de Performance</h3>
-        <p>Sua evolução pode ser acompanhada por diferentes indicadores. Exemplos:</p>
-        <p>⚡ Tempo médio de resposta.<br>🎯 Resolução no primeiro contato.<br>😊 Satisfação do cliente.<br>📈 Qualidade das respostas.<br>📋 Cumprimento dos procedimentos.<br>⏳ Tempo médio de atendimento.<br>📚 Atualização dos registros.</p>
-    </div>
-    <div class="card">
-        <h3>🏆 Reconheça seus Resultados</h3>
-        <p>Valorize cada conquista. Comemore:</p>
-        <p>🌟 Melhoria dos indicadores.<br>📈 Evolução pessoal.<br>💬 Feedbacks positivos.<br>🤝 Reconhecimento da equipe.<br>🚀 Desenvolvimento profissional.</p>
-    </div>
-    <div class="card">
-        <h3>🔍 Faça Autoavaliações</h3>
-        <p>Antes de esperar um feedback formal, reflita sobre seu desempenho. Pergunte-se:</p>
-        <p>❓ Atendi com qualidade?<br>❓ Resolvi corretamente?<br>❓ Fui claro nas orientações?<br>❓ Mantive uma postura profissional?<br>❓ Existe algo que posso melhorar?</p>
-    </div>
-    <div class="card">
-        <h3>💬 Dê e Receba Feedback com Respeito</h3>
-        <p>Um bom feedback deve ser:</p>
-        <p>🤝 Respeitoso.<br>🎯 Objetivo.<br>📖 Baseado em fatos.<br>💡 Construtivo.<br>❤️ Voltado para o desenvolvimento.</p>
-    </div>
-    <div class="card">
-        <h3>📚 Aprenda com os Melhores</h3>
-        <p>Observe profissionais de destaque. Analise:</p>
-        <p>🌟 Comunicação.<br>⚡ Agilidade.<br>🧠 Organização.<br>🎯 Resolução de problemas.<br>🤝 Relacionamento com clientes.</p>
-    </div>
-    <div class="card">
-        <h3>🚀 Transforme Feedback em Ação</h3>
-        <p>Após receber uma orientação:</p>
-        <p>📋 Crie um plano de melhoria.<br>🎯 Defina metas.<br>📈 Acompanhe sua evolução.<br>📝 Revise seus resultados.</p>
-    </div>
-    <div class="card">
-        <h3>🤝 Compartilhe Conhecimento</h3>
-        <p>O desenvolvimento da equipe depende da colaboração. Contribua com:</p>
-        <p>💡 Boas práticas.<br>📚 Novos aprendizados.<br>🧩 Soluções encontradas.<br>🎓 Apoio aos colegas.</p>
-    </div>
-    <div class="card">
-        <h3>❤️ Mantenha uma Mentalidade Positiva</h3>
-        <p>Feedback não é punição. É uma oportunidade para:</p>
-        <p>🌱 Crescer.<br>📈 Evoluir.<br>🎯 Aprimorar habilidades.<br>🚀 Tornar-se um profissional melhor.</p>
-    </div>
-    <div class="card">
-        <h3>📋 Plano de Desenvolvimento Individual (PDI)</h3>
-        <p>Após cada ciclo de avaliação:</p>
-        <p>🎯 Defina um objetivo.<br>📚 Escolha uma habilidade para desenvolver.<br>📝 Estabeleça ações práticas.<br>📅 Determine um prazo.<br>📊 Acompanhe sua evolução.</p>
-    </div>
-    <div class="card">
-        <h3>🏅 Hábitos dos Agentes de Alta Performance</h3>
-        <p>Os profissionais de destaque costumam:</p>
-        <p>📖 Estudar constantemente.<br>⚡ Buscar eficiência.<br>🤝 Trabalhar em equipe.<br>💬 Comunicar-se com clareza.<br>❤️ Receber feedback com maturidade.<br>🎯 Aprender com os próprios erros.<br>📈 Buscar evolução contínua.</p>
-    </div>
-    <div class="card">
-        <h3>📊 Os 7 Indicadores de Excelência</h3>
-        <p>🟢 Tempo de resposta.<br>🟢 Qualidade do atendimento.<br>🟢 Resolução no primeiro contato.<br>🟢 Organização dos registros.<br>🟢 Cumprimento dos procedimentos.<br>🟢 Satisfação do cliente.<br>🟢 Colaboração com a equipe.</p>
-    </div>
-    <div class="card">
-        <h3>🚫 Evite Estes Comportamentos</h3>
-        <p>❌ Ignorar feedbacks.<br>❌ Repetir os mesmos erros.<br>❌ Resistir a mudanças.<br>❌ Trabalhar sem acompanhar indicadores.<br>❌ Não buscar aprendizado.<br>❌ Receber críticas de forma defensiva.<br>❌ Deixar de compartilhar conhecimento.</p>
-    </div>
-    <div class="card">
-        <h3>🌟 Método C.R.E.S.C.E.R.</h3>
-        <p>Uma estratégia simples para transformar feedback em resultados:</p>
-        <p>👂 <b>C — Compreender:</b> Escute atentamente e compreenda o objetivo do feedback.<br>📝 <b>R — Registrar:</b> Anote os principais pontos de melhoria e os aspectos positivos.<br>🚀 <b>E — Executar:</b> Coloque em prática as orientações recebidas.<br>📊 <b>S — Supervisionar:</b> Acompanhe sua evolução por meio de indicadores e resultados.<br>🤝 <b>C — Compartilhar:</b> Troque experiências com colegas e peça orientações quando necessário.<br>📈 <b>E — Evoluir:</b> Busque aprendizado contínuo e aperfeiçoe suas habilidades.<br>🏆 <b>R — Reconhecer:</b> Valorize seu progresso e celebre cada conquista alcançada.</p>
-    </div>
-    <div class="card">
-        <h3>📋 Checklist de Performance</h3>
-        <p>Ao final da semana, reflita:</p>
-        <p>✅ Cumpri todos os procedimentos?<br>✅ Evoluí em relação à semana anterior?<br>✅ Recebi algum feedback importante?<br>✅ Coloquei as orientações em prática?<br>✅ Alcancei minhas metas de qualidade?<br>✅ Ajudei colegas durante o trabalho?<br>✅ Aprendi algo novo?</p>
-    </div>
-    <div class="card">
-        <h3>💎 Dica de Ouro</h3>
-        <p>A performance não é medida apenas pelos números, mas pela capacidade de evoluir continuamente. O profissional que busca aprendizado, aceita feedbacks com maturidade e transforma orientações em ações constrói uma carreira sólida e contribui para o sucesso de toda a equipe.</p>
-    </div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>CSAT</h3><p>Satisfação pontual após cada interação. 🎯</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>NPS</h3><p>Lealdade e percepção de longo prazo. 📈</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>FCR</h3><p>Resolução no primeiro contato. ⚡</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>CES</h3><p>Esforço que o cliente teve. 🛡️</p></div>`
-            },
-            dicasRapidas: { 
-                title: "💡 Dicas Rápidas", 
-                desc: "Pequenas ações de grande impacto para otimizar o dia a dia do suporte.",
-                type: "content", 
-                html: `
-    <div class="card">
-        <h3>⚡ Dicas Rápidas</h3>
-        <p>Pequenas ações fazem grandes diferenças. Aplicar boas práticas diariamente aumenta a qualidade do atendimento, reduz erros e melhora a experiência do cliente.</p>
-    </div>
-    <div class="card">
-        <h3>😊 Cumprimente Sempre</h3>
-        <p>Comece cada atendimento com educação e cordialidade:</p>
-        <p>✔️ Seja simpático.<br>✔️ Demonstre disposição para ajudar.<br>✔️ Utilize uma saudação adequada.</p>
-        <p><i>A primeira impressão influencia toda a experiência do cliente.</i></p>
-    </div>
-    <div class="card">
-        <h3>👂 Leia Antes de Responder</h3>
-        <p>Nunca responda apenas pela primeira mensagem. Sempre:</p>
-        <p>📖 Leia toda a conversa.<br>🔍 Analise o contexto.<br>📋 Consulte o histórico.</p>
-    </div>
-    <div class="card">
-        <h3>💬 Escreva com Clareza</h3>
-        <p>Facilite o entendimento do cliente. Utilize:</p>
-        <p>📝 Frases curtas.<br>🎯 Informações objetivas.<br>📖 Linguagem simples.</p>
-        <p><i>🚫 Evite termos técnicos desnecessários.</i></p>
-    </div>
-    <div class="card">
-        <h3>⚡ Responda com Agilidade</h3>
-        <p>Não deixe o cliente esperando:</p>
-        <p>⏱️ Responda rapidamente.<br>📢 Informe quando estiver analisando.<br>🔄 Atualize sempre que houver novidades.</p>
-    </div>
-    <div class="card">
-        <h3>🎯 Resolva na Primeira Oportunidade</h3>
-        <p>Sempre que possível:</p>
-        <p>✔️ Solucione completamente.<br>✔️ Evite retornos.<br>✔️ Oriente corretamente.<br>✔️ Confirme que o cliente compreendeu.</p>
-    </div>
-    <div class="card">
-        <h3>❤️ Demonstre Empatia</h3>
-        <p>Lembre-se de que há uma pessoa do outro lado da tela. Utilize expressões como:</p>
-        <p>🤝 <i>"Entendo sua situação."</i><br>🙏 <i>"Obrigado pela paciência."</i><br>😊 <i>"Vou ajudá-lo."</i></p>
-    </div>
-    <div class="card">
-        <h3>🔍 Revise Antes de Enviar</h3>
-        <p>Antes de clicar em "Enviar":</p>
-        <p>✔️ Verifique ortografia.<br>✔️ Confira informações.<br>✔️ Revise valores e datas.<br>✔️ Certifique-se de que tudo está claro.</p>
-    </div>
-    <div class="card">
-        <h3>📚 Consulte a Base de Conhecimento</h3>
-        <p>Se surgir uma dúvida:</p>
-        <p>📖 Consulte os procedimentos.<br>📋 Verifique comunicados.<br>🧠 Não responda com base em suposições.</p>
-    </div>
-    <div class="card">
-        <h3>🔒 Proteja Informações</h3>
-        <p>Nunca compartilhe dados sem autorização. Sempre:</p>
-        <p>🛡️ Confirme a identidade do cliente.<br>🔐 Preserve informações sensíveis.<br>📜 Respeite as políticas internas.</p>
-    </div>
-    <div class="card">
-        <h3>🤝 Trabalhe em Equipe</h3>
-        <p>Quando necessário:</p>
-        <p>👥 Peça apoio.<br>💬 Compartilhe conhecimento.<br>📚 Ajude colegas.<br>🚀 Colabore para melhorar os processos.</p>
-    </div>
-    <div class="card">
-        <h3>📈 Aprenda Todos os Dias</h3>
-        <p>Busque evolução constante:</p>
-        <p>🌱 Leia novos procedimentos.<br>💡 Aprenda com os feedbacks.<br>🎓 Participe dos treinamentos.</p>
-    </div>
-    <div class="card">
-        <h3>🚫 Evite Esses Erros</h3>
-        <p>❌ Responder sem analisar.<br>❌ Utilizar linguagem inadequada.<br>❌ Ignorar o histórico.<br>❌ Prometer o que não pode cumprir.<br>❌ Encerrar o atendimento sem confirmar a solução.</p>
-    </div>
-    <div class="card">
-        <h3>🏆 As 10 Regras de Ouro</h3>
-        <p>⭐ Seja cordial.<br>⭐ Escute com atenção.<br>⭐ Analise antes de responder.<br>⭐ Utilize linguagem clara.<br>⭐ Seja ágil.<br>⭐ Demonstre empatia.<br>⭐ Siga os procedimentos.<br>⭐ Mantenha organização.<br>⭐ Registre corretamente.<br>⭐ Busque melhorar continuamente.</p>
-    </div>
-    <div class="card">
-        <h3>💎 Atitudes que Fazem Diferença</h3>
-        <p>🌟 Sorria ao escrever (isso influencia o tom da mensagem).<br>📌 Organize suas tarefas por prioridade.<br>📖 Leia o atendimento completo antes de agir.<br>🧠 Pense antes de responder.<br>🎯 Foque na solução, não apenas no problema.<br>❤️ Trate todos os clientes com respeito.<br>🚀 Busque sempre superar expectativas.</p>
-    </div>
-    <div class="card">
-        <h3>📋 Mini Checklist</h3>
-        <p>Antes de finalizar qualquer atendimento:</p>
-        <p>✅ Li todo o histórico?<br>✅ Entendi a necessidade?<br>✅ Consultei o procedimento correto?<br>✅ Minha resposta está clara?<br>✅ Revisei antes de enviar?<br>✅ Registrei todas as informações?</p>
-    </div>
-    <div class="card">
-        <h3>🌟 Frases que Transmitem Profissionalismo</h3>
-        <p>💬 <i>"Vou verificar essa informação para você."</i><br>💬 <i>"Obrigado por aguardar."</i><br>💬 <i>"Entendo sua necessidade."</i><br>💬 <i>"Já estou analisando sua solicitação."</i><br>💬 <i>"Posso orientá-lo da seguinte forma..."</i><br>💬 <i>"Fico à disposição caso tenha mais dúvidas."</i><br>💬 <i>"Conte conosco sempre que precisar."</i></p>
-    </div>
-    <div class="card">
-        <h3>🧠 Dica de Produtividade</h3>
-        <p>Para manter um atendimento eficiente durante todo o expediente:</p>
-        <p>⏰ Organize seu tempo.<br>📌 Priorize atendimentos críticos.<br>📚 Mantenha a base de conhecimento aberta.<br>📝 Faça registros claros e completos.<br>🔄 Revise periodicamente os comunicados internos.<br>💡 Compartilhe boas práticas com a equipe.</p>
-    </div>
-    <div class="card">
-        <h3>🌟 Os 7 Hábitos dos Agentes de Excelência</h3>
-        <p>🧠 Pensam antes de agir.<br>⚡ Respondem com rapidez e precisão.<br>📚 Estão sempre atualizados.<br>🤝 Trabalham em equipe.<br>❤️ Demonstram empatia.<br>🎯 Focam na resolução.<br>📈 Buscam evolução contínua.</p>
-    </div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Agilidade na Resposta</h3><p>Se precisar de tempo para buscar informações, avise-o. 👍</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Blocos de Texto</h3><p>Use frases curtas, pule linhas e utilize tópicos. ✍️</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Humanização</h3><p>Use emojis com moderação para tornar o papo leve. 😊</p></div>
-    <div class="card"><span class="tag">Diretriz Operacional</span><h3>Objetividade</h3><p>Responda de forma simples e confirme entendimento. 🎯</p></div>`
-            },
-            metodoCasa: { 
-                title: "🎯 Método C.A.S.A. de Atendimento", 
-                desc: "A estrutura fundamentada para conectar, analisar, solucionar e acompanhar com excelência.",
-                type: "custom", 
-                html: `
-    <div class="casa-grid">
-        <div class="casa-card"><h3>📢 C – Canal Aberto</h3><p>Sua voz importa. Tragam sugestões; minha porta está sempre aberta para ouvir vocês.</p></div>
-        <div class="casa-card"><h3>🏆 A – Autonomia e Reconhecimento</h3><p>Seu esforço vale. Excelência será sempre vista, recompensada e celebrada.</p></div>
-        <div class="casa-card"><h3>🛡️ S – Suporte e Segurança</h3><p>Eu sou o seu escudo. Em casos complexos ou agressivos, respire e me chame: eu assumo.</p></div>
-        <div class="casa-card"><h3>🌱 A – Aprendizado Crítico e Diagnóstico</h3><p>Errar é evolução. Transparência total em cada <b>diagnóstico</b>: corrigimos juntos e aprendemos sempre.</p></div>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🏡 Método C.A.S.A. de Atendimento</h3>
-        <p>Assim como uma casa é construída sobre uma base sólida, um atendimento de excelência também precisa seguir uma estrutura organizada. O Método C.A.S.A. ajuda o agente a conduzir cada interação com confiança, qualidade e eficiência.</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🤝 C — Conectar</h3>
-        <p>Crie uma conexão positiva desde o primeiro contato. O início do atendimento define a experiência do cliente. Boas práticas:</p>
-        <p>👋 Cumprimente cordialmente.<br>😊 Demonstre disposição para ajudar.<br>👤 Utilize o nome do cliente quando possível.<br>💬 Mantenha uma comunicação acolhedora.<br>❤️ Faça o cliente sentir que foi ouvido.</p>
-        <p><i>Objetivo: Criar confiança logo nos primeiros segundos da conversa.</i></p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🔍 A — Analisar</h3>
-        <p>Entenda completamente a situação antes de agir. Nunca responda apenas pela primeira mensagem. Sempre:</p>
-        <p>📖 Leia todo o histórico.<br>🧠 Identifique a causa do problema.<br>📋 Consulte procedimentos internos.<br>🔎 Analise evidências.<br>📂 Verifique informações da conta.</p>
-        <p><i>Objetivo: Tomar decisões baseadas em informações corretas.</i></p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🛠️ S — Solucionar</h3>
-        <p>Apresente a melhor solução disponível. Durante essa etapa:</p>
-        <p>🎯 Resolva o problema sempre que possível.<br>📢 Explique cada procedimento.<br>💡 Ofereça alternativas quando necessário.<br>⚡ Busque resolver no primeiro contato.<br>🤝 Demonstre segurança durante toda a orientação.</p>
-        <p><i>Objetivo: Resolver o problema com qualidade e eficiência.</i></p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🌟 A — Acompanhar</h3>
-        <p>Finalize garantindo que o cliente tenha segurança sobre o próximo passo. Antes de encerrar:</p>
-        <p>📌 Confirme se todas as dúvidas foram esclarecidas.<br>📋 Oriente sobre próximos procedimentos.<br>📢 Informe prazos quando existirem.<br>😊 Pergunte se ainda existe alguma necessidade.<br>📝 Atualize corretamente o registro do atendimento.</p>
-        <p><i>Objetivo: Encerrar o atendimento deixando o cliente seguro e bem orientado.</i></p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🚀 Os 4 Pilares do Método C.A.S.A.</h3>
-        <p>🏡 <b>Conectar</b> → Criar confiança.<br>🔍 <b>Analisar</b> → Compreender o problema.<br>🛠️ <b>Solucionar</b> → Resolver com eficiência.<br>🌟 <b>Acompanhar</b> → Garantir uma experiência completa.</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>📊 Fluxo Visual</h3>
-        <p>👋 Cliente chega ➔ 🤝 Conectar ➔ 🔍 Analisar ➔ 🛠️ Solucionar ➔ 🌟 Acompanhar ➔ 😊 Cliente satisfeito</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>❤️ Durante Todo o Processo</h3>
-        <p>Independentemente da etapa, mantenha sempre: comunicação clara, agilidade, empatia, conhecimento, segurança das informações, transparência e foco na solução.</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>📋 Checklist C.A.S.A.</h3>
-        <p>Antes de finalizar qualquer atendimento, confirme:</p>
-        <p><b>🤝 Conectar:</b> Cumprimentei cordially? Demonstrei interesse em ajudar?<br><b>🔍 Analisar:</b> Li todo o histórico? Consultei os procedimentos? Entendi completamente a solicitação?<br><b>🛠️ Solucionar:</b> Resolvi corretamente? Expliquei os procedimentos? Informei os próximos passos?<br><b>🌟 Acompanhar:</b> O cliente compreendeu? Atualizei os registros? Perguntei se havia mais alguma dúvida?</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🌟 As Competências do Método C.A.S.A.</h3>
-        <p>Pensamento analítico, comunicação eficiente, inteligência emocional, resolução de problemas, agilidade, empatia, conhecimento técnico e organização.</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🚫 Erros que o Método Evita</h3>
-        <p>❌ Responder sem analisar.<br>❌ Ignorar o histórico do cliente.<br>❌ Utilizar respostas genéricas.<br>❌ Não explicar o procedimento.<br>❌ Encerrar o atendimento abruptamente.<br>❌ Deixar dúvidas sem esclarecimento.<br>❌ Não registrar corretamente o atendimento.</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>🏆 Exemplo Prático</h3>
-        <p><b>👤 Situação:</b> O cliente informa que realizou um depósito, mas o valor ainda não foi creditado.<br><b>🤝 Conectar:</b> "Olá! Seja bem-vindo. Vou analisar sua solicitação e ajudá-lo da melhor forma possível."<br><b>🔍 Analisar:</b> Conferir comprovante, verificar a transação, consultar o histórico da conta e confirmar o prazo de processamento.<br><b>🛠️ Solucionar:</b> Explicar a situação encontrada, orientar sobre o procedimento correto, abrir um chamado se necessário e informar o prazo estimado.<br><b>🌟 Acompanhar:</b> "Sua solicitação foi registrada e continuará em acompanhamento. Caso precise de qualquer outra orientação, nossa equipe estará à disposição."</p>
-    </div>
-    <div class="card" style="margin-bottom: 20px;">
-        <h3>💡 Dicas para Aplicar o Método</h3>
-        <p>🚀 Não tenha pressa para responder sem entender o problema.<br>📚 Utilize sempre a base de conhecimento.<br>💬 Adapte a linguagem ao perfil do cliente.<br>🤝 Demonstre interesse genuíno pela solução.<br>📈 Aproveite cada atendimento como uma oportunidade para evoluir.<br>🎯 Busque resolver a necessidade de forma completa, evitando novos contatos.</p>
-    </div>
-    <div class="card">
-        <h3>💎 Filosofia do Método C.A.S.A.</h3>
-        <p>Uma casa sólida é construída sobre bons alicerces. Da mesma forma, um atendimento de excelência nasce da combinação entre conexão, análise, solução e acompanhamento. Quando essas quatro etapas são aplicadas com consistência, o cliente sente confiança, segurança e percebe o verdadeiro compromisso da equipe com a qualidade do atendimento.</p>
-    </div>
-`
-            }
-        };
-
-        function show(key, btnElement) {
-            const area = document.getElementById('display-area');
-            const header = document.getElementById('content-header');
-            const d = db[key];
-            if (!d) return;
-
-            header.innerHTML = `<h2>${d.title}</h2><p>${d.desc}</p>`;
-
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
-
-            let html = '';
-            if (d.type === "custom") {
-                html += d.html;
-            } else {
-                html += `<div class="grid-container">${d.html}</div>`;
-            }
-            area.innerHTML = html;
-        }
-
-        window.onload = function() {
-            show('pontos', document.querySelector('.nav-item'));
-        };
-    </script>
-    <script>
-   document.querySelectorAll('.casa-card, .card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // posição X do mouse dentro do card
-            const y = e.clientY - rect.top;  // posição Y do mouse dentro do card
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            // Calcula a rotação com base na distância do centro
-            const rotateX = -((y - centerY) / centerY) * 10; // inclinação vertical
-            const rotateY = ((x - centerX) / centerX) * 10;  // inclinação horizontal
-            
-            card.style.transform = `translateY(-5px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            // Retorna à posição original quando o mouse sai
-            card.style.transform = 'translateY(0px) rotateX(0deg) rotateY(0deg)';
-        });
-    });
-</script>
-    <script>
-    document.querySelectorAll('.casa-card, .card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = -((y - centerY) / centerY) * 10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-            
-            card.style.transform = `translateY(-5px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0px) rotateX(0deg) rotateY(0deg)';
-        });
-    });
-</script>
+      });
+    }
+  </script>
 </body>
 </html>
