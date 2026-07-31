@@ -801,6 +801,163 @@
         </div>
       </section>
 
+      <!-- TAB 4: PROTOCOLOS CRÍTICOS -->
+<section id="tab-protocolos" class="tab-content space-y-6">
+
+  <!-- Cabeçalho do Módulo -->
+  <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+    <div>
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <i data-lucide="shield-alert" class="w-6 h-6 text-red-400"></i>
+        Central de Protocolos Críticos & Mitigação de Risco
+      </h2>
+      <p class="text-xs text-slate-400 mt-1">Procedimentos operacionais de alta severidade, conformidade e gestão de crises.</p>
+    </div>
+    
+    <!-- Busca Rápida -->
+    <div>
+      <input type="text" id="searchProtocolo" placeholder="Buscar protocolo ou tag..." onkeyup="filtrarProtocolos()" class="bg-slate-900 border border-slate-800 text-xs text-slate-200 px-3 py-2 rounded-lg outline-none focus:border-red-500 w-64">
+    </div>
+  </div>
+
+  <!-- Cards de Protocolos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="protocolosGrid">
+
+    <!-- CARD 1: JOGO RESPONSÁVEL & LUDOPATIA -->
+    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-red-500/50 transition-all">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Crítico</span>
+          <i data-lucide="brain-circuit" class="w-4 h-4 text-red-400"></i>
+        </div>
+        <h3 class="text-sm font-bold text-white mb-1">🧠 Jogo Responsável & Autoexclusão</h3>
+        <p class="text-xs text-slate-400 mb-3">Ativação imediata em relatos de vício, compulsão ou solicitação explícita de bloqueio por saúde mental/financeira.</p>
+        
+        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
+          <p class="font-bold text-red-400">📋 Diretriz Operacional:</p>
+          <p>• Acolher o usuário com tom neutro, sem incentivar novas apostas.</p>
+          <p>• Bloquear a conta no sistema imediatamente.</p>
+          <p>• Informar a irreversibilidade do período de autoexclusão.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <button onclick="copiarTextoDirect('ludopatia-bloqueio')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#ludopatia-bloqueio</button>
+          <button onclick="copiarTextoDirect('ludopatia-questionamento-vicio')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#ludopatia-questionamento-vicio</button>
+          <button onclick="copiarTextoDirect('pixbet-autoexclusão-como-fazer')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#pixbet-autoexclusão-como-fazer</button>
+        </div>
+      </div>
+
+      <button onclick="copiarTextoDirect('Prezado(a), priorizamos a sua segurança e bem-estar. Em conformidade com nossas diretrizes de Jogo Responsável, sua solicitação de autoexclusão foi processada e sua conta encontra-se suspensa.')" class="w-full bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 text-xs py-2 rounded-lg font-medium transition-all">
+        Copiar Script Acolhimento
+      </button>
+    </div>
+
+    <!-- CARD 2: MED & SUSPEITA DE FRAUDE -->
+    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-amber-500/50 transition-all">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase tracking-wider">Nível 2 - Alta Severidade</span>
+          <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i>
+        </div>
+        <h3 class="text-sm font-bold text-white mb-1">🛡️ MED & Infrações Pix / Terceiros</h3>
+        <p class="text-xs text-slate-400 mb-3">Notificações do Banco Central (MED), depósitos por contas de terceiros ou alerta de fraude em transações.</p>
+        
+        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
+          <p class="font-bold text-amber-400">📋 Diretriz Operacional:</p>
+          <p>• Congelar o saldo do usuário preventivamente.</p>
+          <p>• Solicitar verificação de titularidade do Pix (CPF equivalente).</p>
+          <p>• Encaminhar dados de transação à equipe de Risco/Compliance.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <button onclick="copiarTextoDirect('med')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#med</button>
+          <button onclick="copiarTextoDirect('med-2')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#med-2</button>
+          <button onclick="copiarTextoDirect('deposito-terceiros')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#deposito-terceiros</button>
+        </div>
+      </div>
+
+      <button onclick="copiarTextoDirect('Olá. Identificamos uma inconsistência de segurança referente às transações da sua conta. Para sua proteção e em conformidade com as diretrizes do BACEN, a conta está sob análise do setor de Risco.')" class="w-full bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 border border-amber-500/30 text-xs py-2 rounded-lg font-medium transition-all">
+        Copiar Script Notificação MED
+      </button>
+    </div>
+
+    <!-- CARD 3: AGRESSÃO & DESRESPEITO -->
+    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-blue-500/50 transition-all">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider">Nível 3 - Alerta Conduta</span>
+          <i data-lucide="alert-triangle" class="w-4 h-4 text-blue-400"></i>
+        </div>
+        <h3 class="text-sm font-bold text-white mb-1">🚫 Conduta Inadequada & Ofensas</h3>
+        <p class="text-xs text-slate-400 mb-3">Protocolo gradativo em 3 etapas para usuários desrespeitosos ou ofensivos no atendimento.</p>
+        
+        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
+          <p class="font-bold text-blue-400">📋 Regra de Advertência:</p>
+          <p>• <strong>1º Aviso:</strong> Solicitar cordialidade no chat.</p>
+          <p>• <strong>2º Aviso:</strong> Informar sobre o encerramento do atendimento.</p>
+          <p>• <strong>3º Aviso:</strong> Encerrar a sessão e aplicar a tag.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <button onclick="copiarTextoDirect('desrespeito-1')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-1</button>
+          <button onclick="copiarTextoDirect('desrespeito-2')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-2</button>
+          <button onclick="copiarTextoDirect('desrespeito-3')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-3</button>
+        </div>
+      </div>
+
+      <button onclick="copiarTextoDirect('Prezado(a), para mantermos um atendimento adequado, solicitamos o uso de linguagem respeitosa. Caso as ofensas permaneçam, o atendimento será finalizado.')" class="w-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs py-2 rounded-lg font-medium transition-all">
+        Copiar Script Advertência
+      </button>
+    </div>
+
+    <!-- CARD 4: ESCALONAÇÃO & OUVIDORIA -->
+    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-all">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Escalonação</span>
+          <i data-lucide="scale" class="w-4 h-4 text-purple-400"></i>
+        </div>
+        <h3 class="text-sm font-bold text-white mb-1">⚖️ Reclame Aqui & Ouvidoria (SLA N3)</h3>
+        <p class="text-xs text-slate-400 mb-3">Casos judicializados, Reclame Aqui, Procon ou inconsistências sistêmicas não resolvidas no N1/N2.</p>
+        
+        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
+          <p class="font-bold text-purple-400">📋 Diretriz Operacional:</p>
+          <p>• Anexar os logs de conversa e comprovantes anexados.</p>
+          <p>• Encaminhar a demanda à fila prioritária N3 do dashboard.</p>
+          <p>• Informar ao cliente o direcionamento para a Ouvidoria.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 mb-3">
+          <button onclick="copiarTextoDirect('sla-urgente-n3')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#sla-urgente-n3</button>
+          <button onclick="copiarTextoDirect('esc-reclame-aqui')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#esc-reclame-aqui</button>
+          <button onclick="copiarTextoDirect('esc-ouvidoria')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#esc-ouvidoria</button>
+        </div>
+      </div>
+
+      <button onclick="copiarTextoDirect('Seu caso foi documentado e encaminhado para nossa equipe especializada de Ouvidoria/N3. Um parecer conclusivo será enviado diretamente para o seu e-mail cadastrado.')" class="w-full bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/30 text-xs py-2 rounded-lg font-medium transition-all">
+        Copiar Script Encaminhamento N3
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function filtrarProtocolos() {
+    const termo = document.getElementById('searchProtocolo').value.toLowerCase();
+    const cards = document.querySelectorAll('.card-protocolo');
+
+    cards.forEach(card => {
+      const textoCard = card.innerText.toLowerCase();
+      if (textoCard.includes(termo)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
       <!-- TAB 5: BASE DE CONHECIMENTO COMPLETA (12 TÓPICOS INDIVIDUAIS) -->
       <section id="tab-procedimentos" class="tab-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
