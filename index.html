@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Atendente — Suporte iGaming</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Header / Topbar -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <div class="p-2.5 bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 rounded-xl font-bold shadow-lg shadow-amber-500/20">
+        <i data-lucide="headphones" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold text-white tracking-wide flex items-center gap-2">
+          Central Operacional de Atendimento
+          <span class="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30">iGaming Pro</span>
+        </h1>
+        <p class="text-xs text-slate-400">Manual Interativo, Dicionário Operacional, Tags Blip & Base de Conhecimento</p>
+      </div>
+    </div>
+
+    <!-- Indicadores de SLA e Performance -->
+    <div class="flex flex-wrap items-center gap-3 text-xs">
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-2 rounded-lg border border-slate-800 shadow-inner">
+        <i data-lucide="zap" class="w-4 h-4 text-emerald-400 animate-pulse"></i>
+        <span class="text-slate-400">Primeira Resposta (FRT):</span>
+        <span class="font-bold text-emerald-400">&le; 30 seg</span>
+      </div>
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-2 rounded-lg border border-slate-800 shadow-inner">
+        <i data-lucide="timer" class="w-4 h-4 text-amber-400"></i>
+        <span class="text-slate-400">Tempo Médio (TMA):</span>
+        <span class="font-bold text-amber-400">3 - 5 min</span>
+      </div>
+      <div class="flex items-center gap-2 bg-slate-950/80 px-3 py-2 rounded-lg border border-slate-800 shadow-inner">
+        <i data-lucide="users" class="w-4 h-4 text-blue-400"></i>
+        <span class="text-slate-400">Chats Simultâneos:</span>
+        <span class="font-bold text-blue-400">2 a 3 telas</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar Navegação -->
+    <aside class="w-72 bg-slate-900/90 border-r border-slate-800 p-4 flex flex-col gap-3">
+      <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-2">Menu de Navegação</div>
+      <nav class="space-y-1.5">
+        <button onclick="switchTab('diretrizes')" id="btn-diretrizes" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20">
+          <div class="flex items-center gap-3">
+            <i data-lucide="message-square-code" class="w-4 h-4"></i>
+            <span>Tom & Dicionário</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+
+        <button onclick="switchTab('macros')" id="btn-macros" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center gap-3">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span>Biblioteca de Macros</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+
+        <button onclick="switchTab('tags-blip')" id="btn-tags-blip" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+              <i data-lucide="tag" class="w-4 h-4 text-cyan-400"></i>
+              <span>Tags do Blip Desk</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-400 text-[10px] font-bold">COMPLETO</span>
+          </div>
+        </button>
+
+        <button onclick="switchTab('protocolos')" id="btn-protocolos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-red-400"></i>
+              <span>Protocolos Críticos</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold">URGENTE</span>
+          </div>
+        </button>
+
+        <button onclick="switchTab('procedimentos')" id="btn-procedimentos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between gap-3 w-full">
+            <div class="flex items-center gap-3">
+              <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+              <span>Base de Conhecimento</span>
+            </div>
+            <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold">12 TÓPICOS</span>
+          </div>
+        </button>
+      </nav>
+
+      <!-- Card LGPD Fixo na Sidebar -->
+      <div class="mt-auto p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>Checklist de Segurança</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          <strong>1.</strong> Jamais envie prints do Backoffice.<br>
+          <strong>2.</strong> Valide sempre 2 dados pessoais.<br>
+          <strong>3.</strong> Nunca atenda terceiros sem procuração.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
+
+      <!-- TAB 1: TOM DE VOZ, DICIONÁRIO E REGRAS DE COMUNICAÇÃO -->
+      <section id="tab-diretrizes" class="tab-content active space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="message-square" class="w-7 h-7 text-amber-500"></i>
+            Padrão de Comunicação, Tom de Voz & Dicionário Operacional
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Transforme termos técnicos complexos em respostas diretas, cordiais e transparentes.</p>
+        </div>
+
+        <!-- 3 Pilares do Tom de Voz -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/30 space-y-2">
+            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+              <i data-lucide="target" class="w-4 h-4"></i> 1. Objetividade sem Frieza
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              O apostador quer solução rápida. Evite rodeios ou introduções longas. Vá direto ao status da solicitação mantendo a cordialidade.
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-blue-500/30 space-y-2">
+            <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
+              <i data-lucide="heart-handshake" class="w-4 h-4"></i> 2. Empatia Neutra
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Valide a insatisfação do cliente ("Compreendo sua dúvida"), mas **nunca assuma culpa operacional** antes da confirmação dos logs do sistema.
+            </p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/30 space-y-2">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> 3. Clareza Educativa
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Explique o *porquê* das regras (ex: regulamentação bancária, regras esportivas). Clientes instruídos geram menos reincidência de chamados.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tabela Tradutora de Jargões -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <i data-lucide="languages" class="w-4 h-4 text-amber-400"></i>
+            Dicionário Interno: Traduzindo o "Jargão do Sistema" para o Cliente
+          </h3>
+          <p class="text-xs text-slate-400">O cliente não entende nomes de sistemas ou integrações. Use obrigatoriamente a versão traduzida:</p>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] tracking-wider">
+                <tr>
+                  <th class="p-3 rounded-l-lg">Termo Interno / Backoffice</th>
+                  <th class="p-3">O que significa na prática</th>
+                  <th class="p-3 rounded-r-lg text-emerald-400">Como explicar ao apostador</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 font-medium">
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Aguardando Feed / Opta / Sportradar</td>
+                  <td class="p-3">O provedor estatístico ainda não enviou os dados finais do jogo.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Estamos aguardando a consolidação das estatísticas oficiais da partida."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Erro no Gateway / Webhook Pix</td>
+                  <td class="p-3">Instabilidade na comunicação entre o banco e a plataforma.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Identificamos uma oscilação temporária na rede bancária do processador."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Turnover de Bônus / Rollover Não Cump.</td>
+                  <td class="p-3">O cliente não apostou o montante mínimo necessário para liberar o saque.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Ainda há um requisito de movimentação de apostas pendente no saldo do bônus."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">Sessão Expirada / Token Inválido</td>
+                  <td class="p-3">O aplicativo ou navegador do usuário desconectou por inatividade.</td>
+                  <td class="p-3 text-emerald-300 font-semibold">"Recomendamos atualizar a página ou reconectar a sua conta para reestabelecer o sinal."</td>
+                </tr>
+                <tr>
+                  <td class="p-3 text-red-400 font-mono">GGR Negativo / Loss na Casa</td>
+                  <td class="p-3">Métrica interna em que o jogador ganhou mais prêmios do que depositou.</td>
+                  <td class="p-3 text-emerald-300 font-semibold"><em>Termo estritamente interno. Nunca mencione termos de faturamento com o cliente.</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Guia de Encerramento e Hold -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="font-bold text-amber-400 flex items-center gap-2">
+              <i data-lucide="pause-circle" class="w-4 h-4"></i> Protocolo de Espera (Hold)
+            </div>
+            <p class="text-slate-300">Nunca deixe o cliente sem resposta por mais de <strong>2 minutos</strong> enquanto pesquisa no Backoffice.</p>
+            <div class="p-2.5 bg-slate-950 rounded border border-slate-800 font-mono text-slate-300">
+              "Estou consultando os detalhes no sistema para você. Por favor, aguarde só 2 minutinhos que já retorno com a posição."
+            </div>
+          </div>
+
+          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center gap-2 font-bold text-emerald-400">
+              <i data-lucide="check-check" class="w-4 h-4"></i> Protocolo de Encerramento Perfeito
+            </div>
+            <p class="text-slate-300">Sempre confirme se a dúvida foi sanada antes de fechar a aba de atendimento.</p>
+            <div class="p-2.5 bg-slate-950 rounded border border-slate-800 font-mono text-slate-300">
+              "Ficou alguma dúvida sobre este procedimento? Caso precise de mais algo, estou à disposição. Tenha um ótimo dia!"
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) -->
+      <section id="tab-macros" class="tab-content space-y-6">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-black text-white flex items-center gap-3">
+              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i>
+              Biblioteca Oficial de Respostas Rápidas (Macros)
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">Copie scripts validados com um clique e agilize seu tempo de resposta.</p>
+          </div>
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
+            <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave (ex: Pix, Saque)..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-72 focus:outline-none focus:border-amber-500 font-medium">
+          </div>
+        </div>
+
+        <div id="macros-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Macro 1 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito</span>
+              <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Depósito de Terceiros / CPF Divergente</h4>
+            <p id="macro-1" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas ao mesmo CPF cadastrado em seu perfil na plataforma. Caso o Pix tenha sido realizado a partir da conta de outra pessoa, o valor é estornado automaticamente para a conta de origem no prazo established pelo seu banco.
+            </p>
+          </div>
+
+          <!-- Macro 2 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Apostas Esportivas</span>
+              <button onclick="copiarTexto('macro-2')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Aposta Pendente / Aguardando Súmula Oficial</h4>
+            <p id="macro-2" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Compreendo sua ansiedade para ver seu bilhete encerrado! A partida já finalizou em campo, e no momento estamos apenas aguardando a transmissão do relatório de estatísticas oficiais enviado pelo nosso provedor de dados parceiro. Assim que a súmula for validada no sistema, seu bilhete será processado e o resultado atualizado automaticamente.
+            </p>
+          </div>
+
+          <!-- Macro 3 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20 uppercase">Segurança / KYC</span>
+              <button onclick="copiarTexto('macro-3')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Solicitação de Documentos de Verificação (KYC)</h4>
+            <p id="macro-3" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Para liberar a funcionalidade de saques em sua conta e proteger seu saldo contra acessos não autorizados, precisamos realizar a validação de identidade. Por gentileza, acesse a opção 'Minha Conta' > 'Verificação de Perfil' e envie uma foto legível do seu documento oficial (RG ou CNH) com foto recente, além de uma foto sua segurando o documento.
+            </p>
+          </div>
+
+          <!-- Macro 4 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 uppercase">Cassino / Crash</span>
+              <button onclick="copiarTexto('macro-4')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Explicação sobre Algoritmo RNG / Imparcialidade</h4>
+            <p id="macro-4" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Garantimos 100% de transparência em nossos jogos! Todos os títulos de Cassino e jogos de Crash utilizam algoritmos de Gerador de Números Aleatórios (RNG), testados e certificados por laboratórios internacionais independentes de auditoria. Isso significa que o resultado de cada rodada é totalmente imparcial e imprevisível, sem qualquer intervenção humana ou ajuste de probabilidade.
+            </p>
+          </div>
+
+          <!-- Macro 5 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-red-500/10 text-red-400 rounded border border-red-500/20 uppercase">Financeiro / Saque</span>
+              <button onclick="copiarTexto('macro-5')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Saque Retido por Rollover de Bônus</h4>
+            <p id="macro-5" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Identifiquei que sua solicitação de saque não foi concluída porque há uma regra de requisito de apostas (Rollover) ativa vinculada ao bônus que você resgatou. Para converter os prêmios do bônus em saldo sacável real, é necessário realizar o montante de apostas exigido nas regras da promoção. Você pode acompanhar o progresso da barra de rollover no menu 'Minha Conta' > 'Bônus'.
+            </p>
+          </div>
+
+          <!-- Macro 6 -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20 uppercase">Suporte Técnico</span>
+              <button onclick="copiarTexto('macro-6')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Limpeza de Cache e Erro de Carregamento</h4>
+            <p id="macro-6" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Se você está enfrentando lentidão ou falha no carregamento dos jogos, orientamos que faça a limpeza do cache do seu navegador ou do aplicativo. Para isso, acesse as configurações do navegador, limpe o histórico e os cookies, e em seguida reconecte sua conta em uma aba anônima ou através de uma rede Wi-Fi estável.
+            </p>
+          </div>
+
+        </div>
+  </section>
+
+      <!-- TAB 3: TAGS DO BLIP DESK -->
+      <section id="tab-tags-blip" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="tag" class="w-7 h-7 text-cyan-400"></i>
+            Biblioteca Completa de Tags Operacionais — Blip Desk
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Classifique os tickets de atendimento com precisão para direcionamento automático de fila e métricas no Blip.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- Bloco 1 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="tag" class="w-4 h-4 text-emerald-400"></i> Tags Operacionais (1 - 20)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pixbet-acesso-conta</span>
+                <button onclick="copiarTextoDirect('pixbet-acesso-conta')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#med-2</span>
+                <button onclick="copiarTextoDirect('med-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#med</span>
+                <button onclick="copiarTextoDirect('med')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#mtr-avaliação-2</span>
+                <button onclick="copiarTextoDirect('mtr-avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#mtr-avaliação-1</span>
+                <button onclick="copiarTextoDirect('mtr-avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#mtr-avaliação</span>
+                <button onclick="copiarTextoDirect('mtr-avaliação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pagamento-antecipado-argumento1</span>
+                <button onclick="copiarTextoDirect('pagamento-antecipado-argumento1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pagamento-antecipado</span>
+                <button onclick="copiarTextoDirect('pagamento-antecipado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#monitoramento-tempo-real</span>
+                <button onclick="copiarTextoDirect('monitoramento-tempo-real')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#aguarde-avaliação-2</span>
+                <button onclick="copiarTextoDirect('aguarde-avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#aguarde-avaliação-1</span>
+                <button onclick="copiarTextoDirect('aguarde-avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#aguarde-avaliação</span>
+                <button onclick="copiarTextoDirect('aguarde-avaliação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#relatorio-ir</span>
+                <button onclick="copiarTextoDirect('relatorio-ir')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#ludopatia-demais-casas</span>
+                <button onclick="copiarTextoDirect('ludopatia-demais-casas')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#ludopatia-bloqueio-informativo</span>
+                <button onclick="copiarTextoDirect('ludopatia-bloqueio-informativo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#ludopatia-bloqueio</span>
+                <button onclick="copiarTextoDirect('ludopatia-bloqueio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#ludopatia-questionamento-vicio</span>
+                <button onclick="copiarTextoDirect('ludopatia-questionamento-vicio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#somente-imagem-chat</span>
+                <button onclick="copiarTextoDirect('somente-imagem-chat')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#pixbet-canal-telegram</span>
+                <button onclick="copiarTextoDirect('pixbet-canal-telegram')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-emerald-400">#acompanhar-resultado</span>
+                <button onclick="copiarTextoDirect('acompanhar-resultado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 2 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="shield" class="w-4 h-4 text-purple-400"></i> Tags Operacionais (21 - 40)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aguarde-1</span>
+                <button onclick="copiarTextoDirect('aguarde-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aguarde-2</span>
+                <button onclick="copiarTextoDirect('aguarde-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aguarde-3</span>
+                <button onclick="copiarTextoDirect('aguarde-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aposta-alterada</span>
+                <button onclick="copiarTextoDirect('aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aposta-cashout-indisponível</span>
+                <button onclick="copiarTextoDirect('aposta-cashout-indisponível')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#aposta-cotação-irregular</span>
+                <button onclick="copiarTextoDirect('aposta-cotação-irregular')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#atualização-de-partida</span>
+                <button onclick="copiarTextoDirect('atualização-de-partida')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#atualização-de-partida2</span>
+                <button onclick="copiarTextoDirect('atualização-de-partida2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#Avaliação-1</span>
+                <button onclick="copiarTextoDirect('Avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#Avaliação-2</span>
+                <button onclick="copiarTextoDirect('Avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#Avaliação-3</span>
+                <button onclick="copiarTextoDirect('Avaliação-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#Avaliação-4</span>
+                <button onclick="copiarTextoDirect('Avaliação-4')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#avaliação-enviado-suporte</span>
+                <button onclick="copiarTextoDirect('avaliação-enviado-suporte')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#avaliação-resolvido-em-atendimento</span>
+                <button onclick="copiarTextoDirect('avaliação-resolvido-em-atendimento')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#avaliação-resposta-negativa</span>
+                <button onclick="copiarTextoDirect('avaliação-resposta-negativa')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#boa-noite</span>
+                <button onclick="copiarTextoDirect('boa-noite')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#boa-tarde</span>
+                <button onclick="copiarTextoDirect('boa-tarde')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#bom-dia</span>
+                <button onclick="copiarTextoDirect('bom-dia')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#cashout-como-fazer</span>
+                <button onclick="copiarTextoDirect('cashout-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-purple-400">#cashout-o-que-é</span>
+                <button onclick="copiarTextoDirect('cashout-o-que-é')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 3 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="gamepad-2" class="w-4 h-4 text-amber-400"></i> Tags Operacionais (41 - 60)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-dados-data-hora</span>
+                <button onclick="copiarTextoDirect('cassino-dados-data-hora')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-maré-de-azar</span>
+                <button onclick="copiarTextoDirect('cassino-maré-de-azar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-maré-de-azar2</span>
+                <button onclick="copiarTextoDirect('cassino-maré-de-azar2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cassino-maré-de-azar3</span>
+                <button onclick="copiarTextoDirect('cassino-maré-de-azar3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cookies-como-limpar</span>
+                <button onclick="copiarTextoDirect('cookies-como-limpar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#cookies-ios</span>
+                <button onclick="copiarTextoDirect('cookies-ios')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#criptografia</span>
+                <button onclick="copiarTextoDirect('criptografia')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#dados-rememorar-email</span>
+                <button onclick="copiarTextoDirect('dados-rememorar-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#dados-rememorar-fone</span>
+                <button onclick="copiarTextoDirect('dados-rememorar-fone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deleção-com-saldo</span>
+                <button onclick="copiarTextoDirect('deleção-com-saldo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito-CNPJ</span>
+                <button onclick="copiarTextoDirect('deposito-CNPJ')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito-devolvido-24h</span>
+                <button onclick="copiarTextoDirect('deposito-devolvido-24h')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito-devolvido-motivo</span>
+                <button onclick="copiarTextoDirect('deposito-devolvido-motivo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito-direto-prazo</span>
+                <button onclick="copiarTextoDirect('deposito-direto-prazo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito-erro-sem-conta-bancaria</span>
+                <button onclick="copiarTextoDirect('deposito-erro-sem-conta-bancaria')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito-terceiros</span>
+                <button onclick="copiarTextoDirect('deposito-terceiros')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#deposito30</span>
+                <button onclick="copiarTextoDirect('deposito30')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#desbloqueio-encaminhado</span>
+                <button onclick="copiarTextoDirect('desbloqueio-encaminhado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#despedida</span>
+                <button onclick="copiarTextoDirect('despedida')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-amber-400">#despedida2</span>
+                <button onclick="copiarTextoDirect('despedida2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 4 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> Tags Operacionais (61 - 80)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#desrespeito-1</span>
+                <button onclick="copiarTextoDirect('desrespeito-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#desrespeito-2</span>
+                <button onclick="copiarTextoDirect('desrespeito-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#desrespeito-3</span>
+                <button onclick="copiarTextoDirect('desrespeito-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#dificuldade-login</span>
+                <button onclick="copiarTextoDirect('dificuldade-login')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#dificuldade-print</span>
+                <button onclick="copiarTextoDirect('dificuldade-print')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#enviado</span>
+                <button onclick="copiarTextoDirect('enviado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#enviar-imagem</span>
+                <button onclick="copiarTextoDirect('enviar-imagem')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#erro-aposta-ao-vivo</span>
+                <button onclick="copiarTextoDirect('erro-aposta-ao-vivo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#feedback</span>
+                <button onclick="copiarTextoDirect('feedback')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#inatividade</span>
+                <button onclick="copiarTextoDirect('inatividade')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#localizar-comprovante-caixa-tem</span>
+                <button onclick="copiarTextoDirect('localizar-comprovante-caixa-tem')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#localizar-comprovante-inter</span>
+                <button onclick="copiarTextoDirect('localizar-comprovante-inter')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#nitido-comprovante</span>
+                <button onclick="copiarTextoDirect('nitido-comprovante')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#não-entendi</span>
+                <button onclick="copiarTextoDirect('não-entendi')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#odd-aplicação</span>
+                <button onclick="copiarTextoDirect('odd-aplicação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#palpite-grátis-resgatar-saldo-regulamentação</span>
+                <button onclick="copiarTextoDirect('palpite-grátis-resgatar-saldo-regulamentação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#pixbet-acesso-câmera-android</span>
+                <button onclick="copiarTextoDirect('pixbet-acesso-câmera-android')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#pixbet-acesso-câmera-IOS</span>
+                <button onclick="copiarTextoDirect('pixbet-acesso-câmera-IOS')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#pixbet-afiliados-suspenso</span>
+                <button onclick="copiarTextoDirect('pixbet-afiliados-suspenso')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-cyan-400">#pixbet-alteração-cadastral-dados</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco 5 -->
+          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i data-lucide="crown" class="w-4 h-4 text-yellow-400"></i> Tags Operacionais (81 - 100)
+            </h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-email</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-encaminhada</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-encaminhada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-telefone</span>
+                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-telefone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-alterada</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-beneficio-social</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-beneficio-social')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-dados</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-fazer</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-aposta-não-reembolsada</span>
+                <button onclick="copiarTextoDirect('pixbet-aposta-não-reembolsada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-app</span>
+                <button onclick="copiarTextoDirect('pixbet-app')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-assunto-aleatorio</span>
+                <button onclick="copiarTextoDirect('pixbet-assunto-aleatorio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-autoexclusão-como-fazer</span>
+                <button onclick="copiarTextoDirect('pixbet-autoexclusão-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-autoexclusão-retorno</span>
+                <button onclick="copiarTextoDirect('pixbet-autoexclusão-retorno')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-definitivo-informações</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-definitivo-informações')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-definitivo-retorno</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-definitivo-retorno')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-encaminhado</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-encaminhado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-múltiplas-tentativas</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-múltiplas-tentativas')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-período</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-período')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-programa-social</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-programa-social')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-bloqueio-programa-social-saldo</span>
+                <button onclick="copiarTextoDirect('pixbet-bloqueio-programa-social-saldo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+                <span class="font-mono text-yellow-400">#pixbet-boa-noite-personalizado</span>
+                <button onclick="copiarTextoDirect('pixbet-boa-noite-personalizado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    <!-- CARD 2: Cadastro & Alterações -->
+    <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+      <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+        <i data-lucide="user-check" class="w-4 h-4 text-purple-400"></i> Cadastro & Alterações
+      </h3>
+      <div class="space-y-2 text-xs">
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#pixbet-acesso-conta</span>
+          <button onclick="copiarTextoDirect('pixbet-acesso-conta')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#pixbet-alteração-cadastral-dados</span>
+          <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#pixbet-alteração-cadastral-email</span>
+          <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#pixbet-alteração-cadastral-encaminhada</span>
+          <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-encaminhada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#pixbet-alteração-cadastral-telefone</span>
+          <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-telefone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#dados-rememorar-email</span>
+          <button onclick="copiarTextoDirect('dados-rememorar-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-purple-400">#dados-rememorar-fone</span>
+          <button onclick="copiarTextoDirect('dados-rememorar-fone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Apostas, Cassino & Bônus -->
+    <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
+      <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+        <i data-lucide="gamepad-2" class="w-4 h-4 text-amber-400"></i> Apostas & Cassino
+      </h3>
+      <div class="space-y-2 text-xs">
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#aposta-alterada</span>
+          <button onclick="copiarTextoDirect('aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#aposta-cashout-indisponível</span>
+          <button onclick="copiarTextoDirect('aposta-cashout-indisponível')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#aposta-cotação-irregular</span>
+          <button onclick="copiarTextoDirect('aposta-cotação-irregular')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#cassino-dados-data-hora</span>
+          <button onclick="copiarTextoDirect('cassino-dados-data-hora')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#cassino-maré-de-azar</span>
+          <button onclick="copiarTextoDirect('cassino-maré-de-azar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#pixbet-aposta-alterada</span>
+          <button onclick="copiarTextoDirect('pixbet-aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+        <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
+          <span class="font-mono text-amber-400">#pixbet-aposta-fazer</span>
+          <button onclick="copiarTextoDirect('pixbet-aposta-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+        </div>
+</section>
+
+
+      <!-- TAB 5: BASE DE CONHECIMENTO COMPLETA (12 TÓPICOS INDIVIDUAIS) -->
+      <section id="tab-procedimentos" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                <i data-lucide="book-open" class="w-7 h-7 text-amber-500"></i>
+                Guia Completo da Base de Conhecimento (12 Tópicos Essenciais)
+              </h2>
+              <p class="text-sm text-slate-400 mt-1">Manual Prático de Onboarding, Diagnósticos de Sistema e Tratativas Operacionais.</p>
+            </div>
+            <span class="hidden md:inline-block px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold">
+              12 TÓPICOS ATIVOS
+            </span>
+          </div>
+        </div>
+
+        <!-- Grade Completa dos 12 Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- TÓPICO 1 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg font-bold text-xs">01</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Checklist Inicial & Postura do Atendente Novato</h3>
+                <span class="text-[11px] text-slate-400">Primeiros passos ao iniciar o turno de atendimento</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Ao iniciar o plantão, abra imediatamente as abas essenciais: Painel do Blip, Backoffice de Jogadores e esta Central de Atendimento.</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1">
+                <strong class="text-amber-400 block font-semibold">Ações Iniciais do Turno:</strong>
+                <ul class="list-disc list-inside text-slate-400 space-y-0.5">
+                  <li>Verifique os alertas no canal interno do Slack/Discord sobre instabilidades.</li>
+                  <li>Inicie o atendimento saudando o cliente pelo primeiro nome em até 30s.</li>
+                  <li>Jamais atenda um chamado sem antes identificar o CPF ou ID do jogador na plataforma.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 2 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg font-bold text-xs">02</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Navegação e Leitura de Perfil no Backoffice</h3>
+                <span class="text-[11px] text-slate-400">Como analisar os dados do cliente em 30 segundos</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Ao abrir a conta do jogador no Backoffice, foque nos 4 campos estruturais:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1">
+                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                  <li><strong>Status da Conta:</strong> 'Ativa', 'Bloqueada por KYC', 'Bloqueada por Risco' ou 'Autoexcluída'.</li>
+                  <li><strong>Divisão de Saldo:</strong> Separe sempre <em>Saldo Real Sacável</em> de <em>Saldo de Bônus Pessoal</em>.</li>
+                  <li><strong>Histórico de Transações:</strong> Confira o status de depósitos (Aprovado, Pendente ou Cancelado).</li>
+                  <li><strong>Flag de Segurança:</strong> Veja se há anotações de suspeita de fraude efetuadas pela equipe de Risco.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 3 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-purple-500/10 text-purple-400 rounded-lg font-bold text-xs">03</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Tratativa de Pix Não Creditado (Passo a Passo)</h3>
+                <span class="text-[11px] text-slate-400">Protocolo completo para solucionar dúvidas de depósitos</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>O Pix é instantâneo, porém instabilidades na rede bancária podem causar atrasos. Siga esta ordem exata de análise:</p>
+              <ol class="list-decimal list-inside text-slate-400 space-y-1 bg-slate-950 p-2.5 rounded border border-slate-800">
+                <li>Peça o comprovante oficial do banco no formato PDF ou foto visível.</li>
+                <li>Localize o código <strong>End-to-End ID</strong> (chave de 32 caracteres do Banco Central).</li>
+                <li>Confira se o CPF de origem bate com o perfil do cadastrado (Regra Anti-Terceiros).</li>
+                <li>Se for o mesmo CPF e ultrapassar 15 min, abra ticket com o End-to-End ID para a equipe do Financeiro.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- TÓPICO 4 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-red-500/10 text-red-400 rounded-lg font-bold text-xs">04</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Saques Cancelados ou Retidos (Principais Motivos)</h3>
+                <span class="text-[11px] text-slate-400">Como explicar o motivo da rejeição do saque com clareza</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Nunca informe apenas "seu saque falhou". Explique a causa raiz ao apostador:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Falta de Rollover Obrigatório:</strong> Por norma antilavagem de dinheiro, todo depósito deve ser apostado pelo menos 1x antes do saque.</p>
+                <p>• <strong>Bônus Ativo:</strong> Se houver barra de progresso de bônus não concluída, o saque do saldo promocional permanece travado.</p>
+                <p>• <strong>Chave Pix Divergente:</strong> A chave Pix de destino deve ser cadastrada obrigatoriamente no CPF do titular.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 5 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg font-bold text-xs">05</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Regras de Validação de Documentos e KYC</h3>
+                <span class="text-[11px] text-slate-400">Critérios de aprovação e recusa de fotos e documentos</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>A auditoria de Know Your Customer (KYC) previne fraudes e criação de contas por menores de idade.</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <strong class="text-amber-400 block font-semibold">Documentos Aceitos:</strong>
+                <p>RG, CNH, Passaporte ou Documentos de Identidade Profissional (OAB, CRM) emitidos em território nacional dentro do prazo de validade.</p>
+                <strong class="text-red-400 block font-semibold mt-1">Motivos para Reprovação Imediata:</strong>
+                <p>Fotos cortadas, reflexos cobrindo os números, documentos vencidos há mais de 10 anos ou selfies com óculos escuros/chapéu.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 6 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg font-bold text-xs">06</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Regras Esportivas: Liquidação e Status de Bilhetes</h3>
+                <span class="text-[11px] text-slate-400">Como funciona o processamento de apostas em partidas reais</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Erros comuns de novatos ocorrem por desconhecer regras de esportes. Tenha sempre em mente:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Tempo Regulamentar:</strong> Resultados valem até o encerramento do 2º tempo + acréscimos (exclui prorrogação e pênaltis, exceto mercado específico).</p>
+                <p>• <strong>Estatísticas de Cartões e Escanteios:</strong> Contam estritamente o que for publicado na súmula oficial e nos feeds homologados (Opta/Sportradar).</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 7 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-pink-500/10 text-pink-400 rounded-lg font-bold text-xs">07</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Cassino & Jogos Crash: Provedores e Algoritmo RNG</h3>
+                <span class="text-[11px] text-slate-400">Esclarecendo dúvidas sobre integridade e histórico de jogadas</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Quando o cliente alega travamento durante uma rodada de Cassino ao Vivo ou Aviator/Spaceman:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• Abra a aba 'Histórico de Apostas em Jogos' e pesquise pelo <strong>Round ID</strong> da jogada.</p>
+                <p>• Se a aposta foi registrada no servidor do provedor antes da desconexão do usuário, a rodada é válida e o resultado processado normalmente.</p>
+                <p>• Explique que o sistema utiliza algoritmo RNG (Random Number Generator) certificado e sem manipulação manual.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 8 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg font-bold text-xs">08</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Gestão de Bônus, Freebets e Cálculo de Rollover</h3>
+                <span class="text-[11px] text-slate-400">Regras e conversão de saldo promocional em dinheiro real</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Aprenda a explicar ao jogador a mecânica de liberação das promoções ativas:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Multiplicador de Rollover:</strong> Se o bônus for de R$ 50 com rollover de 5x, o valor total apostado deve atingir R$ 250.</p>
+                <p>• <strong>Odd Mínima:</strong> Apostas esportivas feitas com odds inferiores à regra do regulamento (ex: odd &lt; 1.80) não contam para o progresso do rollover.</p>
+                <p>• <strong>Apostas Gratuitas (Freebet):</strong> Em vitórias com freebet, o jogador recebe apenas o lucro líquido, excluindo o valor da aposta grátis original.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 9 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-red-500/10 text-red-400 rounded-lg font-bold text-xs">09</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Jogo Responsável: Limites e Pausas Temporárias</h3>
+                <span class="text-[11px] text-slate-400">Ferramentas de proteção e controle de comportamento de jogo</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Promova o ambiente seguro e oriente o cliente a configurar limites de proteção no painel:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Limites de Depósito:</strong> Podem ser configurados por período diário, semanal ou mensal diretamente nas configurações do perfil.</p>
+                <p>• <strong>Pausa Temporária (Cool-off):</strong> O cliente pode solicitar a suspensão temporária do acesso pelo prazo de 24 horas até 30 dias.</p>
+                <p>• <strong>Autoexclusão Permanente:</strong> Ação irreversível solicitada quando o cliente percebe perda de controle financeiro ou emocional.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 10 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-teal-500/10 text-teal-400 rounded-lg font-bold text-xs">10</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Tratativa de Falhas Técnicas, Limpeza de Cache e App</h3>
+                <span class="text-[11px] text-slate-400">Resolução de problemas de navegação e aplicativo móvel</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Script de atendimento para reclamações de tela preta, travamentos e erro de carregamento:</p>
+              <ol class="list-decimal list-inside text-slate-400 space-y-1 bg-slate-950 p-2.5 rounded border border-slate-800">
+                <li>Instrua o cliente a fechar todas as guias abertas e realizar a limpeza de dados de navegação/cache.</li>
+                <li>Solicite o teste de acesso utilizando uma guia anônima no navegador Google Chrome ou Safari.</li>
+                <li>Caso utilize o aplicativo Android/iOS, solicite a verificação de atualizações pendentes na loja de aplicativos.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- TÓPICO 11 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-yellow-500/10 text-yellow-400 rounded-lg font-bold text-xs">11</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Prevenção a Fraudes: Contas Duplicadas e IP Compartilhado</h3>
+                <span class="text-[11px] text-slate-400">Detecção e conduta diante de abusos de bônus e múltiplas contas</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Diretrizes operacionais para tratar tentativas de abuso no sistema:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• <strong>Regra de 1 Conta por CPF/IP:</strong> É estritamente proibido possuir mais de um cadastro sob o mesmo titular ou rede para resgate de bônus.</p>
+                <p>• <strong>Ação Operacional:</strong> Em caso de confirmação de conta duplicada pelo Backoffice, aplique o bloqueio do perfil secundário e direcione para a auditoria.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÓPICO 12 -->
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div class="p-2 bg-orange-500/10 text-orange-400 rounded-lg font-bold text-xs">12</div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Atendimento ao Cliente VIP e Retenção Operacional</h3>
+                <span class="text-[11px] text-slate-400">Tratativa diferenciada para apostadores de alto volume</span>
+              </div>
+            </div>
+            <div class="text-xs text-slate-300 space-y-2">
+              <p>Boas práticas ao identificar apostadores da categoria VIP no Backoffice:</p>
+              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
+                <p>• Priorize o atendimento garantindo resposta imediata dentro do SLA de prioridade alta.</p>
+                <p>• Mantenha tom altamente personalizado e, caso necessário, solicite acompanhamento do gerente de contas dedicado.</p>
+                <p>• Encaminhe solicitações de benefícios especiais para a equipe comercial usando a tag <strong>#vip-atendimento-prioritario</strong>.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts JavaScript do Painel -->
+  <script>
+    // Inicialização dos Ícones Lucide
+    lucide.createIcons();
+
+    // Função de Troca de Abas
+    function switchTab(tabId) {
+      // Oculta todas as abas
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Reseta estilo de todos os botões da sidebar
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
+        btn.classList.add('text-slate-300', 'font-medium');
+      });
+
+      // Ativa a aba desejada
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+
+      // Estiliza o botão selecionado
+      const activeBtn = document.getElementById(`btn-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-300', 'font-medium');
+        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
+      }
+    }
+
+    // Copia de texto de Macros pelo ID do Elemento
+    function copiarTexto(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Script copiado com sucesso para a área de transferência!');
+      }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+      });
+    }
+
+    // Copia direta de texto enviado por parâmetro (Tags)
+    function copiarTextoDirect(texto) {
+      navigator.clipboard.writeText(texto).then(() => {
+        alert(`Tag ${texto} copiada com sucesso!`);
+      }).catch(err => {
+        console.error('Erro ao copiar tag: ', err);
+      });
+    }
+
+    // Filtro em tempo real de Macros
+    function filtrarMacros() {
+      const query = document.getElementById('filter-macros').value.toLowerCase();
+      const cards = document.querySelectorAll('.macro-card');
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
