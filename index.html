@@ -132,8 +132,29 @@
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
 
+      <!-- TAB 0: DASHBOARD -->
+        <section id="tab-dashboard" class="tab-content active space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                    <i data-lucide="layout-dashboard" class="w-7 h-7 text-amber-500"></i>
+                    Quadro de Avisos e Atualizações Diárias
+                </h2>
+                <p class="text-sm text-slate-400 mt-1">Painel de comunicação direta dos superiores para a equipe de atendimento.</p>
+            </div>
+
+            <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-800 space-y-4">
+                <textarea id="avisoDiario" rows="6" placeholder="Digite os avisos, atualizações e diretrizes do dia aqui..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-4 text-sm focus:outline-none focus:border-amber-500 resize-y"></textarea>
+                
+                <div class="flex justify-end">
+                    <button id="btnLimparAvisos" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i> Limpar Avisos do Dia
+                    </button>
+                </div>
+            </div>
+        </section>
+      
       <!-- TAB 1: TOM DE VOZ, DICIONÁRIO E REGRAS DE COMUNICAÇÃO -->
-      <section id="tab-diretrizes" class="tab-content active space-y-6">
+      <section id="tab-diretrizes" class="tab-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
           <h2 class="text-2xl font-black text-white flex items-center gap-3">
             <i data-lucide="message-square" class="w-7 h-7 text-amber-500"></i>
@@ -1272,6 +1293,48 @@
         }
       });
     }
-  </script>
+    });
+</script>
+
+<!-- Bloco dedicado para os Módulos do Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtxvlcx4BPrTO-jBgxJFC6qsRq07zhKXg",
+      authDomain: "escala-nova-d596e.firebaseapp.com",
+      databaseURL: "https://escala-nova-d596e-default-rtdb.firebaseio.com",
+      projectId: "escala-nova-d596e",
+      storageBucket: "escala-nova-d596e.firebasestorage.app",
+      messagingSenderId: "612241634323",
+      appId: "1:612241634323:web:729a8ac37184eb92b47be6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const avisoRef = ref(db, 'dashboard/avisoDiario');
+    const textareaAviso = document.getElementById('avisoDiario');
+    const btnLimpar = document.getElementById('btnLimparAvisos');
+
+    textareaAviso.addEventListener('input', (e) => {
+        set(avisoRef, e.target.value);
+    });
+
+    btnLimpar.addEventListener('click', () => {
+        if (confirm("Deseja realmente limpar os avisos do dia para todos os atendentes?")) {
+            set(avisoRef, "");
+        }
+    });
+
+    onValue(avisoRef, (snapshot) => {
+        const valor = snapshot.val();
+        if (valor !== null && textareaAviso.value !== valor) {
+            textareaAviso.value = valor;
+        }
+    });
+</script>
+                
 </body>
 </html>
