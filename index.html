@@ -132,7 +132,7 @@
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
     
-      <!-- TAB 0: DASHBOARD -->
+     <!-- TAB 0: DASHBOARD -->
         <section id="tab-dashboard" class="tab-content active space-y-6">
             <div class="border-b border-slate-800/80 pb-4 flex items-center justify-between">
                 <div>
@@ -156,18 +156,27 @@
                     <span class="text-slate-500">Atualização instantânea para a equipe</span>
                 </div>
 
-                <!-- Barra de Ferramentas Simplificada -->
+                <!-- Barra de Ferramentas -->
                 <div class="flex items-center gap-2 bg-slate-950 p-2 rounded-xl border border-slate-800/80">
                     <button type="button" onclick="aplicarNegrito()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5 cursor-pointer">
                         <i data-lucide="bold" class="w-3.5 h-3.5 text-amber-500"></i> Negrito
                     </button>
-                    <button type="button" onclick="alternarTamanho()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5 cursor-pointer">
-                        <i data-lucide="type" class="w-3.5 h-3.5 text-amber-500"></i> Aumentar Letra
+                    <button type="button" onclick="aumentarTitulo()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+                        <i data-lucide="heading" class="w-3.5 h-3.5 text-amber-500"></i> Título em Destaque
                     </button>
                 </div>
 
-                <!-- Caixa de texto expandida -->
-                <textarea id="avisoDiario" rows="12" placeholder="Digite os avisos, atualizações e diretrizes do dia aqui..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 resize-y shadow-inner transition"></textarea>
+                <!-- Caixa de texto com tamanho maior e proporcional -->
+                <textarea id="avisoDiario" rows="18" placeholder="Digite os avisos, atualizações e diretrizes do dia aqui..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 resize-y shadow-inner transition"></textarea>
+                
+                <div class="flex items-center justify-between pt-2">
+                    <span class="text-xs text-slate-500 italic">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
+                    <button id="btnLimparAvisos" class="bg-red-600/90 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-red-900/20 cursor-pointer">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i> Limpar Avisos do Dia
+                    </button>
+                </div>
+            </div>
+        </section>
                 
                 <div class="flex items-center justify-between pt-2">
                     <span class="text-xs text-slate-500 italic">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
@@ -1381,35 +1390,47 @@ window.switchTab = function(tabId) {
     }
 }
 
-// Função para colocar negrito no texto selecionado
+// Função para colocar negrito real apenas no texto selecionado
 window.aplicarNegrito = function() {
     const textarea = document.getElementById('avisoDiario');
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const textoSelecionado = textarea.value.substring(start, end);
     
-    if (!textoSelecionado) return; // Se não selecionar nada, não faz nada
+    // Se nada estiver selecionado, avisa ou não faz nada
+    if (!textoSelecionado) {
+        alert("Selecione um texto na caixa para aplicar o negrito.");
+        return;
+    }
     
-    const novoTexto = textarea.value.substring(0, start) + '**' + textoSelecionado + '**' + textarea.value.substring(end);
+    // Envolve o texto selecionado com a tag HTML de negrito <b>
+    const textoFormatado = `<b>${textoSelecionado}</b>`;
+    const novoTexto = textarea.value.substring(0, start) + textoFormatado + textarea.value.substring(end);
+    
     textarea.value = novoTexto;
-    textarea.dispatchEvent(new Event('input'));
+    textarea.dispatchEvent(new Event('input')); // Sincroniza com o Firebase
     textarea.focus();
-    textarea.setSelectionRange(start + 2, end + 2);
 }
 
-// Função para alternar o tamanho da letra da caixa inteira (Normal <-> Grande)
-window.alternarTamanho = function() {
+// Função para transformar a linha selecionada em um Título em destaque
+window.aumentarTitulo = function() {
     const textarea = document.getElementById('avisoDiario');
-    if (textarea.classList.contains('text-sm')) {
-        textarea.classList.remove('text-sm');
-        textarea.classList.add('text-lg', 'font-medium');
-    } else if (textarea.classList.contains('text-lg')) {
-        textarea.classList.remove('text-lg', 'font-medium');
-        textarea.classList.add('text-2xl', 'font-bold');
-    } else {
-        textarea.classList.remove('text-2xl', 'font-bold');
-        textarea.classList.add('text-sm');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const textoSelecionado = textarea.value.substring(start, end);
+    
+    if (!textoSelecionado) {
+        alert("Selecione o título que deseja destacar.");
+        return;
     }
+    
+    // Envolve o texto selecionado com uma tag de destaque maior
+    const textoFormatado = `\n[--- ${textoSelecionado.toUpperCase()} ---]\n`;
+    const novoTexto = textarea.value.substring(0, start) + textoFormatado + textarea.value.substring(end);
+    
+    textarea.value = novoTexto;
+    textarea.dispatchEvent(new Event('input')); // Sincroniza com o Firebase
+    textarea.focus();
 }
 
 // ... restante do seu código do Firebase ...
