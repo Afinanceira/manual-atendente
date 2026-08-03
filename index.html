@@ -156,16 +156,13 @@
                     <span class="text-slate-500">Atualização instantânea para a equipe</span>
                 </div>
 
-                <!-- Barra de Ferramentas de Formatação -->
+                <!-- Barra de Ferramentas Simplificada -->
                 <div class="flex items-center gap-2 bg-slate-950 p-2 rounded-xl border border-slate-800/80">
-                    <button type="button" onclick="formatarTexto('**', '**')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                    <button type="button" onclick="aplicarNegrito()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5 cursor-pointer">
                         <i data-lucide="bold" class="w-3.5 h-3.5 text-amber-500"></i> Negrito
                     </button>
-                    <button type="button" onclick="formatarTexto('### ', '')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
-                        <i data-lucide="heading" class="w-3.5 h-3.5 text-amber-500"></i> Título
-                    </button>
-                    <button type="button" onclick="formatarTexto('- ', '')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5">
-                        <i data-lucide="list" class="w-3.5 h-3.5 text-amber-500"></i> Tópico
+                    <button type="button" onclick="alternarTamanho()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-lg transition flex items-center gap-1.5 cursor-pointer">
+                        <i data-lucide="type" class="w-3.5 h-3.5 text-amber-500"></i> Aumentar Letra
                     </button>
                 </div>
 
@@ -175,7 +172,7 @@
                 <div class="flex items-center justify-between pt-2">
                     <span class="text-xs text-slate-500 italic">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
                     <button id="btnLimparAvisos" class="bg-red-600/90 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-red-900/20 cursor-pointer">
-                        <i data-lucide="trash-2" class="w-4 h-4"></i> Limpar Avisos do Dia
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>Limpar Avisos do Dia
                     </button>
                 </div>
             </div>
@@ -1384,19 +1381,35 @@ window.switchTab = function(tabId) {
     }
 }
 
-// Função para formatar o texto (Negrito, Título, Tópico) e salvar no Firebase
-window.formatarTexto = function(inicioTag, fimTag) {
+// Função para colocar negrito no texto selecionado
+window.aplicarNegrito = function() {
     const textarea = document.getElementById('avisoDiario');
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const textoSelecionado = textarea.value.substring(start, end);
     
-    const novoTexto = textarea.value.substring(0, start) + inicioTag + textoSelecionado + fimTag + textarea.value.substring(end);
+    if (!textoSelecionado) return; // Se não selecionar nada, não faz nada
     
+    const novoTexto = textarea.value.substring(0, start) + '**' + textoSelecionado + '**' + textarea.value.substring(end);
     textarea.value = novoTexto;
-    textarea.dispatchEvent(new Event('input')); // Sincroniza com o Firebase
+    textarea.dispatchEvent(new Event('input'));
     textarea.focus();
-    textarea.setSelectionRange(start + inicioTag.length, end + inicioTag.length);
+    textarea.setSelectionRange(start + 2, end + 2);
+}
+
+// Função para alternar o tamanho da letra da caixa inteira (Normal <-> Grande)
+window.alternarTamanho = function() {
+    const textarea = document.getElementById('avisoDiario');
+    if (textarea.classList.contains('text-sm')) {
+        textarea.classList.remove('text-sm');
+        textarea.classList.add('text-lg', 'font-medium');
+    } else if (textarea.classList.contains('text-lg')) {
+        textarea.classList.remove('text-lg', 'font-medium');
+        textarea.classList.add('text-2xl', 'font-bold');
+    } else {
+        textarea.classList.remove('text-2xl', 'font-bold');
+        textarea.classList.add('text-sm');
+    }
 }
 
 // ... restante do seu código do Firebase ...
