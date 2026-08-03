@@ -131,27 +131,42 @@
 
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
-
-      <!-- TAB 0: DASHBOARD -->
-        <section id="tab-dashboard" class="tab-content active space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-black text-white flex items-center gap-3">
-                    <i data-lucide="layout-dashboard" class="w-7 h-7 text-amber-500"></i>
-                    Quadro de Avisos e Atualizações Diárias
-                </h2>
-                <p class="text-sm text-slate-400 mt-1">Painel de comunicação direta dos superiores para a equipe de atendimento.</p>
+    
+       <!-- TAB 0: DASHBOARD -->
+      <section id="tab-dashboard" class="tab-content active space-y-6">
+            <div class="border-b border-slate-800/80 pb-4 flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                        <i data-lucide="layout-dashboard" class="w-7 h-7 text-amber-500"></i>
+                        Quadro de Avisos e Atualizações Diárias
+                    </h2>
+                    <p class="text-sm text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
+                </div>
+                <div class="hidden md:flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-lg text-amber-400 text-xs font-bold">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                    Sincronizado em Tempo Real
+                </div>
             </div>
 
-            <div class="bg-slate-900/80 p-6 rounded-xl border border-slate-800 space-y-4">
-                <textarea id="avisoDiario" rows="6" placeholder="Digite os avisos, atualizações e diretrizes do dia aqui..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-4 text-sm focus:outline-none focus:border-amber-500 resize-y"></textarea>
+            <div class="bg-gradient-to-br from-slate-900/90 to-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+                <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider px-1">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="edit-3" class="w-4 h-4 text-amber-500"></i> Mensagem do Gestor / Supervisor
+                    </span>
+                    <span class="text-slate-500">Atualização instantânea para a equipe</span>
+                </div>
+
+                <!-- Caixa de texto expandida (rows="12") para evitar rolagem -->
+                <textarea id="avisoDiario" rows="12" placeholder="Digite os avisos, atualizações e diretrizes do dia aqui..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 resize-y shadow-inner transition"></textarea>
                 
-                <div class="flex justify-end">
-                    <button id="btnLimparAvisos" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer">
+                <div class="flex items-center justify-between pt-2">
+                    <span class="text-xs text-slate-500 italic">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
+                    <button id="btnLimparAvisos" class="bg-red-600/90 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-red-900/20 cursor-pointer">
                         <i data-lucide="trash-2" class="w-4 h-4"></i> Limpar Avisos do Dia
                     </button>
                 </div>
             </div>
-        </section>
+      </section>
       
       <!-- TAB 1: TOM DE VOZ, DICIONÁRIO E REGRAS DE COMUNICAÇÃO -->
       <section id="tab-diretrizes" class="tab-content space-y-6">
@@ -1310,6 +1325,29 @@
       messagingSenderId: "612241634323",
       appId: "1:612241634323:web:729a8ac37184eb92b47be6"
     };
+
+  // Função global para alternar entre as abas e atualizar o menu lateral
+window.switchTab = function(tabId) {
+    document.querySelectorAll('.tab-content').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
+        btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'font-medium');
+    });
+
+    const targetSection = document.getElementById('tab-' + tabId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+
+    const targetBtn = document.getElementById('btn-' + tabId);
+    if (targetBtn) {
+        targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
+        targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
+    }
+}
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
