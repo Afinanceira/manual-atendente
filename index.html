@@ -113,6 +113,14 @@
             <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold">12 TÓPICOS</span>
           </div>
         </button>
+
+        <button onclick="switchTab('jogo-responsavel')" id="btn-jogo-responsavel" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+    <div class="flex items-center gap-3">
+        <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i>
+        <span>Jogo Responsável</span>
+    </div>
+    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+</button>
       </nav>
 
       <!-- Card LGPD Fixo na Sidebar -->
@@ -1242,7 +1250,111 @@
 
         </div>
       </section>
+<!-- TAB: JOGO RESPONSÁVEL E ACOLHIMENTO -->
+<section id="tab-jogo-responsavel" class="tab-content space-y-6 hidden">
+    <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="shield-alert" class="w-7 h-7 text-amber-500"></i>
+            Protocolo de Jogo Responsável e Acolhimento
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">Manual de campo para atuação na linha de frente em conformidade com a Portaria SPA/MF nº 1.231/2024.</p>
+    </div>
 
+    <!-- Por que você é importante? -->
+    <div class="bg-gradient-to-br from-amber-500/10 to-slate-900/60 border border-amber-500/30 p-5 rounded-2xl space-y-2">
+        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+            <i data-lucide="award" class="w-5 h-5"></i> Por que você é a peça mais importante?
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+            Você é a linha de frente. O sistema não vê o tom de voz, a hesitação ou o desespero por trás das palavras, mas você vê. É no seu atendimento que conseguimos identificar o momento exato em que a diversão se torna um problema. Quando você identifica um caso de ludopatia, você não está apenas seguindo um processo; você está evitando impactos graves na vida de alguém.
+        </p>
+    </div>
+
+    <!-- Identificando o Problema -->
+    <div class="space-y-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="search" class="w-5 h-5 text-amber-500"></i> Identificando o Problema: As Expressões de Risco
+        </h3>
+        <p class="text-xs text-slate-400">A ludopatia nem sempre vem com um aviso claro. Fique atento a estes padrões comportamentais e expressões de alerta:</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Card 1 -->
+            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">O "Financeiro Desesperado"</span>
+                <p class="text-xs text-slate-400">Sinais de impacto nas finanças essenciais:</p>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
+                    <li>"Usei o dinheiro do [aluguel / mercado / faculdade / cartão] para apostar."</li>
+                    <li>"Preciso recuperar o que perdi a qualquer custo."</li>
+                    <li>"Estou desesperado(a) com as contas por causa das apostas."</li>
+                </ul>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Perda de Controle / Compulsão</span>
+                <p class="text-xs text-slate-400">Relatos de incapacidade de parar:</p>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
+                    <li>"Não consigo parar de apostar."</li>
+                    <li>"Passo a noite inteira nisso e não consigo controlar."</li>
+                    <li>"Já tentei me autoexcluir, mas voltei a criar conta."</li>
+                </ul>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Culpa e Arrependimento Extremo</span>
+                <p class="text-xs text-slate-400">Sofrimento intenso após apostar:</p>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
+                    <li>"Sou um lixo por ter feito isso de novo."</li>
+                    <li>"Minha família vai me abandonar se souber o que fiz."</li>
+                    <li>"Deveria ter parado antes de chegar a esse ponto."</li>
+                </ul>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Pedido de Ajuda Implícito</span>
+                <p class="text-xs text-slate-400">Clientes presos em um ciclo de culpa:</p>
+                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
+                    <li>"Cancele minha aposta agora, por favor, fiz sem pensar."</li>
+                    <li>"Quero encerrar minha conta agora, estou com problemas."</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Passo a Passo -->
+    <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl space-y-3">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="list-checks" class="w-5 h-5 text-amber-500"></i> Passo a Passo: O Método de Ação
+        </h3>
+        <div class="space-y-2 text-xs text-slate-300">
+            <p><strong>1. Consulte o Histórico (Obrigatório):</strong> Nunca avalie o atendimento de forma isolada. Verifique se o cliente já pediu bloqueio antes ou se há um padrão recorrente.</p>
+            <p><strong>2. Acolhimento Humanizado:</strong> Use uma linguagem empática e acolhedora. Evite frases robóticas e mostre que a empresa possui ferramentas de apoio.</p>
+            <p><strong>3. Encaminhamento EBAC:</strong> Direcione o cliente para o link de Jogo Responsável da marca correspondente.</p>
+            <p><strong>4. Uso dos Atalhos:</strong> Utilize os atalhos atualizados (PIXBET, GANHEIBET ou BETDASORTE) para registrar a tratativa com conformidade.</p>
+            <p><strong>5. Solicitação de Bloqueio:</strong> Acesse o canal <code class="bg-slate-950 px-1.5 py-0.5 rounded text-amber-400">ebac-bloqueio</code>, use o template oficial e envie os detalhes para o bloqueio preventivo.</p>
+        </div>
+    </div>
+
+    <!-- Tomada de Decisão -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+            <span class="text-xs font-bold text-blue-400 uppercase">Em caso de dúvida</span>
+            <p class="text-xs text-slate-300">Se o relato é confuso ou se o cliente oscila muito, consulte seu supervisor imediatamente. Não finalize o atendimento sem seguir o protocolo.</p>
+        </div>
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
+            <span class="text-xs font-bold text-red-400 uppercase">Se o cliente retornar</span>
+            <p class="text-xs text-slate-300">Caso retorne pedindo reativação ou tirando dúvidas após o bloqueio: <strong>não prossiga</strong>. Marque o @Gerente no atendimento.</p>
+        </div>
+    </div>
+
+    <!-- Lembretes de Ouro -->
+    <div class="bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl space-y-1">
+        <span class="text-xs font-bold text-amber-400 uppercase">⚠️ Lembretes de Ouro</span>
+        <p class="text-xs text-slate-300">Não julgue, seja consistente com a Portaria 1.231/2024 e lembre-se de que a consulta ao histórico é sua melhor ferramenta de proteção.</p>
+    </div>
+</section>
     </main>
   </div>
 
