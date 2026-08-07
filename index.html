@@ -140,7 +140,7 @@
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
     
-   <!-- TAB 0: DASHBOARD -->
+<!-- TAB 0: DASHBOARD -->
 <section id="tab-dashboard" class="tab-content space-y-6">
     <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
         <div>
@@ -151,18 +151,20 @@
             <p class="text-sm text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
         </div>
         
-        <!-- Botão Discreto de Autenticação para o Gestor -->
-        <div id="containerLoginGestor" class="flex items-center gap-2">
-            <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
-          <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
-                <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
-            </button>
-
-            <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
+        <!-- Bloco de Autenticação do Gestor -->
+        <div class="flex items-center gap-2">
+            <div id="containerLoginGestor" class="flex items-center gap-2">
+                <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
+                <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
+                    <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
+                </button>
+                <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
+            </div>
+            
+            <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden flex items-center gap-1">
+                <i data-lucide="unlock" class="w-4 h-4"></i> Modo Gestor Ativo
+            </span>
         </div>
-        <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden flex items-center gap-1">
-            <i data-lucide="unlock" class="w-4 h-4"></i> Modo Gestor Ativo
-        </span>
     </div>
 
     <!-- Caixa de Avisos (Visível para todos em tempo real) -->
@@ -1496,32 +1498,52 @@ window.switchTab = function(tabId) {
         targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
     }
 }
-// Função de Senha do Gestor (Desbloqueia escrita e botão de limpar)
-const SENHA_GESTOR = "369";
-
+// Função de Senha do Gestor Direta e Global
 window.verificarSenhaGestor = function() {
-    const senhaDigitada = document.getElementById('inputSenhaGestor').value;
+    const senhaInput = document.getElementById('inputSenhaGestor');
+    const erroMsg = document.getElementById('erroSenha');
+    const containerLogin = document.getElementById('containerLoginGestor');
     const textareaAviso = document.getElementById('avisoDiario');
     const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
-    const containerLogin = document.getElementById('containerLoginGestor');
-    const statusGestor = document.getElementById('statusGestor');
 
-    if (senhaDigitada === "369") {
-        // Desbloqueia escrita
-        if (textareaAviso) textareaAviso.removeAttribute('readonly');
+    if (!senhaInput) return;
+
+    // Defina sua senha aqui (ex: 369)
+    if (senhaInput.value === "369") {
+        if (textareaAviso) {
+            textareaAviso.removeAttribute('readonly');
+            textareaAviso.classList.remove('cursor-default');
+            textareaAviso.classList.add('focus:border-amber-500', 'focus:ring-1', 'focus:ring-amber-500/50');
+        }
         
-        // Exibe o botão de limpar
-        if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
+        if (painelBotaoLimpar) {
+            painelBotaoLimpar.classList.remove('hidden');
+        }
         
-        // Oculta o login
-        if (containerLogin) containerLogin.classList.add('hidden');
-        if (statusGestor) statusGestor.classList.remove('hidden');
-        
-        console.log("Acesso liberado!");
+        if (containerLogin) {
+            containerLogin.style.display = 'none'; // Oculta o campo de senha após logar
+        }
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     } else {
-        alert("Senha incorreta!");
+        if (erroMsg) erroMsg.classList.remove('hidden');
+        senhaInput.value = '';
     }
 };
+
+// Permite apertar Enter para enviar a senha
+document.addEventListener('DOMContentLoaded', () => {
+    const inputSenha = document.getElementById('inputSenhaGestor');
+    if (inputSenha) {
+        inputSenha.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                verificarSenhaGestor();
+            }
+        });
+    }
+});
 // Função para colocar negrito real apenas no texto selecionado
 window.aplicarNegrito = function() {
     const textarea = document.getElementById('avisoDiario');
