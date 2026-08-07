@@ -177,15 +177,14 @@
         <!-- Caixa de texto (Inicia bloqueada para escrita com 'readonly', mas exibe o conteúdo sincronizado) -->
         <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none resize-y shadow-inner transition cursor-default"></textarea>
         
-        <!-- Este bloco deve estar dentro da sua seção do Dashboard -->
-<div id="painelBotaoLimpar" class="w-full flex flex-col items-center justify-center pt-2 space-y-1.5 hidden">
-    <div class="flex justify-center w-full">
-        <button id="btnLimparAvisos" onclick="limparAvisos()" class="bg-red-600/90 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-red-900/20 cursor-pointer">
-            <i data-lucide="trash-2" class="w-3.5 h-1.5"></i>
-            <span>Limpar Avisos</span>
-        </button>
-    </div>
-</div>
+       <!-- Rodapé e Botão de Limpar (Protegido por senha) -->
+        <div id="painelBotaoLimpar" class="w-full flex flex-col items-center justify-center pt-2 space-y-1.5 hidden">
+            <div class="flex justify-center w-full">
+                <button id="btnLimparAvisos" onclick="limparAvisos()" class="bg-red-600/90 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-red-900/20 cursor-pointer">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    <span>Limpar Avisos</span>
+                </button>
+            </div>
             <span class="text-[11px] text-slate-500 italic text-center">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
         </div>
     </div>
