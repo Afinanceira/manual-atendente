@@ -154,10 +154,10 @@
         <!-- Botão Discreto de Autenticação para o Gestor -->
         <div id="containerLoginGestor" class="flex items-center gap-2">
             <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
-           <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
-    <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
-</button>
+          <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
             </button>
+
             <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
         </div>
         <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden flex items-center gap-1">
@@ -1499,33 +1499,29 @@ window.switchTab = function(tabId) {
 // Função de Senha do Gestor (Desbloqueia escrita e botão de limpar)
 const SENHA_GESTOR = "369";
 
-function verificarSenhaGestor() {
+window.verificarSenhaGestor = function() {
     const senhaDigitada = document.getElementById('inputSenhaGestor').value;
-    const erroMsg = document.getElementById('erroSenha');
-    const containerLogin = document.getElementById('containerLoginGestor');
-    const statusGestor = document.getElementById('statusGestor');
     const textareaAviso = document.getElementById('avisoDiario');
     const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+    const containerLogin = document.getElementById('containerLoginGestor');
+    const statusGestor = document.getElementById('statusGestor');
 
-    if (senhaDigitada === SENHA_GESTOR) {
-        // Remove o bloqueio de escrita da caixa de texto
-        textareaAviso.removeAttribute('readonly');
-        textareaAviso.classList.remove('cursor-default');
-        textareaAviso.classList.add('focus:border-amber-500', 'focus:ring-1', 'focus:ring-amber-500/50');
+    if (senhaDigitada === "369") {
+        // Desbloqueia escrita
+        if (textareaAviso) textareaAviso.removeAttribute('readonly');
         
-        // Mostra o botão de limpar e oculta a barra de login
-        painelBotaoLimpar.classList.remove('hidden');
-        containerLogin.classList.add('hidden');
-        statusGestor.classList.remove('hidden');
-
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
+        // Exibe o botão de limpar
+        if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
+        
+        // Oculta o login
+        if (containerLogin) containerLogin.classList.add('hidden');
+        if (statusGestor) statusGestor.classList.remove('hidden');
+        
+        console.log("Acesso liberado!");
     } else {
-        erroMsg.classList.remove('hidden');
-        document.getElementById('inputSenhaGestor').value = '';
+        alert("Senha incorreta!");
     }
-}
+};
 // Função para colocar negrito real apenas no texto selecionado
 window.aplicarNegrito = function() {
     const textarea = document.getElementById('avisoDiario');
