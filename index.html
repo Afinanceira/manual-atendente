@@ -1611,6 +1611,21 @@ window.aumentarTitulo = function() {
             textareaAviso.value = valor;
         }
     });
+  // Garante que a página sempre inicie bloqueada para edição
+document.addEventListener('DOMContentLoaded', () => {
+    const textareaAviso = document.getElementById('avisoDiario');
+    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+    const containerLogin = document.getElementById('containerLoginGestor');
+    const statusGestor = document.getElementById('statusGestor');
+
+    if (textareaAviso) {
+        textareaAviso.setAttribute('readonly', true);
+        textareaAviso.classList.add('cursor-default');
+    }
+    if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
+    if (containerLogin) containerLogin.style.display = 'flex';
+    if (statusGestor) statusGestor.classList.add('hidden');
+});
 </script>
                 
 </body>
