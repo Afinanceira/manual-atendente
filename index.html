@@ -140,36 +140,32 @@
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
     
-    <!-- TAB 0: DASHBOARD (Com Proteção de Senha para Edição) -->
+   <!-- TAB 0: DASHBOARD -->
 <section id="tab-dashboard" class="tab-content space-y-6">
-    <div class="border-b border-slate-800 pb-4">
-        <h2 class="text-2xl font-black text-white flex items-center gap-3">
-            <i data-lucide="layout-dashboard" class="w-7 h-7 text-amber-500"></i>
-            Quadro de Avisos e Atualizações Diárias
-        </h2>
-        <p class="text-sm text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
-    </div>
-
-    <!-- Tela de Autenticação (Senha do Gestor) -->
-    <div id="painelLoginGestor" class="bg-slate-900/90 border border-amber-500/30 p-8 rounded-2xl max-w-md mx-auto text-center space-y-4 shadow-xl">
-        <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-xl flex items-center justify-center mx-auto">
-            <i data-lucide="lock" class="w-6 h-6"></i>
-        </div>
+    <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
         <div>
-            <h3 class="text-base font-bold text-white">Área Restrita a Gestores</h3>
-            <p class="text-xs text-slate-400 mt-1">Digite a senha corporativa para liberar a edição do canal de avisos.</p>
+            <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                <i data-lucide="layout-dashboard" class="w-7 h-7 text-amber-500"></i>
+                Quadro de Avisos e Atualizações Diárias
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
         </div>
-        <div class="space-y-3">
-            <input type="password" id="inputSenhaGestor" placeholder="Digite a senha..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-center focus:outline-none focus:border-amber-500">
-            <button onclick="verificarSenhaGestor()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition cursor-pointer">
-                Desbloquear Edição
+        
+        <!-- Botão Discreto de Autenticação para o Gestor -->
+        <div id="containerLoginGestor" class="flex items-center gap-2">
+            <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
+            <button onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
+                <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
             </button>
-            <p id="erroSenha" class="text-xs text-red-400 hidden">Senha incorreta. Tente novamente.</p>
+            <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
         </div>
+        <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden flex items-center gap-1">
+            <i data-lucide="unlock" class="w-4 h-4"></i> Modo Gestor Ativo
+        </span>
     </div>
 
-    <!-- Conteúdo Protegido (Só aparece após a senha correta) -->
-    <div id="conteudoProtegidoAvisos" class="bg-gradient-to-br from-slate-900/90 to-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4 hidden">
+    <!-- Caixa de Avisos (Visível para todos em tempo real) -->
+    <div class="bg-gradient-to-br from-slate-900/90 to-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
         <div class="flex items-center justify-between">
             <span class="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider px-1">
                 <i data-lucide="edit-3" class="w-4 h-4 text-amber-500"></i> Mensagem do Gestor / Supervisor
@@ -177,18 +173,18 @@
             <span class="text-slate-500 text-xs">Atualização instantânea para a equipe</span>
         </div>
 
-        <!-- Caixa de texto -->
-        <textarea id="avisoDiario" rows="18" placeholder="Digite os avisos, atualizações e diretrizes do dia aqui..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/50 resize-y shadow-inner transition"></textarea>
+        <!-- Caixa de texto (Inicia bloqueada para escrita com 'readonly', mas exibe o conteúdo sincronizado) -->
+        <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none resize-y shadow-inner transition cursor-default"></textarea>
         
-        <!-- Rodapé com Botão Centralizado -->
-        <div class="w-full flex flex-col items-center justify-center pt-1.5 space-y-1.5">
+        <!-- Rodapé com Botão de Limpar (Inicia oculto/desativado para atendentes) -->
+        <div id="painelBotaoLimpar" class="w-full flex flex-col items-center justify-center pt-2 space-y-1.5 hidden">
             <div class="flex justify-center w-full">
-                <button id="btnLimparAvisos" class="bg-red-600/90 hover:bg-red-600 text-white px-5 py-2.0 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-red-900/20 cursor-pointer">
-                    <i data-lucide="trash-2" class="w-3,5 h-3,5"></i>
-                    <span>Limpar Avisos</span>
+                <button id="btnLimparAvisos" class="bg-red-600/90 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-red-900/20 cursor-pointer">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                    <span>Limpar Avisos do Dia</span>
                 </button>
             </div>
-            <span class="text-xs text-slate-500 italic text-center">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
+            <span class="text-[11px] text-slate-500 italic text-center">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
         </div>
     </div>
 </section>
@@ -1499,18 +1495,28 @@ window.switchTab = function(tabId) {
         targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
     }
 }
-// Função de Senha do Gestor
-const SENHA_GESTOR = "253017";
+// Função de Senha do Gestor (Desbloqueia escrita e botão de limpar)
+const SENHA_GESTOR = "369";
 
 function verificarSenhaGestor() {
     const senhaDigitada = document.getElementById('inputSenhaGestor').value;
     const erroMsg = document.getElementById('erroSenha');
-    const painelLogin = document.getElementById('painelLoginGestor');
-    const conteudoProtegido = document.getElementById('conteudoProtegidoAvisos');
+    const containerLogin = document.getElementById('containerLoginGestor');
+    const statusGestor = document.getElementById('statusGestor');
+    const textareaAviso = document.getElementById('avisoDiario');
+    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
 
     if (senhaDigitada === SENHA_GESTOR) {
-        painelLogin.style.display = 'none';
-        conteudoProtegido.classList.remove('hidden');
+        // Remove o bloqueio de escrita da caixa de texto
+        textareaAviso.removeAttribute('readonly');
+        textareaAviso.classList.remove('cursor-default');
+        textareaAviso.classList.add('focus:border-amber-500', 'focus:ring-1', 'focus:ring-amber-500/50');
+        
+        // Mostra o botão de limpar e oculta a barra de login
+        painelBotaoLimpar.classList.remove('hidden');
+        containerLogin.classList.add('hidden');
+        statusGestor.classList.remove('hidden');
+
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
