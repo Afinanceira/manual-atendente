@@ -154,8 +154,9 @@
         <!-- Botão Discreto de Autenticação para o Gestor -->
         <div id="containerLoginGestor" class="flex items-center gap-2">
             <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
-            <button onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
-                <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
+           <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
+    <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
+</button>
             </button>
             <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
         </div>
@@ -176,14 +177,15 @@
         <!-- Caixa de texto (Inicia bloqueada para escrita com 'readonly', mas exibe o conteúdo sincronizado) -->
         <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800/80 rounded-xl p-5 text-sm focus:outline-none resize-y shadow-inner transition cursor-default"></textarea>
         
-        <!-- Rodapé com Botão de Limpar (Inicia oculto/desativado para atendentes) -->
-        <div id="painelBotaoLimpar" class="w-full flex flex-col items-center justify-center pt-2 space-y-1.5 hidden">
-            <div class="flex justify-center w-full">
-                <button id="btnLimparAvisos" class="bg-red-600/90 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-red-900/20 cursor-pointer">
-                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                    <span>Limpar Avisos do Dia</span>
-                </button>
-            </div>
+        <!-- Este bloco deve estar dentro da sua seção do Dashboard -->
+<div id="painelBotaoLimpar" class="w-full flex flex-col items-center justify-center pt-2 space-y-1.5 hidden">
+    <div class="flex justify-center w-full">
+        <button id="btnLimparAvisos" onclick="limparAvisos()" class="bg-red-600/90 hover:bg-red-600 text-white px-5 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-md shadow-red-900/20 cursor-pointer">
+            <i data-lucide="trash-2" class="w-3.5 h-1.5"></i>
+            <span>Limpar Avisos</span>
+        </button>
+    </div>
+</div>
             <span class="text-[11px] text-slate-500 italic text-center">As alterações são refletidas na tela de todos os atendentes simultaneamente.</span>
         </div>
     </div>
