@@ -1499,7 +1499,26 @@ window.switchTab = function(tabId) {
         targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
     }
 }
+// Função de Senha do Gestor
+const SENHA_GESTOR = "253017";
 
+function verificarSenhaGestor() {
+    const senhaDigitada = document.getElementById('inputSenhaGestor').value;
+    const erroMsg = document.getElementById('erroSenha');
+    const painelLogin = document.getElementById('painelLoginGestor');
+    const conteudoProtegido = document.getElementById('conteudoProtegidoAvisos');
+
+    if (senhaDigitada === SENHA_GESTOR) {
+        painelLogin.style.display = 'none';
+        conteudoProtegido.classList.remove('hidden');
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    } else {
+        erroMsg.classList.remove('hidden');
+        document.getElementById('inputSenhaGestor').value = '';
+    }
+}
 // Função para colocar negrito real apenas no texto selecionado
 window.aplicarNegrito = function() {
     const textarea = document.getElementById('avisoDiario');
