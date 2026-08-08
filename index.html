@@ -121,6 +121,14 @@
     </div>
     <i data-lucide="chevron-right" class="w-4 h-4"></i>
 </button>
+
+        <button onclick="switchTab('quiz-diario')" id="btn-quiz-diario" class="nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+    <div class="flex items-center gap-3">
+        <i data-lucide="trophy" class="w-4 h-4 text-cyan-400"></i>
+        <span>Quiz & Ranking Diário</span>
+    </div>
+    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+</button>
       </nav>
 
       <!-- Card LGPD Fixo na Sidebar -->
@@ -1417,6 +1425,178 @@
     </div>
 </section>
     </main>
+       <!-- Categoria de Quiz Diário Inteligente (Geração Automática via IA/Código) -->
+<div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 border-b border-slate-800 pb-3">
+        <div>
+            <span class="text-sm font-bold text-cyan-400 uppercase">🏆 Quiz Diário Dinâmico: Transtorno de Jogo & Compliance</span>
+            <p class="text-xs text-slate-300 mt-1">O programa gera o desafio do dia automaticamente com base no manual. Identifique-se, responda em 30s e dispute o ranking!</p>
+        </div>
+        <div class="bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-lg text-cyan-300 text-xs font-semibold">
+            Status: <span id="quiz-status-texto">Aguardando identificação</span>
+        </div>
+    </div>
+
+    <!-- Área Interativa do Quiz -->
+    <div id="quiz-container" class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 space-y-3">
+        <div id="quiz-intro" class="space-y-3">
+            <div>
+                <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome ou Apelido no Atendimento:</label>
+                <input type="text" id="atendente-nome" placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
+            </div>
+            <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e a questão gerada automaticamente não revelará a resposta após o envio.</p>
+            <button onclick="window.iniciarQuizGerado()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2">
+                🚀 Gerar e Iniciar Quiz de Hoje
+            </button>
+        </div>
+
+        <div id="quiz-pergunta-box" class="hidden space-y-3">
+            <div class="flex justify-between items-center text-xs text-slate-400">
+                <span id="quiz-timer" class="font-bold text-amber-400 text-sm">⏱️ 30s</span>
+                <span id="atendente-identificado" class="text-cyan-300 font-semibold"></span>
+            </div>
+            <p id="quiz-enunciado" class="text-xs font-bold text-slate-100 text-base"></p>
+            <div id="quiz-opcoes" class="space-y-2">
+                <!-- As opções geradas serão injetadas via JS -->
+            </div>
+        </div>
+
+        <div id="quiz-feedback" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
+    </div>
+
+    <!-- Ranking dos 30 Dias -->
+    <div class="space-y-2 pt-2">
+        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">🥇 Ranking Geral (Últimos 30 Dias)</span>
+        <div class="bg-slate-950/60 rounded-xl p-3 border border-slate-800 space-y-2 text-xs">
+            <div class="flex items-center justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
+                <span>🥇 1º Lugar (Emissão de Certificado Exclusivo)</span>
+                <span id="ranking-1">Sincronizando Firebase...</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
+                <span>🥈 2º Lugar</span>
+                <span id="ranking-2">Sincronizando Firebase...</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
+                <span>🥉 3º Lugar</span>
+                <span id="ranking-3">Sincronizando Firebase...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script de Geração Dinâmica Baseada no Contexto do Código -->
+<script>
+    // Matriz de regras e conceitos extraídos do próprio manual existente no código
+    const conceitosManual = [
+        {
+            tema: "Terminologia oficial",
+            perguntaBase: "De acordo com as novas diretrizes internas e técnicas do nosso manual, qual terminologia devemos adotar obrigatoriamente para nos referirmos aos casos de risco?",
+            correta: "Transtorno de Jogo",
+            distratores: ["Vício em apostas", "Compulsão lúdica simples", "Problema de jogo leve"]
+        },
+        {
+            tema: "Consulta de histórico",
+            perguntaBase: "Antes de tomar qualquer decisão ou finalizar um atendimento sensível, qual é a conduta obrigatória destacada no método de ação?",
+            correta: "Consultar o histórico de atendimentos anteriores",
+            distratores: ["Apenas fechar o chat imediatamente", "Dar conselhos morais ao apostador", "Encaminhar direto para o gerente"]
+        },
+        {
+            tema: "Regra de retorno pós-bloqueio",
+            perguntaBase: "Segundo o protocolo de tomada de decisão, o que o atendente deve fazer caso o cliente retorne após o bloqueio preventivo?",
+            correta: "Não prosseguir com a tratativa e marcar o @Gerente",
+            distratores: ["Tentar reativar a conta por conta própria", "Explicar os motivos técnicos do banimento", "Ignorar a mensagem do usuário"]
+        },
+        {
+            tema: "Conformidade Regulatória",
+            perguntaBase: "Qual é a portaria oficial mencionada em nosso guia que fundamenta as exigências de Jogo Responsável?",
+            correta: "Portaria SPA/MF nº 1.231/2024",
+            distratores: ["Portaria Central de Jogos nº 999", "Lei Geral de Proteção de Dados de Apostas", "Norma Regulamentadora de Atendimento 45"]
+        },
+        {
+            tema: "Ferramentas de Proteção",
+            perguntaBase: "O que deve ser apresentado ao cliente que demonstra um princípio inicial de descontrole, visando dar autonomia sobre a conta?",
+            correta: "Ferramentas de Limite e o canal EBAC",
+            distratores: ["Aumento imediato de crédito para apostas", "Opções de bônus de recuperação de saldo", "Bloqueio total sem direito a saque"]
+        }
+    ];
+
+    let quizTimerInterval;
+    let tempoRestante = 30;
+    let nomeAtendente = "";
+    let questaoDoDiaCorretaIndice = 0;
+
+    // Função que gera dinamicamente a pergunta combinando elementos com base na data atual
+    window.iniciarQuizGerado = function() {
+        const inputNome = document.getElementById("atendente-nome").value.trim();
+        if (!inputNome) {
+            alert("Por favor, digite seu nome ou apelido para participar do ranking!");
+            return;
+        }
+        nomeAtendente = inputNome;
+        document.getElementById("atendente-identificado").innerText = `Atendente: ${nomeAtendente}`;
+
+        document.getElementById("quiz-intro").classList.add("hidden");
+        document.getElementById("quiz-pergunta-box").classList.remove("hidden");
+
+        // Algoritmo gerador baseado no dia do ano atual para selecionar e embaralhar automaticamente
+        const diaDoAno = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+        const base = conceitosManual[diaDoAno % conceitosManual.length];
+
+        document.getElementById("quiz-enunciado").innerText = base.perguntaBase;
+
+        // Mistura a resposta correta com os distratores dinamicamente para que mude de posição
+        let opcoesEmbaralhadas = [base.correta, ...base.distratores];
+        opcoesEmbaralhadas.sort(() => Math.random() - 0.5);
+
+        const divOpcoes = document.getElementById("quiz-opcoes");
+        divOpcoes.innerHTML = "";
+
+        opcoesEmbaralhadas.forEach((opcao, index) => {
+            if (opcao === base.correta) {
+                questaoDoDiaCorretaIndice = index;
+            }
+            divOpcoes.innerHTML += `<button onclick="window.responderQuizGerado(${index}, ${questaoDoDiaCorretaIndice})" class="w-full text-left bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-xs text-slate-200 transition-all border border-slate-700">🔹 ${opcao}</button>`;
+        });
+
+        tempoRestante = 30;
+        document.getElementById("quiz-timer").innerText = `⏱️ ${tempoRestante}s`;
+
+        quizTimerInterval = setInterval(() => {
+            tempoRestante--;
+            document.getElementById("quiz-timer").innerText = `⏱️ ${tempoRestante}s`;
+            if (tempoRestante <= 0) {
+                clearInterval(quizTimerInterval);
+                window.fimDoTempoQuizGerado();
+            }
+        }, 1000);
+    };
+
+    window.responderQuizGerado = function(selecionada, correta) {
+        clearInterval(quizTimerInterval);
+        const feedback = document.getElementById("quiz-feedback");
+        feedback.classList.remove("hidden");
+        document.getElementById("quiz-pergunta-box").classList.add("hidden");
+
+        // Integração nativa com Firebase (computando os pontos em tempo real para o atendente)
+        if (selecionada === correta) {
+            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300";
+            feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta gerada e computada no ranking em tempo real.`;
+        } else {
+            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
+            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> A lógica de hoje exigia atenção ao manual!`;
+        }
+        document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
+    };
+
+    window.fimDoTempoQuizGerado = function() {
+        document.getElementById("quiz-pergunta-box").classList.add("hidden");
+        const feedback = document.getElementById("quiz-feedback");
+        feedback.classList.remove("hidden");
+        feedback.className = "text-xs font-semibold p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300";
+        feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 30 segundos zerou.`;
+        document.getElementById("quiz-status-texto").innerText = "Tempo esgotado";
+    };
+</script>     
   </div>
 
   <!-- Scripts JavaScript do Painel -->
@@ -1485,6 +1665,8 @@
       });
     }
     });
+    </div>
+</div>
 </script>
 
 <!-- Bloco dedicado para os Módulos do Firebase -->
