@@ -1571,22 +1571,26 @@
         }, 1000);
     };
 
-    window.responderQuizGerado = function(selecionada, correta) {
-        clearInterval(quizTimerInterval);
-        const feedback = document.getElementById("quiz-feedback");
-        feedback.classList.remove("hidden");
-        document.getElementById("quiz-pergunta-box").classList.add("hidden");
+   window.responderQuizGerado = function(selecionada, correta) {
+    clearInterval(quizTimerInterval);
+    
+    // Oculta a caixa de perguntas e mostra o feedback
+    document.getElementById("quiz-pergunta-box").classList.add("hidden");
+    const feedback = document.getElementById("quiz-feedback");
+    feedback.classList.remove("hidden");
 
-        // Integração nativa com Firebase (computando os pontos em tempo real para o atendente)
-        if (selecionada === correta) {
-            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300";
-            feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta gerada e computada no ranking em tempo real.`;
-        } else {
-            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
-            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> A lógica de hoje exigia atenção ao manual!`;
-        }
-        document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
-    };
+    // Atualiza o texto de status no topo do card
+    document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
+
+    // Processa o acerto ou erro visualmente
+    if (selecionada === correta) {
+        feedback.className = "text-xs font-semibold p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300";
+        feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta gerada e computada no ranking em tempo real.`;
+    } else {
+        feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
+        feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> A lógica de hoje exigia atenção ao manual!`;
+    }
+};
 
     window.fimDoTempoQuizGerado = function() {
         document.getElementById("quiz-pergunta-box").classList.add("hidden");
