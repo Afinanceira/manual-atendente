@@ -1752,50 +1752,34 @@ function atualizarRankingFirebase(snapshot) {
       appId: "1:612241634323:web:729a8ac37184eb92b47be6"
     };
 
-  // Função global para alternar entre as abas e atualizar o menu lateral
-window.switchTab = function(tabId) {
-    document.querySelectorAll('.tab-content').forEach(section => {
-        section.classList.remove('active');
-    });
+// Função global única para alternar entre as abas e atualizar o menu lateral
+    window.switchTab = function(tabId) {
+        // Oculta todas as seções de conteúdo
+        document.querySelectorAll('.tab-content').forEach(section => {
+            section.classList.remove('active', 'block');
+            section.classList.add('hidden');
+        });
+        
+        // Remove o destaque de todos os botões do menu
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
+            btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'font-medium');
+        });
 
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-        btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-    });
+        // Exibe a seção clicada
+        const targetSection = document.getElementById('tab-' + tabId);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('block', 'active');
+        }
 
-    const targetSection = document.getElementById('tab-' + tabId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
-
-    const targetBtn = document.getElementById('btn-' + tabId);
-    if (targetBtn) {
-        targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-        targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-    }
-}
-// Função global para alternar entre as abas e atualizar o menu lateral
-window.switchTab = function(tabId) {
-    document.querySelectorAll('.tab-content').forEach(section => {
-        section.classList.remove('active');
-    });
-
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-        btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-    });
-
-    const targetSection = document.getElementById('tab-' + tabId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
-
-    const targetBtn = document.getElementById('btn-' + tabId);
-    if (targetBtn) {
-        targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-        targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-    }
-}
+        // Destaca o botão correspondente no menu
+        const targetBtn = document.getElementById('btn-' + tabId);
+        if (targetBtn) {
+            targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
+            targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
+        }
+    };
 // Função de Senha do Gestor Direta e Global
 window.verificarSenhaGestor = function() {
     const senhaInput = document.getElementById('inputSenhaGestor');
