@@ -159,22 +159,15 @@
             <p class="text-sm text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
         </div>
         
-        <!-- Bloco de Autenticação do Gestor -->
-        <div class="flex items-center gap-2">
-            <div id="containerLoginGestor" class="flex items-center gap-2">
-                <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
-                <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer flex items-center gap-1.5">
-                    <i data-lucide="lock" class="w-3.5 h-3.5"></i> Desbloquear
-                </button>
-                <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
-            </div>
-            
-            <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden flex items-center gap-1">
-                <i data-lucide="unlock" class="w-4 h-4"></i> Modo Gestor Ativo
-            </span>
-        </div>
-    </div>
-
+          <!-- Seção do Dashboard -->
+<div id="containerLoginGestor" class="flex items-center gap-2">
+    <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="w-36 bg-slate-950 text-white border border-slate-800 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-amber-500">
+    <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition cursor-pointer">
+        Desbloquear
+    </button>
+    <span id="erroSenha" class="text-[10px] text-red-400 hidden">Incorreta</span>
+</div>
+<span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden">Modo Gestor Ativo</span>
     <!-- Caixa de Avisos (Visível para todos em tempo real) -->
     <div class="bg-gradient-to-br from-slate-900/90 to-slate-900/60 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
         <div class="flex items-center justify-between">
@@ -1424,11 +1417,12 @@
         <p class="text-xs text-slate-300">Não julgue, seja consistente com a Portaria 1.231/2024 e lembre-se de que a consulta ao histórico é sua melhor ferramenta de proteção.</p>
     </div>
 </section>
-    </main>
-       <!-- Categoria de Quiz Diário Inteligente (Geração Automática via IA/Código) -->
-<div id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
-    <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
-        
+ <main>
+    <!-- Outras abas e conteúdos aqui -->
+
+    <!-- Categoria de Quiz Diário Inteligente -->
+    <div id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
+        <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
             <span class="text-sm font-bold text-cyan-400 uppercase">🏆 Quiz Diário Dinâmico: Transtorno de Jogo & Compliance</span>
             <p class="text-xs text-slate-300 mt-1">O programa gera o desafio do dia automaticamente com base no manual. Identifique-se, responda em 30s e dispute o ranking!</p>
         </div>
@@ -1436,13 +1430,15 @@
             Status: <span id="quiz-status-texto">Aguardando identificação</span>
         </div>
 
-    <!-- Área Interativa do Quiz -->
-    <div id="quiz-container" class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 space-y-3">
-        <div id="quiz-intro" class="space-y-3">
-            <div>
+       <!-- Área Interativa do Quiz -->
+        <div id="quiz-container" class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 space-y-3">
+            <div id="quiz-intro" class="space-y-3">
                 <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome ou Apelido no Atendimento:</label>
                 <input type="text" id="atendente-nome" placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
             </div>
+        </div>
+    </div>
+          
             <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e a questão gerada automaticamente não revelará a resposta após o envio.</p>
             <button onclick="window.iniciarQuizGerado()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2">
                 🚀 Gerar e Iniciar Quiz de Hoje
@@ -1462,10 +1458,11 @@
 
         <div id="quiz-feedback" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
     </div>
-
-    <!-- Ranking dos 30 Dias -->
+          
+            
+ <!-- Ranking dos 30 Dias -->
     <div class="space-y-2 pt-2">
-        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">🥇 Ranking Geral (Últimos 30 Dias)</span>
+        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">🏆 Ranking Geral (Últimos 30 Dias)</span>
         <div class="bg-slate-950/60 rounded-xl p-3 border border-slate-800 space-y-2 text-xs">
             <div class="flex items-center justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
                 <span>🥇 1º Lugar (Emissão de Certificado Exclusivo)</span>
@@ -1481,7 +1478,8 @@
             </div>
         </div>
     </div>
-</div>
+          </div>
+</main>
 
 <!-- Script de Geração Dinâmica Baseada no Contexto do Código -->
 <script>
@@ -1701,7 +1699,57 @@
 </script>
 <!-- Bloco dedicado para os Módulos do Firebase -->
 <script type="module">
+   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+  // Função de Senha do Gestor Direta e Global
+  
+window.verificarSenhaGestor = function() {
+    const senhaInput = document.getElementById('inputSenhaGestor');
+    const erroMsg = document.getElementById('erroSenha');
+    const containerLogin = document.getElementById('containerLoginGestor');
+    const textareaAviso = document.getElementById('avisoDiario');
+    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+    const statusGestor = document.getElementById('statusGestor');
+
+    if (!senhaInput) return;
+
+    if (senhaInput.value === "369") {
+        if (textareaAviso) {
+            textareaAviso.removeAttribute('readonly');
+            textareaAviso.classList.remove('cursor-default');
+            textareaAviso.classList.add('focus:border-amber-500', 'focus:ring-1', 'focus:ring-amber-500/50');
+        }
+        
+        if (painelBotaoLimpar) {
+            painelBotaoLimpar.classList.remove('hidden');
+        }
+        
+        if (containerLogin) {
+            containerLogin.style.display = 'none';
+        }
+
+        if (statusGestor) {
+            statusGestor.classList.remove('hidden');
+        }
+    } else {
+        if (erroMsg) {
+            erroMsg.classList.remove('hidden');
+        }
+        senhaInput.value = '';
+    }
+};
+
+// Este roda sozinho assim que a página abre para bloquear o campo
+document.addEventListener('DOMContentLoaded', () => {
+    const textareaAviso = document.getElementById('avisoDiario');
+    if (textareaAviso) {
+        textareaAviso.setAttribute('readonly', true);
+        textareaAviso.classList.add('cursor-default');
+    }
+});
+
+  
   // 1. Chave única para o dia atual (Ex: 'quiz_respondido_2026-08-07')
 const hojeStr = new Date().toISOString().split('T')[0];
 const chaveLocal = `quiz_respondido_${hojeStr}`;
@@ -1768,8 +1816,6 @@ function atualizarRankingFirebase(snapshot) {
     
     // Processa os dados reais do ranking aqui...
 }
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBtxvlcx4BPrTO-jBgxJFC6qsRq07zhKXg",
@@ -1795,40 +1841,6 @@ function atualizarRankingFirebase(snapshot) {
             targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
         }
     };
-// Função de Senha do Gestor Direta e Global
-window.verificarSenhaGestor = function() {
-    const senhaInput = document.getElementById('inputSenhaGestor');
-    const erroMsg = document.getElementById('erroSenha');
-    const containerLogin = document.getElementById('containerLoginGestor');
-    const textareaAviso = document.getElementById('avisoDiario');
-    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
-
-    if (!senhaInput) return;
-
-    // Defina sua senha aqui (ex: 369)
-    if (senhaInput.value === "369") {
-        if (textareaAviso) {
-            textareaAviso.removeAttribute('readonly');
-            textareaAviso.classList.remove('cursor-default');
-            textareaAviso.classList.add('focus:border-amber-500', 'focus:ring-1', 'focus:ring-amber-500/50');
-        }
-        
-        if (painelBotaoLimpar) {
-            painelBotaoLimpar.classList.remove('hidden');
-        }
-        
-        if (containerLogin) {
-            containerLogin.style.display = 'none'; // Oculta o campo de senha após logar
-        }
-
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-    } else {
-        if (erroMsg) erroMsg.classList.remove('hidden');
-        senhaInput.value = '';
-    }
-};
 
 // Permite apertar Enter para enviar a senha
 document.addEventListener('DOMContentLoaded', () => {
