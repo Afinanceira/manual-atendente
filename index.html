@@ -1674,6 +1674,73 @@
 
 <!-- Bloco dedicado para os Módulos do Firebase -->
 <script type="module">
+
+  // 1. Chave única para o dia atual (Ex: 'quiz_respondido_2026-08-07')
+const hojeStr = new Date().toISOString().split('T')[0];
+const chaveLocal = `quiz_respondido_${hojeStr}`;
+
+// Verifica ao carregar a página se já foi respondido
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem(chaveLocal)) {
+        bloquearQuizRespondido();
+    }
+});
+
+function bloquearQuizRespondido() {
+    const introBox = document.getElementById("quiz-intro");
+    if (introBox) introBox.classList.add("hidden");
+    
+    document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
+    
+    let feedback = document.getElementById("quiz-feedback");
+    if (!feedback) {
+        feedback = document.createElement("div");
+        feedback.id = "quiz-feedback";
+        document.getElementById("quiz-container").appendChild(feedback);
+    }
+  // 3. Listener Realtime do Ranking
+    const db = getDatabase();
+    const rankingRef = ref(db, 'quiz_ranking'); 
+
+    onValue(rankingRef, (snapshot) => {
+        const dados = snapshot.val();
+        
+        if (!dados) {
+            for (let i = 1; i <= 3; i++) {
+                const el = document.getElementById(`ranking-pos-${i}`);
+                if (el) el.innerText = `${i}º Lugar - Nenhuma pontuação registrada`;
+            }
+            return;
+        }
+
+        const lista = Object.values(dados).sort((a, b) => b.pontos - a.pontos);
+        for (let i = 0; i < 3; i++) {
+            const elemento = document.getElementById(`ranking-pos-${i+1}`);
+            if (elemento && lista[i]) {
+                elemento.innerText = `${i+1}º Lugar - ${lista[i].nome} (${lista[i].pontos} pts)`;
+            }
+        }
+    });
+    feedback.className = "text-xs font-semibold p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 mt-2";
+    feedback.innerHTML = "✅ Você já concluiu o desafio de hoje. Volte amanhã para a próxima questão de compliance!";
+}
+
+// 2. Correção da listagem do Ranking (Evita o travamento em "Sincronizando...")
+function atualizarRankingFirebase(snapshot) {
+    const dados = snapshot.val();
+    const posicoes = ['1º Lugar', '2º Lugar', '3º Lugar'];
+    
+    // Se o banco estiver vazio, exibe aviso limpo
+    if (!dados) {
+        for (let i = 0; i < 3; i++) {
+            const elemento = document.getElementById(`ranking-pos-${i+1}`);
+            if (elemento) elemento.innerText = `${posicoes[i]} - Nenhuma pontuação registrada`;
+        }
+        return;
+    }
+    
+    // Processa os dados reais do ranking aqui...
+}
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
@@ -1777,39 +1844,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-// Função para colocar negrito real apenas no texto selecionado
-window.aplicarNegrito = function() {
-    const textarea = document.getElementById('avisoDiario');
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const textoSelecionado = textarea.value.substring(start, end);
-    
-    // Se nada estiver selecionado, avisa ou não faz nada
-    if (!textoSelecionado) {
-        alert("Selecione um texto na caixa para aplicar o negrito.");
-        return;
-    }
-    
-    // Envolve o texto selecionado com a tag HTML de negrito <b>
-    const textoFormatado = `<b>${textoSelecionado}</b>`;
-    const novoTexto = textarea.value.substring(0, start) + textoFormatado + textarea.value.substring(end);
-    
-    textarea.value = novoTexto;
-    textarea.dispatchEvent(new Event('input')); // Sincroniza com o Firebase
-    textarea.focus();
-}
-
-// Função para transformar a linha selecionada em um Título em destaque
-window.aumentarTitulo = function() {
-    const textarea = document.getElementById('avisoDiario');
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const textoSelecionado = textarea.value.substring(start, end);
-    
-    if (!textoSelecionado) {
-        alert("Selecione o título que deseja destacar.");
-        return;
-    }
     
     // Envolve o texto selecionado com uma tag de destaque maior
     const textoFormatado = `\n[--- ${textoSelecionado.toUpperCase()} ---]\n`;
