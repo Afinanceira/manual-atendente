@@ -163,9 +163,9 @@
             <!-- Controles de senha e botão funcionando -->
             <div class="flex items-center gap-2">
     <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-40">
-    <button type="button" onclick="window.verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
-        Desbloquear
-    </button>
+    <button type="button" id="btnDesbloquearGestor" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
+    Desbloquear
+</button>
 </div>
         </div>
 
@@ -179,10 +179,10 @@
         <div class="space-y-2">
             <div class="flex justify-between items-center">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mensagem do Gestor / Supervisor</span>
-                <span id="painelBotaoLimpar" class="hidden">
-                    <button onclick="document.getElementById('avisoDiario').value = ''" class="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer">Limpar</button>
-                </span>
-            </div>
+               <span id="painelBotaoLimpar" class="hidden flex items-center gap-3">
+        <button onclick="document.getElementById('avisoDiario').value = ''" class="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer">Limpar</button>
+        <button type="button" id="btnBloquearGestor" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer">🔒 Bloquear</button>
+    </span>
             
             <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-5 text-sm focus:outline-none resize-y cursor-default shadow-inner"></textarea>
         </div>
@@ -1883,21 +1883,45 @@ document.addEventListener('DOMContentLoaded', () => {
             textareaAviso.value = valor;
         }
     });
-  // Garante que a página sempre inicie bloqueada para edição
-document.addEventListener('DOMContentLoaded', () => {
-    const textareaAviso = document.getElementById('avisoDiario');
-    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
-    const containerLogin = document.getElementById('containerLoginGestor');
-    const statusGestor = document.getElementById('statusGestor');
+// Garante que a página sempre inicie bloqueada para edição
+    document.addEventListener('DOMContentLoaded', () => {
+        const textareaAviso = document.getElementById('avisoDiario');
+        const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+        const statusGestor = document.getElementById('statusGestor');
 
-    if (textareaAviso) {
-        textareaAviso.setAttribute('readonly', true);
-        textareaAviso.classList.add('cursor-default');
-    }
-    if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
-    if (containerLogin) containerLogin.style.display = 'flex';
-    if (statusGestor) statusGestor.classList.add('hidden');
-});
+        if (textareaAviso) {
+            textareaAviso.setAttribute('readonly', true);
+            textareaAviso.classList.add('cursor-default');
+        }
+        if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
+        if (statusGestor) statusGestor.classList.add('hidden');
+
+        // Configura o botão de desbloquear com a senha 369
+        const btn = document.getElementById('btnDesbloquearGestor');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const senhaInput = document.getElementById('inputSenhaGestor');
+                const erroMsg = document.getElementById('erroSenha');
+
+                if (!senhaInput) return;
+
+                if (senhaInput.value === "369") {
+                    if (textareaAviso) {
+                        textareaAviso.removeAttribute('readonly');
+                        textareaAviso.classList.remove('cursor-default');
+                        textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
+                    }
+                    if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
+                    if (statusGestor) statusGestor.classList.remove('hidden');
+                    if (erroMsg) erroMsg.classList.add('hidden');
+                    senhaInput.value = '';
+                } else {
+                    if (erroMsg) erroMsg.classList.remove('hidden');
+                    senhaInput.value = '';
+                }
+            });
+        }
+    });
 </script>
                 
 </body>
