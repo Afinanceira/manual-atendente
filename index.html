@@ -1607,31 +1607,31 @@
 
     // Função de Troca de Abas
     function switchTab(tabId) {
-      // Oculta todas as abas
-      document.querySelectorAll('.tab-content').forEach(tab => {
+   // Oculta todas as abas e reseta estilos
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.add('hidden');
         tab.classList.remove('active');
-      });
+    });
 
-      // Reseta estilo de todos os botões da sidebar
-      document.querySelectorAll('.nav-btn').forEach(btn => {
+    document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
         btn.classList.add('text-slate-300', 'font-medium');
-      });
+    });
 
-      // Ativa a aba desejada
-      const targetTab = document.getElementById(`tab-${tabId}`);
-      if (targetTab) {
+    // Ativa a aba desejada
+    const targetTab = document.getElementById(`tab-${tabId}`);
+    if (targetTab) {
+        targetTab.classList.remove('hidden');
         targetTab.classList.add('active');
-      }
-
-      // Estiliza o botão selecionado
-      const activeBtn = document.getElementById(`btn-${tabId}`);
-      if (activeBtn) {
-        activeBtn.classList.remove('text-slate-300', 'font-medium');
-        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
-      }
     }
 
+    // Estiliza o botão selecionado
+    const activeBtn = document.getElementById(`btn-${tabId}`);
+    if (activeBtn) {
+        activeBtn.classList.remove('text-slate-300', 'font-medium');
+        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
+    }
+   
     // Copia de texto de Macros pelo ID do Elemento
     function copiarTexto(elementId) {
       const text = document.getElementById(elementId).innerText;
