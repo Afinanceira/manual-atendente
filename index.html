@@ -162,11 +162,11 @@
 
             <!-- Controles de senha e botão funcionando -->
             <div class="flex items-center gap-2">
-                <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-40">
-                <button type="button" onclick="window.verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
-                    Desbloquear
-                </button>
-            </div>
+    <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-40">
+    <button type="button" onclick="window.verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
+        Desbloquear
+    </button>
+</div>
         </div>
 
         <!-- Mensagens de Erro ou Status -->
@@ -1701,7 +1701,6 @@
 window.verificarSenhaGestor = function() {
     const senhaInput = document.getElementById('inputSenhaGestor');
     const erroMsg = document.getElementById('erroSenha');
-    const containerLogin = document.getElementById('containerLoginGestor');
     const textareaAviso = document.getElementById('avisoDiario');
     const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
     const statusGestor = document.getElementById('statusGestor');
@@ -1712,20 +1711,23 @@ window.verificarSenhaGestor = function() {
         if (textareaAviso) {
             textareaAviso.removeAttribute('readonly');
             textareaAviso.classList.remove('cursor-default');
-            textareaAviso.classList.add('focus:border-amber-500', 'focus:ring-1', 'focus:ring-amber-500/50');
+            textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
         }
-        
+
         if (painelBotaoLimpar) {
             painelBotaoLimpar.classList.remove('hidden');
-        }
-        
-        if (containerLogin) {
-            containerLogin.style.display = 'none';
         }
 
         if (statusGestor) {
             statusGestor.classList.remove('hidden');
         }
+
+        if (erroMsg) {
+            erroMsg.classList.add('hidden');
+        }
+
+        // Oculta o campo de senha após o login bem-sucedido (opcional)
+        senhaInput.value = '';
     } else {
         if (erroMsg) {
             erroMsg.classList.remove('hidden');
