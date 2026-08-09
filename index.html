@@ -149,21 +149,21 @@
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
     
 <!-- TAB 0: DASHBOARD -->
-<div id="tab-dashboard" class="tab-content max-w-4xl mx-auto space-y-6">
-    <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-xl space-y-4">
+<div id="tab-dashboard" class="tab-content max-w-5xl mx-auto space-y-6">
+    <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
         
-        <!-- Cabeçalho e Área de Desbloqueio do Gestor em cima -->
+        <!-- Cabeçalho e Área de Desbloqueio do Gestor -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
             <div>
                 <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">📢 Comunicado Oficial</span>
-                <h2 class="text-xl font-bold text-white mt-1">Quadro de Avisos e Atualizações Diárias</h2>
+                <h2 class="text-2xl font-bold text-white mt-1">Quadro de Avisos e Atualizações Diárias</h2>
                 <p class="text-xs text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
             </div>
 
-            <!-- Controles de senha em cima -->
+            <!-- Controles de senha e botão funcionando -->
             <div class="flex items-center gap-2">
-                <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-36">
-                <button type="button" id="btnDesbloquearGestor" onclick="verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
+                <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-40">
+                <button type="button" onclick="window.verificarSenhaGestor()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
                     Desbloquear
                 </button>
             </div>
@@ -171,11 +171,11 @@
 
         <!-- Mensagens de Erro ou Status -->
         <div class="flex items-center gap-3">
-            <span id="erroSenha" class="text-[11px] text-red-400 hidden font-medium">Incorreta</span>
+            <span id="erroSenha" class="text-xs text-red-400 hidden font-medium">⚠️ Senha incorreta</span>
             <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden">🟢 Modo Gestor Ativo</span>
         </div>
 
-        <!-- Caixa de Texto Única do Aviso -->
+        <!-- Caixa de Texto Maior do Quadro de Avisos -->
         <div class="space-y-2">
             <div class="flex justify-between items-center">
                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mensagem do Gestor / Supervisor</span>
@@ -184,7 +184,7 @@
                 </span>
             </div>
             
-            <textarea id="avisoDiario" rows="12" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-4 text-xs focus:outline-none resize-y cursor-default shadow-inner"></textarea>
+            <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-5 text-sm focus:outline-none resize-y cursor-default shadow-inner"></textarea>
         </div>
 
     </div>
