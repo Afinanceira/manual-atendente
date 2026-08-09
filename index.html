@@ -1883,45 +1883,60 @@ document.addEventListener('DOMContentLoaded', () => {
             textareaAviso.value = valor;
         }
     });
-// Garante que a página sempre inicie bloqueada para edição
-    document.addEventListener('DOMContentLoaded', () => {
-        const textareaAviso = document.getElementById('avisoDiario');
-        const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
-        const statusGestor = document.getElementById('statusGestor');
+// Garante que a página inicie bloqueada e configura os botões do gestor
+document.addEventListener('DOMContentLoaded', () => {
+    const textareaAviso = document.getElementById('avisoDiario');
+    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+    const statusGestor = document.getElementById('statusGestor');
+    const btnDesbloquear = document.getElementById('btnDesbloquearGestor');
+    const btnBloquear = document.getElementById('btnBloquearGestor');
 
-        if (textareaAviso) {
-            textareaAviso.setAttribute('readonly', true);
-            textareaAviso.classList.add('cursor-default');
-        }
-        if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
-        if (statusGestor) statusGestor.classList.add('hidden');
+    // Estado inicial: Bloqueado
+    if (textareaAviso) {
+        textareaAviso.setAttribute('readonly', true);
+        textareaAviso.classList.add('cursor-default');
+    }
+    if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
+    if (statusGestor) statusGestor.classList.add('hidden');
 
-        // Configura o botão de desbloquear com a senha 369
-        const btn = document.getElementById('btnDesbloquearGestor');
-        if (btn) {
-            btn.addEventListener('click', () => {
-                const senhaInput = document.getElementById('inputSenhaGestor');
-                const erroMsg = document.getElementById('erroSenha');
+    // Ação do Botão Desbloquear (Senha: 369)
+    if (btnDesbloquear) {
+        btnDesbloquear.addEventListener('click', () => {
+            const senhaInput = document.getElementById('inputSenhaGestor');
+            const erroMsg = document.getElementById('erroSenha');
 
-                if (!senhaInput) return;
+            if (!senhaInput) return;
 
-                if (senhaInput.value === "369") {
-                    if (textareaAviso) {
-                        textareaAviso.removeAttribute('readonly');
-                        textareaAviso.classList.remove('cursor-default');
-                        textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
-                    }
-                    if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
-                    if (statusGestor) statusGestor.classList.remove('hidden');
-                    if (erroMsg) erroMsg.classList.add('hidden');
-                    senhaInput.value = '';
-                } else {
-                    if (erroMsg) erroMsg.classList.remove('hidden');
-                    senhaInput.value = '';
+            if (senhaInput.value === "369") {
+                if (textareaAviso) {
+                    textareaAviso.removeAttribute('readonly');
+                    textareaAviso.classList.remove('cursor-default');
+                    textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
                 }
-            });
-        }
-    });
+                if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
+                if (statusGestor) statusGestor.classList.remove('hidden');
+                if (erroMsg) erroMsg.classList.add('hidden');
+                senhaInput.value = '';
+            } else {
+                if (erroMsg) erroMsg.classList.remove('hidden');
+                senhaInput.value = '';
+            }
+        });
+    }
+
+    // Ação do Botão Bloquear de Volta
+    if (btnBloquear) {
+        btnBloquear.addEventListener('click', () => {
+            if (textareaAviso) {
+                textareaAviso.setAttribute('readonly', true);
+                textareaAviso.classList.remove('cursor-text', 'border-amber-500/50');
+                textareaAviso.classList.add('cursor-default');
+            }
+            if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
+            if (statusGestor) statusGestor.classList.add('hidden');
+        });
+    }
+});
 </script>
                 
 </body>
