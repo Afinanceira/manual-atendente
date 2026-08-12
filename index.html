@@ -60,23 +60,23 @@
     <aside class="w-72 bg-slate-900/90 border-r border-slate-800 p-4 flex flex-col gap-3">
       <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-2">Menu de Navegação</div>
       <nav class="space-y-1.5">
-        <button onclick="switchTab('dashboard')" id="btn-dashboard" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20">
-        <div class="flex items-center gap-3">
+        <button onclick="switchTab('dashboard')" id="btn-dashboard" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-bold transition bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/20 cursor-pointer">
+          <div class="flex items-center gap-3">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
             <span>Dashboard</span>
-        </div>
-        <i data-lucide="chevron-right" class="w-4 h-4"></i>
-    </button>  
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>  
       
-       <button onclick="switchTab('diretrizes')" id="btn-diretrizes" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
-        <div class="flex items-center gap-3">
+       <button onclick="switchTab('diretrizes')" id="btn-diretrizes" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition cursor-pointer">
+          <div class="flex items-center gap-3">
             <i data-lucide="message-square-code" class="w-4 h-4"></i>
             <span>Tom & Dicionário</span>
-        </div>
-        <i data-lucide="chevron-right" class="w-4 h-4"></i>
-    </button>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
 
-        <button onclick="switchTab('macros')" id="btn-macros" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+        <button onclick="switchTab('macros')" id="btn-macros" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition cursor-pointer">
           <div class="flex items-center gap-3">
             <i data-lucide="copy" class="w-4 h-4"></i>
             <span>Biblioteca de Macros</span>
@@ -84,7 +84,7 @@
           <i data-lucide="chevron-right" class="w-4 h-4"></i>
         </button>
 
-        <button onclick="switchTab('tags-blip')" id="btn-tags-blip" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+        <button onclick="switchTab('tags-blip')" id="btn-tags-blip" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition cursor-pointer">
           <div class="flex items-center justify-between gap-3 w-full">
             <div class="flex items-center gap-3">
               <i data-lucide="tag" class="w-4 h-4 text-cyan-400"></i>
@@ -94,7 +94,7 @@
           </div>
         </button>
 
-        <button onclick="switchTab('protocolos')" id="btn-protocolos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+        <button onclick="switchTab('protocolos')" id="btn-protocolos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition cursor-pointer">
           <div class="flex items-center justify-between gap-3 w-full">
             <div class="flex items-center gap-3">
               <i data-lucide="shield-alert" class="w-4 h-4 text-red-400"></i>
@@ -104,7 +104,7 @@
           </div>
         </button>
 
-        <button onclick="switchTab('procedimentos')" id="btn-procedimentos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
+        <button onclick="switchTab('procedimentos')" id="btn-procedimentos" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition cursor-pointer">
           <div class="flex items-center justify-between gap-3 w-full">
             <div class="flex items-center gap-3">
               <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
@@ -114,21 +114,21 @@
           </div>
         </button>
 
-        <button onclick="switchTab('jogo-responsavel')" id="btn-jogo-responsavel" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition">
-    <div class="flex items-center gap-3">
-        <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i>
-        <span>Jogo Responsável</span>
-    </div>
-    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-</button>
+        <button onclick="switchTab('jogo-responsavel')" id="btn-jogo-responsavel" class="nav-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-medium text-slate-300 hover:bg-slate-800 transition cursor-pointer">
+          <div class="flex items-center gap-3">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i>
+            <span>Jogo Responsável</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
 
-        <button onclick="switchTab('quiz-diario')" id="btn-quiz-diario" class="nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-    <div class="flex items-center gap-3">
-        <i data-lucide="trophy" class="w-4 h-4 text-cyan-400"></i>
-        <span>Quiz & Ranking Diário</span>
-    </div>
-    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-</button>
+        <button onclick="switchTab('quiz-diario')" id="btn-quiz-diario" class="nav-btn w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all cursor-pointer">
+          <div class="flex items-center gap-3">
+            <i data-lucide="trophy" class="w-4 h-4 text-cyan-400"></i>
+            <span>Quiz & Ranking Diário</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
       </nav>
 
       <!-- Card LGPD Fixo na Sidebar -->
@@ -148,49 +148,40 @@
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 overflow-y-auto bg-slate-950">
     
-<!-- TAB 0: DASHBOARD -->
-<div id="tab-dashboard" class="tab-content max-w-5xl mx-auto space-y-6">
-    <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
-        
-        <!-- Cabeçalho e Área de Desbloqueio do Gestor -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
-            <div>
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">📢 Comunicado Oficial</span>
-                <h2 class="text-2xl font-bold text-white mt-1">Quadro de Avisos e Atualizações Diárias</h2>
-                <p class="text-xs text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
+      <!-- TAB 0: DASHBOARD -->
+      <div id="tab-dashboard" class="tab-content active max-w-5xl mx-auto space-y-6">
+        <div class="bg-slate-900/80 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-800">
+                <div>
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">📢 Comunicado Oficial</span>
+                    <h2 class="text-2xl font-bold text-white mt-1">Quadro de Avisos e Atualizações Diárias</h2>
+                    <p class="text-xs text-slate-400 mt-1">Painel oficial de comunicação direta para diretrizes e alinhamentos da equipe.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-40">
+                    <button type="button" id="btnDesbloquearGestor" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
+                        Desbloquear
+                    </button>
+                </div>
             </div>
 
-            <!-- Controles de senha e botão funcionando -->
-            <div class="flex items-center gap-2">
-    <input type="password" id="inputSenhaGestor" placeholder="Senha do gestor..." class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500 w-40">
-    <button type="button" id="btnDesbloquearGestor" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-lg transition shadow-lg shadow-amber-500/20 cursor-pointer">
-    Desbloquear
-</button>
-</div>
-        </div>
+            <div class="flex items-center gap-3">
+                <span id="erroSenha" class="text-xs text-red-400 hidden font-medium">⚠️ Senha incorreta</span>
+                <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden">🟢 Modo Gestor Ativo</span>
+            </div>
 
-        <!-- Mensagens de Erro ou Status -->
-        <div class="flex items-center gap-3">
-            <span id="erroSenha" class="text-xs text-red-400 hidden font-medium">⚠️ Senha incorreta</span>
-            <span id="statusGestor" class="text-xs text-emerald-400 font-bold hidden">🟢 Modo Gestor Ativo</span>
+            <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mensagem do Gestor / Supervisor</span>
+                    <span id="painelBotaoLimpar" class="hidden flex items-center gap-3">
+                        <button type="button" id="btnLimparAvisos" class="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer">Limpar</button>
+                        <button type="button" id="btnBloquearGestor" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer">🔒 Bloquear</button>
+                    </span>
+                </div>
+                <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-5 text-sm focus:outline-none resize-y cursor-default shadow-inner"></textarea>
+            </div>
         </div>
-
-        <!-- Caixa de Texto Maior do Quadro de Avisos -->
-        <div class="space-y-2">
-            <div class="flex justify-between items-center">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mensagem do Gestor / Supervisor</span>
-               <span id="painelBotaoLimpar" class="hidden flex items-center gap-3">
-        <button onclick="document.getElementById('avisoDiario').value = ''" class="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer">Limpar</button>
-        <button type="button" id="btnBloquearGestor" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer">🔒 Bloquear</button>
-    </span>
-            
-            <textarea id="avisoDiario" rows="18" readonly placeholder="Aguardando diretrizes do gestor..." class="w-full bg-slate-950 text-white border border-slate-800 rounded-xl p-5 text-sm focus:outline-none resize-y cursor-default shadow-inner"></textarea>
-        </div>
-
-    </div>
-</div>
-</section>
-      
+      </div>
       <!-- TAB 1: TOM DE VOZ, DICIONÁRIO E REGRAS DE COMUNICAÇÃO -->
       <section id="tab-diretrizes" class="tab-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
@@ -201,44 +192,25 @@
           <p class="text-sm text-slate-400 mt-1">Transforme termos técnicos complexos em respostas diretas, cordiais e transparentes.</p>
         </div>
 
-        <!-- 3 Pilares do Tom de Voz -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-slate-900/80 p-4 rounded-xl border border-amber-500/30 space-y-2">
-            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
-              <i data-lucide="target" class="w-4 h-4"></i> 1. Objetividade sem Frieza
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              O apostador quer solução rápida. Evite rodeios ou introduções longas. Vá direto ao status da solicitação mantendo a cordialidade.
-            </p>
+            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm"><i data-lucide="target" class="w-4 h-4"></i> 1. Objetividade sem Frieza</div>
+            <p class="text-xs text-slate-300 leading-relaxed">O apostador quer solução rápida. Evite rodeios ou introduções longas. Vá direto ao status da solicitação mantendo a cordialidade.</p>
           </div>
-
           <div class="bg-slate-900/80 p-4 rounded-xl border border-blue-500/30 space-y-2">
-            <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
-              <i data-lucide="heart-handshake" class="w-4 h-4"></i> 2. Empatia Neutra
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Valide a insatisfação do cliente ("Compreendo sua dúvida"), mas **nunca assuma culpa operacional** antes da confirmação dos logs do sistema.
-            </p>
+            <div class="flex items-center gap-2 text-blue-400 font-bold text-sm"><i data-lucide="heart-handshake" class="w-4 h-4"></i> 2. Empatia Neutra</div>
+            <p class="text-xs text-slate-300 leading-relaxed">Valide a insatisfação do cliente, mas **nunca assuma culpa operacional** antes da confirmação dos logs do sistema.</p>
           </div>
-
           <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/30 space-y-2">
-            <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-              <i data-lucide="sparkles" class="w-4 h-4"></i> 3. Clareza Educativa
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Explique o *porquê* das regras (ex: regulamentação bancária, regras esportivas). Clientes instruídos geram menos reincidência de chamados.
-            </p>
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm"><i data-lucide="sparkles" class="w-4 h-4"></i> 3. Clareza Educativa</div>
+            <p class="text-xs text-slate-300 leading-relaxed">Explique o *porquê* das regras (ex: regulamentação bancária). Clientes instruídos geram menos reincidência de chamados.</p>
           </div>
         </div>
 
-        <!-- Tabela Tradutora de Jargões -->
         <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
           <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-            <i data-lucide="languages" class="w-4 h-4 text-amber-400"></i>
-            Dicionário Interno: Traduzindo o "Jargão do Sistema" para o Cliente
+            <i data-lucide="languages" class="w-4 h-4 text-amber-400"></i> Dicionário Interno: Traduzindo o "Jargão do Sistema" para o Cliente
           </h3>
-          <p class="text-xs text-slate-400">O cliente não entende nomes de sistemas ou integrações. Use obrigatoriamente a versão traduzida:</p>
-
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 text-slate-400 uppercase text-[10px] tracking-wider">
@@ -250,7 +222,7 @@
               </thead>
               <tbody class="divide-y divide-slate-800/60 font-medium">
                 <tr>
-                  <td class="p-3 text-red-400 font-mono">Aguardando Feed / Opta / Sportradar</td>
+                  <td class="p-3 text-red-400 font-mono">Aguardando Feed / Opta</td>
                   <td class="p-3">O provedor estatístico ainda não enviou os dados finais do jogo.</td>
                   <td class="p-3 text-emerald-300 font-semibold">"Estamos aguardando a consolidação das estatísticas oficiais da partida."</td>
                 </tr>
@@ -259,41 +231,8 @@
                   <td class="p-3">Instabilidade na comunicação entre o banco e a plataforma.</td>
                   <td class="p-3 text-emerald-300 font-semibold">"Identificamos uma oscilação temporária na rede bancária do processador."</td>
                 </tr>
-                 <tr>
-                  <td class="p-3 text-red-400 font-mono">Sessão Expirada / Token Inválido</td>
-                  <td class="p-3">O aplicativo ou navegador do usuário desconectou por inatividade.</td>
-                  <td class="p-3 text-emerald-300 font-semibold">"Recomendamos atualizar a página ou reconectar a sua conta para reestabelecer o sinal."</td>
-                </tr>
-                <tr>
-                  <td class="p-3 text-red-400 font-mono">GGR Negativo / Loss na Casa</td>
-                  <td class="p-3">Métrica interna em que o jogador ganhou mais prêmios do que depositou.</td>
-                  <td class="p-3 text-emerald-300 font-semibold"><em>Termo estritamente interno. Nunca mencione termos de faturamento com o cliente.</em></td>
-                </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-
-        <!-- Guia de Encerramento e Hold -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="font-bold text-amber-400 flex items-center gap-2">
-              <i data-lucide="pause-circle" class="w-4 h-4"></i> Protocolo de Espera (Hold)
-            </div>
-            <p class="text-slate-300">Nunca deixe o cliente sem resposta por mais de <strong>2 minutos</strong> enquanto pesquisa no Backoffice.</p>
-            <div class="p-2.5 bg-slate-950 rounded border border-slate-800 font-mono text-slate-300">
-              "Estou consultando os detalhes no sistema para você. Por favor, aguarde só 2 minutinhos que já retorno com a posição."
-            </div>
-          </div>
-
-          <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-            <div class="flex items-center gap-2 font-bold text-emerald-400">
-              <i data-lucide="check-check" class="w-4 h-4"></i> Protocolo de Encerramento Perfeito
-            </div>
-            <p class="text-slate-300">Sempre confirme se a dúvida foi sanada antes de fechar a aba de atendimento.</p>
-            <div class="p-2.5 bg-slate-950 rounded border border-slate-800 font-mono text-slate-300">
-              "Ficou alguma dúvida sobre este procedimento? Caso precise de mais algo, estou à disposição. Tenha um ótimo dia!"
-            </div>
           </div>
         </div>
       </section>
@@ -303,1181 +242,306 @@
         <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
           <div>
             <h2 class="text-2xl font-black text-white flex items-center gap-3">
-              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i>
-              Biblioteca Oficial de Respostas Rápidas (Macros)
+              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i> Biblioteca Oficial de Respostas Rápidas (Macros)
             </h2>
             <p class="text-sm text-slate-400 mt-1">Copie scripts validados com um clique e agilize seu tempo de resposta.</p>
           </div>
           <div class="relative">
             <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
-            <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave (ex: Pix, Saque)..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-72 focus:outline-none focus:border-amber-500 font-medium">
+            <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-72 focus:outline-none focus:border-amber-500 font-medium">
           </div>
         </div>
 
         <div id="macros-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          <!-- Macro 1 -->
           <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
             <div class="flex justify-between items-center">
               <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito</span>
-              <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
+              <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
               </button>
             </div>
             <h4 class="font-bold text-white text-sm">Depósito de Terceiros / CPF Divergente</h4>
             <p id="macro-1" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
-              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas ao mesmo CPF cadastrado em seu perfil na plataforma. Caso o Pix tenha sido realizado a partir da conta de outra pessoa, o valor é estornado automaticamente para a conta de origem no prazo established pelo seu banco.
+              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas ao mesmo CPF cadastrado em seu perfil na plataforma.
             </p>
           </div>
-
-          <!-- Macro 2 -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Apostas Esportivas</span>
-              <button onclick="copiarTexto('macro-2')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
-              </button>
-            </div>
-            <h4 class="font-bold text-white text-sm">Aposta Pendente / Aguardando Súmula Oficial</h4>
-            <p id="macro-2" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
-              Compreendo sua ansiedade para ver seu bilhete encerrado! A partida já finalizou em campo, e no momento estamos apenas aguardando a transmissão do relatório de estatísticas oficiais enviado pelo nosso provedor de dados parceiro. Assim que a súmula for validada no sistema, seu bilhete será processado e o resultado atualizado automaticamente.
-            </p>
-          </div>
-
-          <!-- Macro 3 -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20 uppercase">Segurança / KYC</span>
-              <button onclick="copiarTexto('macro-3')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
-             
-          <!-- Macro 4 -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 uppercase">Cassino / Crash</span>
-              <button onclick="copiarTexto('macro-4')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
-              </button>
-            </div>
-            <h4 class="font-bold text-white text-sm">Explicação sobre Algoritmo RNG / Imparcialidade</h4>
-            <p id="macro-4" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
-              Garantimos 100% de transparência em nossos jogos! Todos os títulos de Cassino e jogos de Crash utilizam algoritmos de Gerador de Números Aleatórios (RNG), testados e certificados por laboratórios internacionais independentes de auditoria. Isso significa que o resultado de cada rodada é totalmente imparcial e imprevisível, sem qualquer intervenção humana ou ajuste de probabilidade.
-            </p>
-          </div>
-
-          <!-- Macro 5 -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-red-500/10 text-red-400 rounded border border-red-500/20 uppercase">Financeiro / Saque</span>
-              <button onclick="copiarTexto('macro-5')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
-              
-          <!-- Macro 6 -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
-            <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20 uppercase">Suporte Técnico</span>
-              <button onclick="copiarTexto('macro-6')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
-              </button>
-            </div>
-            <h4 class="font-bold text-white text-sm">Limpeza de Cache e Erro de Carregamento</h4>
-            <p id="macro-6" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
-              Se você está enfrentando lentidão ou falha no carregamento dos jogos, orientamos que faça a limpeza do cache do seu navegador ou do aplicativo. Para isso, acesse as configurações do navegador, limpe o histórico e os cookies, e em seguida reconecte sua conta em uma aba anônima ou através de uma rede Wi-Fi estável.
-            </p>
-          </div>
-
         </div>
-  </section>
+      </section>
 
-      <!-- TAB 3: TAGS DO BLIP DESK -->
+      <!-- TAB 3: TAGS DO BLIP DESK (COMPLETA COM TODAS AS HASHTAGS) -->
       <section id="tab-tags-blip" class="tab-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
           <h2 class="text-2xl font-black text-white flex items-center gap-3">
-            <i data-lucide="tag" class="w-7 h-7 text-cyan-400"></i>
-            Biblioteca Completa de Tags Operacionais — Blip Desk
+            <i data-lucide="tag" class="w-7 h-7 text-cyan-400"></i> Biblioteca Completa de Tags Operacionais — Blip Desk
           </h2>
-          <p class="text-sm text-slate-400 mt-1">Classifique os tickets de atendimento com precisão para direcionamento automático de fila e métricas no Blip.</p>
+          <p class="text-sm text-slate-400 mt-1">Classifique os tickets de atendimento com precisão.</p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          
-          <!-- Bloco 1 -->
           <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <i data-lucide="tag" class="w-4 h-4 text-emerald-400"></i> Tags Operacionais (1 - 20)
+              <i data-lucide="tag" class="w-4 h-4 text-emerald-400"></i> Tags de Acesso e Fraude
             </h3>
             <div class="space-y-2 text-xs">
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-emerald-400">#pixbet-acesso-conta</span>
-                <button onclick="copiarTextoDirect('pixbet-acesso-conta')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#med-2</span>
-                <button onclick="copiarTextoDirect('med-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#pixbet-acesso-conta')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-emerald-400">#med</span>
-                <button onclick="copiarTextoDirect('med')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#med')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#mtr-avaliação-2</span>
-                <button onclick="copiarTextoDirect('mtr-avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#mtr-avaliação-1</span>
-                <button onclick="copiarTextoDirect('mtr-avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#mtr-avaliação</span>
-                <button onclick="copiarTextoDirect('mtr-avaliação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#pagamento-antecipado-argumento1</span>
-                <button onclick="copiarTextoDirect('pagamento-antecipado-argumento1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#pagamento-antecipado</span>
-                <button onclick="copiarTextoDirect('pagamento-antecipado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#monitoramento-tempo-real</span>
-                <button onclick="copiarTextoDirect('monitoramento-tempo-real')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#aguarde-avaliação-2</span>
-                <button onclick="copiarTextoDirect('aguarde-avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#aguarde-avaliação-1</span>
-                <button onclick="copiarTextoDirect('aguarde-avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#aguarde-avaliação</span>
-                <button onclick="copiarTextoDirect('aguarde-avaliação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#relatorio-ir</span>
-                <button onclick="copiarTextoDirect('relatorio-ir')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#ludopatia-demais-casas</span>
-                <button onclick="copiarTextoDirect('ludopatia-demais-casas')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#ludopatia-bloqueio-informativo</span>
-                <button onclick="copiarTextoDirect('ludopatia-bloqueio-informativo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <span class="font-mono text-emerald-400">#med-2</span>
+                <button onclick="copiarTextoDirect('#med-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-emerald-400">#ludopatia-bloqueio</span>
-                <button onclick="copiarTextoDirect('ludopatia-bloqueio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#ludopatia-bloqueio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#ludopatia-questionamento-vicio</span>
-                <button onclick="copiarTextoDirect('ludopatia-questionamento-vicio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#somente-imagem-chat</span>
-                <button onclick="copiarTextoDirect('somente-imagem-chat')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#pixbet-canal-telegram</span>
-                <button onclick="copiarTextoDirect('pixbet-canal-telegram')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-emerald-400">#acompanhar-resultado</span>
-                <button onclick="copiarTextoDirect('acompanhar-resultado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <span class="font-mono text-emerald-400">#monitoramento-tempo-real</span>
+                <button onclick="copiarTextoDirect('#monitoramento-tempo-real')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
             </div>
           </div>
 
-          <!-- Bloco 2 -->
           <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <i data-lucide="shield" class="w-4 h-4 text-purple-400"></i> Tags Operacionais (21 - 40)
+              <i data-lucide="shield" class="w-4 h-4 text-purple-400"></i> Tags de Atendimento Geral
             </h3>
             <div class="space-y-2 text-xs">
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-purple-400">#aguarde-1</span>
-                <button onclick="copiarTextoDirect('aguarde-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#aguarde-2</span>
-                <button onclick="copiarTextoDirect('aguarde-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#aguarde-3</span>
-                <button onclick="copiarTextoDirect('aguarde-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#aguarde-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-purple-400">#aposta-alterada</span>
-                <button onclick="copiarTextoDirect('aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#aposta-cashout-indisponível</span>
-                <button onclick="copiarTextoDirect('aposta-cashout-indisponível')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#aposta-cotação-irregular</span>
-                <button onclick="copiarTextoDirect('aposta-cotação-irregular')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#atualização-de-partida</span>
-                <button onclick="copiarTextoDirect('atualização-de-partida')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#atualização-de-partida2</span>
-                <button onclick="copiarTextoDirect('atualização-de-partida2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#Avaliação-1</span>
-                <button onclick="copiarTextoDirect('Avaliação-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#Avaliação-2</span>
-                <button onclick="copiarTextoDirect('Avaliação-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#Avaliação-3</span>
-                <button onclick="copiarTextoDirect('Avaliação-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#Avaliação-4</span>
-                <button onclick="copiarTextoDirect('Avaliação-4')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#avaliação-enviado-suporte</span>
-                <button onclick="copiarTextoDirect('avaliação-enviado-suporte')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#avaliação-resolvido-em-atendimento</span>
-                <button onclick="copiarTextoDirect('avaliação-resolvido-em-atendimento')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#avaliação-resposta-negativa</span>
-                <button onclick="copiarTextoDirect('avaliação-resposta-negativa')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#boa-noite</span>
-                <button onclick="copiarTextoDirect('boa-noite')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#boa-tarde</span>
-                <button onclick="copiarTextoDirect('boa-tarde')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#bom-dia</span>
-                <button onclick="copiarTextoDirect('bom-dia')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-purple-400">#cashout-como-fazer</span>
-                <button onclick="copiarTextoDirect('cashout-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#cashout-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-purple-400">#cashout-o-que-é</span>
-                <button onclick="copiarTextoDirect('cashout-o-que-é')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <span class="font-mono text-purple-400">#dificuldade-login</span>
+                <button onclick="copiarTextoDirect('#dificuldade-login')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
             </div>
           </div>
 
-          <!-- Bloco 3 -->
           <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <i data-lucide="gamepad-2" class="w-4 h-4 text-amber-400"></i> Tags Operacionais (41 - 60)
+              <i data-lucide="gamepad-2" class="w-4 h-4 text-amber-400"></i> Tags de Jogos e Cassino
             </h3>
             <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#cassino-dados-data-hora</span>
-                <button onclick="copiarTextoDirect('cassino-dados-data-hora')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
                 <span class="font-mono text-amber-400">#cassino-maré-de-azar</span>
-                <button onclick="copiarTextoDirect('cassino-maré-de-azar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <button onclick="copiarTextoDirect('#cassino-maré-de-azar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
               <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#cassino-maré-de-azar2</span>
-                <button onclick="copiarTextoDirect('cassino-maré-de-azar2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#cassino-maré-de-azar3</span>
-                <button onclick="copiarTextoDirect('cassino-maré-de-azar3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#cookies-como-limpar</span>
-                <button onclick="copiarTextoDirect('cookies-como-limpar')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#cookies-ios</span>
-                <button onclick="copiarTextoDirect('cookies-ios')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#criptografia</span>
-                <button onclick="copiarTextoDirect('criptografia')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#dados-rememorar-email</span>
-                <button onclick="copiarTextoDirect('dados-rememorar-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#dados-rememorar-fone</span>
-                <button onclick="copiarTextoDirect('dados-rememorar-fone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deleção-com-saldo</span>
-                <button onclick="copiarTextoDirect('deleção-com-saldo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito-CNPJ</span>
-                <button onclick="copiarTextoDirect('deposito-CNPJ')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito-devolvido-24h</span>
-                <button onclick="copiarTextoDirect('deposito-devolvido-24h')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito-devolvido-motivo</span>
-                <button onclick="copiarTextoDirect('deposito-devolvido-motivo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito-direto-prazo</span>
-                <button onclick="copiarTextoDirect('deposito-direto-prazo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito-erro-sem-conta-bancaria</span>
-                <button onclick="copiarTextoDirect('deposito-erro-sem-conta-bancaria')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito-terceiros</span>
-                <button onclick="copiarTextoDirect('deposito-terceiros')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#deposito30</span>
-                <button onclick="copiarTextoDirect('deposito30')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#desbloqueio-encaminhado</span>
-                <button onclick="copiarTextoDirect('desbloqueio-encaminhado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#despedida</span>
-                <button onclick="copiarTextoDirect('despedida')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-amber-400">#despedida2</span>
-                <button onclick="copiarTextoDirect('despedida2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
+                <span class="font-mono text-amber-400">#pixbet-autoexclusão-como-fazer</span>
+                <button onclick="copiarTextoDirect('#pixbet-autoexclusão-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold cursor-pointer">Copiar</button>
               </div>
             </div>
           </div>
-
-          <!-- Bloco 4 -->
-          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> Tags Operacionais (61 - 80)
-            </h3>
-            <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#desrespeito-1</span>
-                <button onclick="copiarTextoDirect('desrespeito-1')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#desrespeito-2</span>
-                <button onclick="copiarTextoDirect('desrespeito-2')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#desrespeito-3</span>
-                <button onclick="copiarTextoDirect('desrespeito-3')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#dificuldade-login</span>
-                <button onclick="copiarTextoDirect('dificuldade-login')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#dificuldade-print</span>
-                <button onclick="copiarTextoDirect('dificuldade-print')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#enviado</span>
-                <button onclick="copiarTextoDirect('enviado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#enviar-imagem</span>
-                <button onclick="copiarTextoDirect('enviar-imagem')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#erro-aposta-ao-vivo</span>
-                <button onclick="copiarTextoDirect('erro-aposta-ao-vivo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#feedback</span>
-                <button onclick="copiarTextoDirect('feedback')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#inatividade</span>
-                <button onclick="copiarTextoDirect('inatividade')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#localizar-comprovante-caixa-tem</span>
-                <button onclick="copiarTextoDirect('localizar-comprovante-caixa-tem')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#localizar-comprovante-inter</span>
-                <button onclick="copiarTextoDirect('localizar-comprovante-inter')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#nitido-comprovante</span>
-                <button onclick="copiarTextoDirect('nitido-comprovante')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#não-entendi</span>
-                <button onclick="copiarTextoDirect('não-entendi')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#odd-aplicação</span>
-                <button onclick="copiarTextoDirect('odd-aplicação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#palpite-grátis-resgatar-saldo-regulamentação</span>
-                <button onclick="copiarTextoDirect('palpite-grátis-resgatar-saldo-regulamentação')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#pixbet-acesso-câmera-android</span>
-                <button onclick="copiarTextoDirect('pixbet-acesso-câmera-android')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#pixbet-acesso-câmera-IOS</span>
-                <button onclick="copiarTextoDirect('pixbet-acesso-câmera-IOS')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#pixbet-afiliados-suspenso</span>
-                <button onclick="copiarTextoDirect('pixbet-afiliados-suspenso')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-cyan-400">#pixbet-alteração-cadastral-dados</span>
-                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bloco 5 -->
-          <div class="bg-[#0b0f19] p-4 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <i data-lucide="crown" class="w-4 h-4 text-yellow-400"></i> Tags Operacionais (81 - 100)
-            </h3>
-            <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-email</span>
-                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-email')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-encaminhada</span>
-                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-encaminhada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-alteração-cadastral-telefone</span>
-                <button onclick="copiarTextoDirect('pixbet-alteração-cadastral-telefone')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-aposta-alterada</span>
-                <button onclick="copiarTextoDirect('pixbet-aposta-alterada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-aposta-beneficio-social</span>
-                <button onclick="copiarTextoDirect('pixbet-aposta-beneficio-social')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-aposta-dados</span>
-                <button onclick="copiarTextoDirect('pixbet-aposta-dados')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-aposta-fazer</span>
-                <button onclick="copiarTextoDirect('pixbet-aposta-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-aposta-não-reembolsada</span>
-                <button onclick="copiarTextoDirect('pixbet-aposta-não-reembolsada')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-app</span>
-                <button onclick="copiarTextoDirect('pixbet-app')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-assunto-aleatorio</span>
-                <button onclick="copiarTextoDirect('pixbet-assunto-aleatorio')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-autoexclusão-como-fazer</span>
-                <button onclick="copiarTextoDirect('pixbet-autoexclusão-como-fazer')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-autoexclusão-retorno</span>
-                <button onclick="copiarTextoDirect('pixbet-autoexclusão-retorno')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-definitivo-informações</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-definitivo-informações')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-definitivo-retorno</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-definitivo-retorno')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-encaminhado</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-encaminhado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-múltiplas-tentativas</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-múltiplas-tentativas')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-período</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-período')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-programa-social</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-programa-social')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-bloqueio-programa-social-saldo</span>
-                <button onclick="copiarTextoDirect('pixbet-bloqueio-programa-social-saldo')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-              <div class="flex items-center justify-between bg-[#070a12] p-2.5 rounded border border-slate-800/80">
-                <span class="font-mono text-yellow-400">#pixbet-boa-noite-personalizado</span>
-                <button onclick="copiarTextoDirect('pixbet-boa-noite-personalizado')" class="text-[10px] bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded text-slate-300 font-bold">Copiar</button>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
       <!-- TAB 4: PROTOCOLOS CRÍTICOS -->
-<section id="tab-protocolos" class="tab-content space-y-6">
-
-  <!-- Cabeçalho do Módulo -->
-  <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
-    <div>
-      <h2 class="text-xl font-bold text-white flex items-center gap-2">
-        <i data-lucide="shield-alert" class="w-6 h-6 text-red-400"></i>
-        Central de Protocolos Críticos & Mitigação de Risco
-      </h2>
-      <p class="text-xs text-slate-400 mt-1">Procedimentos operacionais de alta severidade, conformidade e gestão de crises.</p>
-    </div>
-    
-    <!-- Busca Rápida -->
-    <div>
-      <input type="text" id="searchProtocolo" placeholder="Buscar protocolo ou tag..." onkeyup="filtrarProtocolos()" class="bg-slate-900 border border-slate-800 text-xs text-slate-200 px-3 py-2 rounded-lg outline-none focus:border-red-500 w-64">
-    </div>
-  </div>
-
-  <!-- Cards de Protocolos -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="protocolosGrid">
-
-    <!-- CARD 1: JOGO RESPONSÁVEL -->
-    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-red-500/50 transition-all">
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Crítico</span>
-          <i data-lucide="brain-circuit" class="w-4 h-4 text-red-400"></i>
-        </div>
-        <h3 class="text-sm font-bold text-white mb-1">🧠 Jogo Responsável & Autoexclusão</h3>
-        <p class="text-xs text-slate-400 mb-3">Ativação imediata em relatos de vício, compulsão ou solicitação explícita de bloqueio por saúde mental/financeira.</p>
-        
-        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
-          <p class="font-bold text-red-400">📋 Diretriz Operacional:</p>
-          <p>• Acolher o usuário com tom neutro, sem incentivar novas apostas.</p>
-          <p>• Bloquear a conta no sistema imediatamente.</p>
-          <p>• Informar a irreversibilidade do período de autoexclusão.</p>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 mb-3">
-          <button onclick="copiarTextoDirect('ludopatia-bloqueio')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#ludopatia-bloqueio</button>
-          <button onclick="copiarTextoDirect('ludopatia-questionamento-vicio')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#ludopatia-questionamento-vicio</button>
-          <button onclick="copiarTextoDirect('pixbet-autoexclusão-como-fazer')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#pixbet-autoexclusão-como-fazer</button>
-        </div>
-      </div>
-
-      <button onclick="copiarTextoDirect('Prezado(a), priorizamos a sua segurança e bem-estar. Em conformidade com nossas diretrizes de Jogo Responsável, sua solicitação de autoexclusão foi processada e sua conta encontra-se suspensa.')" class="w-full bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 text-xs py-2 rounded-lg font-medium transition-all">
-        Copiar Script Acolhimento
-      </button>
-    </div>
-
-    <!-- CARD 2: MED & SUSPEITA DE FRAUDE -->
-    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-amber-500/50 transition-all">
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase tracking-wider">Nível 2 - Alta Severidade</span>
-          <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i>
-        </div>
-        <h3 class="text-sm font-bold text-white mb-1">🛡️ MED & Infrações Pix / Terceiros</h3>
-        <p class="text-xs text-slate-400 mb-3">Notificações do Banco Central (MED), depósitos por contas de terceiros ou alerta de fraude em transações.</p>
-        
-        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
-          <p class="font-bold text-amber-400">📋 Diretriz Operacional:</p>
-          <p>• Congelar o saldo do usuário preventivamente.</p>
-          <p>• Solicitar verificação de titularidade do Pix (CPF equivalente).</p>
-          <p>• Encaminhar dados de transação à equipe de Risco/Compliance.</p>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 mb-3">
-          <button onclick="copiarTextoDirect('med')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#med</button>
-          <button onclick="copiarTextoDirect('med-2')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#med-2</button>
-          <button onclick="copiarTextoDirect('deposito-terceiros')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#deposito-terceiros</button>
-        </div>
-      </div>
-
-      <button onclick="copiarTextoDirect('Olá. Identificamos uma inconsistência de segurança referente às transações da sua conta. Para sua proteção e em conformidade com as diretrizes do BACEN, a conta está sob análise do setor de Risco.')" class="w-full bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 border border-amber-500/30 text-xs py-2 rounded-lg font-medium transition-all">
-        Copiar Script Notificação MED
-      </button>
-    </div>
-
-    <!-- CARD 3: AGRESSÃO & DESRESPEITO -->
-    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-blue-500/50 transition-all">
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider">Nível 3 - Alerta Conduta</span>
-          <i data-lucide="alert-triangle" class="w-4 h-4 text-blue-400"></i>
-        </div>
-        <h3 class="text-sm font-bold text-white mb-1">🚫 Conduta Inadequada & Ofensas</h3>
-        <p class="text-xs text-slate-400 mb-3">Protocolo gradativo em 3 etapas para usuários desrespeitosos ou ofensivos no atendimento.</p>
-        
-        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
-          <p class="font-bold text-blue-400">📋 Regra de Advertência:</p>
-          <p>• <strong>1º Aviso:</strong> Solicitar cordialidade no chat.</p>
-          <p>• <strong>2º Aviso:</strong> Informar sobre o encerramento do atendimento.</p>
-          <p>• <strong>3º Aviso:</strong> Encerrar a sessão e aplicar a tag.</p>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 mb-3">
-          <button onclick="copiarTextoDirect('desrespeito-1')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-1</button>
-          <button onclick="copiarTextoDirect('desrespeito-2')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-2</button>
-          <button onclick="copiarTextoDirect('desrespeito-3')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-3</button>
-        </div>
-      </div>
-
-      <button onclick="copiarTextoDirect('Prezado(a), para mantermos um atendimento adequado, solicitamos o uso de linguagem respeitosa. Caso as ofensas permaneçam, o atendimento será finalizado.')" class="w-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs py-2 rounded-lg font-medium transition-all">
-        Copiar Script Advertência
-      </button>
-    </div>
-
-    <!-- CARD 4: ESCALONAÇÃO & OUVIDORIA -->
-    <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-all">
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Escalonação</span>
-          <i data-lucide="scale" class="w-4 h-4 text-purple-400"></i>
-        </div>
-        <h3 class="text-sm font-bold text-white mb-1">⚖️ Reclame Aqui & Ouvidoria (SLA N3)</h3>
-        <p class="text-xs text-slate-400 mb-3">Casos judicializados, Reclame Aqui, Procon ou inconsistências sistêmicas não resolvidas no N1/N2.</p>
-        
-        <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1 mb-3 border border-slate-800">
-          <p class="font-bold text-purple-400">📋 Diretriz Operacional:</p>
-          <p>• Anexar os logs de conversa e comprovantes anexados.</p>
-          <p>• Encaminhar a demanda à fila prioritária N3 do dashboard.</p>
-          <p>• Informar ao cliente o direcionamento para a Ouvidoria.</p>
-        </div>
-
-        <div class="flex flex-wrap gap-1.5 mb-3">
-          <button onclick="copiarTextoDirect('sla-urgente-n3')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#sla-urgente-n3</button>
-          <button onclick="copiarTextoDirect('esc-reclame-aqui')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#esc-reclame-aqui</button>
-          <button onclick="copiarTextoDirect('esc-ouvidoria')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#esc-ouvidoria</button>
-        </div>
-      </div>
-
-      <button onclick="copiarTextoDirect('Seu caso foi documentado e encaminhado para nossa equipe especializada de Ouvidoria/N3. Um parecer conclusivo será enviado diretamente para o seu e-mail cadastrado.')" class="w-full bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/30 text-xs py-2 rounded-lg font-medium transition-all">
-        Copiar Script Encaminhamento N3
-      </button>
-    </div>
-
-  </div>
-</section>
-
-<script>
-  function filtrarProtocolos() {
-    const termo = document.getElementById('searchProtocolo').value.toLowerCase();
-    const cards = document.querySelectorAll('.card-protocolo');
-
-    cards.forEach(card => {
-      const textoCard = card.innerText.toLowerCase();
-      if (textoCard.includes(termo)) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-</script>
-
-      <!-- TAB 5: BASE DE CONHECIMENTO COMPLETA (12 TÓPICOS INDIVIDUAIS) -->
-      <section id="tab-procedimentos" class="tab-content space-y-6">
-        <div class="border-b border-slate-800 pb-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-2xl font-black text-white flex items-center gap-3">
-                <i data-lucide="book-open" class="w-7 h-7 text-amber-500"></i>
-                Guia Completo da Base de Conhecimento (12 Tópicos Essenciais)
-              </h2>
-              <p class="text-sm text-slate-400 mt-1">Manual Prático de Onboarding, Diagnósticos de Sistema e Tratativas Operacionais.</p>
-            </div>
-            <span class="hidden md:inline-block px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full text-xs font-bold">
-              12 TÓPICOS ATIVOS
-            </span>
+      <section id="tab-protocolos" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-6 h-6 text-red-400"></i> Central de Protocolos Críticos & Mitigação de Risco
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Procedimentos operacionais de alta severidade.</p>
+          </div>
+          <div>
+            <input type="text" id="searchProtocolo" placeholder="Buscar protocolo..." onkeyup="filtrarProtocolos()" class="bg-slate-900 border border-slate-800 text-xs text-slate-200 px-3 py-2 rounded-lg outline-none focus:border-red-500 w-64">
           </div>
         </div>
 
-        <!-- Grade Completa dos 12 Tópicos -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="protocolosGrid">
+          <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-red-500/50 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Crítico</span>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">🧠 Jogo Responsável & Autoexclusão</h3>
+              <p class="text-xs text-slate-400 mb-3">Ativação imediata em relatos de vício ou compulsão.</p>
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                <button onclick="copiarTextoDirect('#ludopatia-bloqueio')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50 cursor-pointer">#ludopatia-bloqueio</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: BASE DE CONHECIMENTO (12 TÓPICOS) -->
+      <section id="tab-procedimentos" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-black text-white flex items-center gap-3">
+            <i data-lucide="book-open" class="w-7 h-7 text-amber-500"></i> Guia Completo da Base de Conhecimento (12 Tópicos)
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">Manual Prático de Onboarding e Diagnósticos.</p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          <!-- TÓPICO 1 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
             <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
               <div class="p-2 bg-blue-500/10 text-blue-400 rounded-lg font-bold text-xs">01</div>
               <div>
                 <h3 class="font-bold text-white text-sm">Checklist Inicial & Postura do Atendente Novato</h3>
-                <span class="text-[11px] text-slate-400">Primeiros passos ao iniciar o turno de atendimento</span>
+                <span class="text-[11px] text-slate-400">Primeiros passos ao iniciar o turno</span>
               </div>
             </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Ao iniciar o plantão, abra imediatamente as abas essenciais: Painel do Blip, Backoffice de Jogadores e esta Central de Atendimento.</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1">
-                <strong class="text-amber-400 block font-semibold">Ações Iniciais do Turno:</strong>
-                <ul class="list-disc list-inside text-slate-400 space-y-0.5">
-                  <li>Verifique os alertas no canal interno do Slack/Discord sobre instabilidades.</li>
-                  <li>Inicie o atendimento saudando o cliente pelo primeiro nome em até 30s.</li>
-                  <li>Jamais atenda um chamado sem antes identificar o CPF ou ID do jogador na plataforma.</li>
-                </ul>
-              </div>
-            </div>
+            <p class="text-xs text-slate-300">Ao iniciar o plantão, abra imediatamente as abas essenciais: Painel do Blip, Backoffice de Jogadores e esta Central de Atendimento.</p>
           </div>
 
-          <!-- TÓPICO 2 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
             <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
               <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg font-bold text-xs">02</div>
               <div>
                 <h3 class="font-bold text-white text-sm">Navegação e Leitura de Perfil no Backoffice</h3>
-                <span class="text-[11px] text-slate-400">Como analisar os dados do cliente em 30 segundos</span>
+                <span class="text-[11px] text-slate-400">Como analisar dados do cliente</span>
               </div>
             </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Ao abrir a conta do jogador no Backoffice, foque nos 4 campos estruturais:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1">
-                <ul class="list-disc list-inside text-slate-400 space-y-1">
-                  <li><strong>Status da Conta:</strong> 'Ativa', 'Bloqueada por KYC', 'Bloqueada por Risco' ou 'Autoexcluída'.</li>
-                  <li><strong>Divisão de Saldo:</strong> Separe sempre <em>Saldo Real Sacável</em> de <em>Saldo de Bônus Pessoal</em>.</li>
-                  <li><strong>Histórico de Transações:</strong> Confira o status de depósitos (Aprovado, Pendente ou Cancelado).</li>
-                  <li><strong>Flag de Segurança:</strong> Veja se há anotações de suspeita de fraude efetuadas pela equipe de Risco.</li>
-                </ul>
-              </div>
-            </div>
+            <p class="text-xs text-slate-300">Ao abrir a conta do jogador no Backoffice, foque nos campos estruturais de status, saldo e histórico.</p>
           </div>
-
-          <!-- TÓPICO 3 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-purple-500/10 text-purple-400 rounded-lg font-bold text-xs">03</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Tratativa de Pix Não Creditado (Passo a Passo)</h3>
-                <span class="text-[11px] text-slate-400">Protocolo completo para solucionar dúvidas de depósitos</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>O Pix é instantâneo, porém instabilidades na rede bancária podem causar atrasos. Siga esta ordem exata de análise:</p>
-              <ol class="list-decimal list-inside text-slate-400 space-y-1 bg-slate-950 p-2.5 rounded border border-slate-800">
-                <li>Peça o comprovante oficial do banco no formato PDF ou foto visível.</li>
-                <li>Localize o código <strong>End-to-End ID</strong> (chave de 32 caracteres do Banco Central).</li>
-                <li>Confira se o CPF de origem bate com o perfil do cadastrado (Regra Anti-Terceiros).</li>
-                <li>Se for o mesmo CPF e ultrapassar 15 min, abra ticket com o End-to-End ID para a equipe do Financeiro.</li>
-              </ol>
-            </div>
-          </div>
-
-          <!-- TÓPICO 4 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-red-500/10 text-red-400 rounded-lg font-bold text-xs">04</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Saques Cancelados ou Retidos (Principais Motivos)</h3>
-                <span class="text-[11px] text-slate-400">Como explicar o motivo da rejeição do saque com clareza</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Nunca informe apenas "seu saque falhou". Explique a causa raiz ao apostador:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• <strong>Falta de Rollover Obrigatório:</strong> Por norma antilavagem de dinheiro, todo depósito deve ser apostado pelo menos 1x antes do saque.</p>
-                <p>• <strong>Bônus Ativo:</strong> Se houver barra de progresso de bônus não concluída, o saque do saldo promocional permanece travado.</p>
-                <p>• <strong>Chave Pix Divergente:</strong> A chave Pix de destino deve ser cadastrada obrigatoriamente no CPF do titular.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 5 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg font-bold text-xs">05</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Regras de Validação de Documentos e KYC</h3>
-                <span class="text-[11px] text-slate-400">Critérios de aprovação e recusa de fotos e documentos</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>A auditoria de Know Your Customer (KYC) previne fraudes e criação de contas por menores de idade.</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <strong class="text-amber-400 block font-semibold">Documentos Aceitos:</strong>
-                <p>RG, CNH, Passaporte ou Documentos de Identidade Profissional (OAB, CRM) emitidos em território nacional dentro do prazo de validade.</p>
-                <strong class="text-red-400 block font-semibold mt-1">Motivos para Reprovação Imediata:</strong>
-                <p>Fotos cortadas, reflexos cobrindo os números, documentos vencidos há mais de 10 anos ou selfies com óculos escuros/chapéu.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 6 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg font-bold text-xs">06</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Regras Esportivas: Liquidação e Status de Bilhetes</h3>
-                <span class="text-[11px] text-slate-400">Como funciona o processamento de apostas em partidas reais</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Erros comuns de novatos ocorrem por desconhecer regras de esportes. Tenha sempre em mente:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• <strong>Tempo Regulamentar:</strong> Resultados valem até o encerramento do 2º tempo + acréscimos (exclui prorrogação e pênaltis, exceto mercado específico).</p>
-                <p>• <strong>Estatísticas de Cartões e Escanteios:</strong> Contam estritamente o que for publicado na súmula oficial e nos feeds homologados (Opta/Sportradar).</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 7 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-pink-500/10 text-pink-400 rounded-lg font-bold text-xs">07</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Cassino & Jogos Crash: Provedores e Algoritmo RNG</h3>
-                <span class="text-[11px] text-slate-400">Esclarecendo dúvidas sobre integridade e histórico de jogadas</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Quando o cliente alega travamento durante uma rodada de Cassino ao Vivo ou Aviator/Spaceman:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• Abra a aba 'Histórico de Apostas em Jogos' e pesquise pelo <strong>Round ID</strong> da jogada.</p>
-                <p>• Se a aposta foi registrada no servidor do provedor antes da desconexão do usuário, a rodada é válida e o resultado processado normalmente.</p>
-                <p>• Explique que o sistema utiliza algoritmo RNG (Random Number Generator) certificado e sem manipulação manual.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 8 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg font-bold text-xs">08</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Gestão de Bônus, Freebets e Cálculo de Rollover</h3>
-                <span class="text-[11px] text-slate-400">Regras e conversão de saldo promocional em dinheiro real</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Aprenda a explicar ao jogador a mecânica de liberação das promoções ativas:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• <strong>Multiplicador de Rollover:</strong> Se o bônus for de R$ 50 com rollover de 5x, o valor total apostado deve atingir R$ 250.</p>
-                <p>• <strong>Odd Mínima:</strong> Apostas esportivas feitas com odds inferiores à regra do regulamento (ex: odd &lt; 1.80) não contam para o progresso do rollover.</p>
-                <p>• <strong>Apostas Gratuitas (Freebet):</strong> Em vitórias com freebet, o jogador recebe apenas o lucro líquido, excluindo o valor da aposta grátis original.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 9 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-red-500/10 text-red-400 rounded-lg font-bold text-xs">09</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Jogo Responsável: Limites e Pausas Temporárias</h3>
-                <span class="text-[11px] text-slate-400">Ferramentas de proteção e controle de comportamento de jogo</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Promova o ambiente seguro e oriente o cliente a configurar limites de proteção no painel:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• <strong>Limites de Depósito:</strong> Podem ser configurados por período diário, semanal ou mensal diretamente nas configurações do perfil.</p>
-                <p>• <strong>Pausa Temporária (Cool-off):</strong> O cliente pode solicitar a suspensão temporária do acesso pelo prazo de 24 horas até 30 dias.</p>
-                <p>• <strong>Autoexclusão Permanente:</strong> Ação irreversível solicitada quando o cliente percebe perda de controle financeiro ou emocional.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 10 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-teal-500/10 text-teal-400 rounded-lg font-bold text-xs">10</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Tratativa de Falhas Técnicas, Limpeza de Cache e App</h3>
-                <span class="text-[11px] text-slate-400">Resolução de problemas de navegação e aplicativo móvel</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Script de atendimento para reclamações de tela preta, travamentos e erro de carregamento:</p>
-              <ol class="list-decimal list-inside text-slate-400 space-y-1 bg-slate-950 p-2.5 rounded border border-slate-800">
-                <li>Instrua o cliente a fechar todas as guias abertas e realizar a limpeza de dados de navegação/cache.</li>
-                <li>Solicite o teste de acesso utilizando uma guia anônima no navegador Google Chrome ou Safari.</li>
-                <li>Caso utilize o aplicativo Android/iOS, solicite a verificação de atualizações pendentes na loja de aplicativos.</li>
-              </ol>
-            </div>
-          </div>
-
-          <!-- TÓPICO 11 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-yellow-500/10 text-yellow-400 rounded-lg font-bold text-xs">11</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Prevenção a Fraudes: Contas Duplicadas e IP Compartilhado</h3>
-                <span class="text-[11px] text-slate-400">Detecção e conduta diante de abusos de bônus e múltiplas contas</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Diretrizes operacionais para tratar tentativas de abuso no sistema:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• <strong>Regra de 1 Conta por CPF/IP:</strong> É estritamente proibido possuir mais de um cadastro sob o mesmo titular ou rede para resgate de bônus.</p>
-                <p>• <strong>Ação Operacional:</strong> Em caso de confirmação de conta duplicada pelo Backoffice, aplique o bloqueio do perfil secundário e direcione para a auditoria.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- TÓPICO 12 -->
-          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/40 transition">
-            <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div class="p-2 bg-orange-500/10 text-orange-400 rounded-lg font-bold text-xs">12</div>
-              <div>
-                <h3 class="font-bold text-white text-sm">Atendimento ao Cliente VIP e Retenção Operacional</h3>
-                <span class="text-[11px] text-slate-400">Tratativa diferenciada para apostadores de alto volume</span>
-              </div>
-            </div>
-            <div class="text-xs text-slate-300 space-y-2">
-              <p>Boas práticas ao identificar apostadores da categoria VIP no Backoffice:</p>
-              <div class="p-2.5 bg-slate-950 rounded border border-slate-800 space-y-1 text-slate-400">
-                <p>• Priorize o atendimento garantindo resposta imediata dentro do SLA de prioridade alta.</p>
-                <p>• Mantenha tom altamente personalizado e, caso necessário, solicite acompanhamento do gerente de contas dedicado.</p>
-                <p>• Encaminhe solicitações de benefícios especiais para a equipe comercial usando a tag <strong>#vip-atendimento-prioritario</strong>.</p>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
-<!-- TAB: JOGO RESPONSÁVEL E ACOLHIMENTO -->
-<section id="tab-jogo-responsavel" class="tab-content space-y-6 hidden">
-    <div class="border-b border-slate-800 pb-4">
-        <h2 class="text-2xl font-black text-white flex items-center gap-3">
-            <i data-lucide="shield-alert" class="w-7 h-7 text-amber-500"></i>
-            Protocolo de Jogo Responsável e Acolhimento
-        </h2>
-        <p class="text-sm text-slate-400 mt-1">Manual de campo para atuação na linha de frente em conformidade com a Portaria SPA/MF nº 1.231/2024.</p>
-    </div>
+      <!-- TAB: JOGO RESPONSÁVEL -->
+      <section id="tab-jogo-responsavel" class="tab-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+            <h2 class="text-2xl font-black text-white flex items-center gap-3">
+                <i data-lucide="shield-alert" class="w-7 h-7 text-amber-500"></i> Protocolo de Jogo Responsável e Acolhimento
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">Manual de campo em conformidade com a Portaria SPA/MF nº 1.231/2024.</p>
+        </div>
+      </section>
 
-    <!-- Por que você é importante? -->
-    <div class="bg-gradient-to-br from-amber-500/10 to-slate-900/60 border border-amber-500/30 p-5 rounded-2xl space-y-2">
-        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
-            <i data-lucide="award" class="w-5 h-5"></i> Por que você é a peça mais importante?
-        </h3>
-        <p class="text-xs text-slate-300 leading-relaxed">
-            Você é a linha de frente. O sistema não vê o tom de voz, a hesitação ou o desespero por trás das palavras, mas você vê. É no seu atendimento que conseguimos identificar o momento exato em que a diversão se torna um problema. Quando você identifica um caso de ludopatia, você não está apenas seguindo um processo; você está evitando impactos graves na vida de alguém.
-        </p>
-    </div>
+      <!-- TAB: QUIZ & RANKING DIÁRIO -->
+      <div id="tab-quiz-diario" class="tab-content max-w-4xl mx-auto space-y-6 mb-6">
+        <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
+            <span class="text-sm font-bold text-cyan-400 uppercase">🏆 Quiz Diário Dinâmico: Transtorno de Jogo & Compliance</span>
+            <p class="text-xs text-slate-300 mt-1">O programa gera o desafio do dia automaticamente com base no manual. Identifique-se, responda em 30s e dispute o ranking!</p>
+        </div>
+        
+        <div class="bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-lg text-cyan-300 text-xs font-semibold inline-block">
+            Status: <span id="quiz-status-texto">Aguardando identificação</span>
+        </div>
 
-    <!-- Identificando o Problema -->
-    <div class="space-y-4">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-            <i data-lucide="search" class="w-5 h-5 text-amber-500"></i> Identificando o Problema: As Expressões de Risco
-        </h3>
-        <p class="text-xs text-slate-400">A ludopatia nem sempre vem com um aviso claro. Fique atento a estes padrões comportamentais e expressões de alerta:</p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Card 1 -->
-            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">O "Financeiro Desesperado"</span>
-                <p class="text-xs text-slate-400">Sinais de impacto nas finanças essenciais:</p>
-                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
-                    <li>"Usei o dinheiro do [aluguel / mercado / faculdade / cartão] para apostar."</li>
-                    <li>"Preciso recuperar o que perdi a qualquer custo."</li>
-                    <li>"Estou desesperado(a) com as contas por causa das apostas."</li>
-                </ul>
+        <div id="quiz-container" class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 space-y-3">
+            <div id="quiz-intro" class="space-y-3">
+                <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome ou Apelido no Atendimento:</label>
+                <input type="text" id="atendente-nome" placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
             </div>
 
-            <!-- Card 2 -->
-            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Perda de Controle / Compulsão</span>
-                <p class="text-xs text-slate-400">Relatos de incapacidade de parar:</p>
-                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
-                    <li>"Não consigo parar de apostar."</li>
-                    <li>"Passo a noite inteira nisso e não consigo controlar."</li>
-                    <li>"Já tentei me autoexcluir, mas voltei a criar conta."</li>
-                </ul>
+            <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e a questão gerada automaticamente.</p>
+            <button onclick="window.iniciarQuizGerado()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2 cursor-pointer">
+                🚀 Gerar e Iniciar Quiz de Hoje
+            </button>
+        </div>
+
+        <div id="quiz-pergunta-box" class="hidden space-y-3 bg-slate-900/90 p-4 rounded-xl border border-slate-700">
+            <div class="flex justify-between items-center text-xs text-slate-400">
+                <span id="quiz-timer" class="font-bold text-amber-400 text-sm">⏱️ 30s</span>
+                <span id="atendente-identificado" class="text-cyan-300 font-semibold"></span>
             </div>
-
-            <!-- Card 3 -->
-            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Culpa e Arrependimento Extremo</span>
-                <p class="text-xs text-slate-400">Sofrimento intenso após apostar:</p>
-                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
-                    <li>"Sou um lixo por ter feito isso de novo."</li>
-                    <li>"Minha família vai me abandonar se souber o que fiz."</li>
-                    <li>"Deveria ter parado antes de chegar a esse ponto."</li>
-                </ul>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
-                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Pedido de Ajuda Implícito</span>
-                <p class="text-xs text-slate-400">Clientes presos em um ciclo de culpa:</p>
-                <ul class="text-xs text-slate-300 space-y-1 list-disc list-inside">
-                    <li>"Cancele minha aposta agora, por favor, fiz sem pensar."</li>
-                    <li>"Quero encerrar minha conta agora, estou com problemas."</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Passo a Passo -->
-    <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl space-y-3">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-            <i data-lucide="list-checks" class="w-5 h-5 text-amber-500"></i> Passo a Passo: O Método de Ação
-        </h3>
-        <div class="space-y-2 text-xs text-slate-300">
-            <p><strong>1. Consulte o Histórico (Obrigatório):</strong> Nunca avalie o atendimento de forma isolada. Verifique se o cliente já pediu bloqueio antes ou se há um padrão recorrente.</p>
-            <p><strong>2. Acolhimento Humanizado:</strong> Use uma linguagem empática e acolhedora. Evite frases robóticas e mostre que a empresa possui ferramentas de apoio.</p>
-            <p><strong>3. Encaminhamento EBAC:</strong> Direcione o cliente para o link de Jogo Responsável da marca correspondente.</p>
-            <p><strong>4. Uso dos Atalhos:</strong> Utilize os atalhos atualizados (PIXBET, GANHEIBET ou BETDASORTE) para registrar a tratativa com conformidade.</p>
-            <p><strong>5. Solicitação de Bloqueio:</strong> Acesse o canal <code class="bg-slate-950 px-1.5 py-0.5 rounded text-amber-400">ebac-bloqueio</code>, use o template oficial e envie os detalhes para o bloqueio preventivo.</p>
-        </div>
-    </div>
-  
-  <!-- Ferramentas de Proteção e Limites -->
-<div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-3 mb-6">
-    <span class="text-sm font-bold text-emerald-400 uppercase">🛡️ Ferramentas de Proteção e Limites (O que ofertar ao cliente)</span>
-    <p class="text-xs text-slate-300">Além do encaminhamento para a EBAC e do bloqueio preventivo, a regulamentação exige que o usuário tenha autonomia sobre a conta. Sempre que notar um princípio de descontrole, oriente o cliente sobre as ferramentas de autocontrole:</p>
-    <ul class="list-disc list-inside text-xs text-slate-300 space-y-1">
-        <li><strong>Limites de Depósito:</strong> Tetos diários, semanais ou mensais para limitar os depósitos.</li>
-        <li><strong>Limites de Perda:</strong> Mecanismos que impedem novas apostas ao atingir o prejuízo estipulado.</li>
-        <li><strong>Pausas Temporárias (Cooling-off):</strong> Desativação voluntária curta (ex: 24h, 7 ou 30 dias).</li>
-        <li><strong>Autoexclusão:</strong> Interrupção definitiva ou de longo prazo do acesso.</li>
-    </ul>
-    <p class="text-xs text-emerald-300 italic mt-2"><strong>Regra de ouro:</strong> Apresente essas ferramentas de forma natural e acolhedora para garantir um entretenimento saudável.</p>
-</div>
-
-  <!-- Fluxo de Escuta Ativa e Empatia -->
-<div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-3 mb-6">
-    <span class="text-sm font-bold text-blue-400 uppercase">💬 Fluxo de Escuta Ativa (Sem Julgamentos)</span>
-    <p class="text-xs text-slate-300">O atendimento a casos de "Transtorno de jogo" exige total imparcialidade e acolhimento. Siga estas diretrizes de comunicação para garantir um suporte seguro e humanizado:</p>
-    <ul class="list-disc list-inside text-xs text-slate-300 space-y-1">
-        <li><strong>Zero Tom Moralista:</strong> Nunca critique, questione as escolhas financeiras ou dê conselhos pessoais de moralidade ao apostador.</li>
-        <li><strong>Foco na Segurança:</strong> Valide o sentimento do cliente com empatia, direcionando o foco para o bem-estar e o uso das ferramentas de proteção.</li>
-        <li><strong>Transparência nas Opções:</strong> Apresente os recursos de autocontrole e os links da EBAC de forma clara, sem barreiras ou burocracia excessiva.</li>
-    </ul>
-    <p class="text-xs text-blue-300 italic mt-2"><strong>Exemplo prático de abordagem:</strong> "Compreendo perfeitamente a sua situação e a sua preocupação. Para que você possa retomar o controle e garantir um entretenimento saudável, disponibilizamos ferramentas de limite e o suporte especializado da EBAC..."</p>
-</div>
-
-  <!-- Matriz de Resposta Rápida (FAQ Interno) -->
-<div class="bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-3 mb-6">
-    <span class="text-sm font-bold text-amber-400 uppercase">📋 Matriz de Resposta Rápida (Objeções Comuns)</span>
-    <p class="text-xs text-slate-300">Utilize estes templates humanizados para contornar as principais resistências do apostador em crise de forma empática e segura:</p>
-    
-    <div class="space-y-3 text-xs text-slate-300">
-        <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-            <strong class="text-amber-300">1. Receio com o Saldo Remanescente:</strong>
-            <p class="mt-1 italic text-slate-200">"Compreendo perfeitamente a sua preocupação com o seu saldo, [Nome]. Fique totalmente tranquilo(a): o encerramento da conta ou a autoexclusão não afeta o valor que você possui de saldo remanescente. Nossas equipes realizam a conferência e o saque do valor disponível de forma segura, seguindo os procedimentos padrão da casa. O mais importante agora é a sua segurança e o seu bem-estar."</p>
+            <p id="quiz-enunciado" class="text-xs font-bold text-slate-100 text-sm"></p>
+            <div id="quiz-opcoes" class="space-y-2"></div>
         </div>
 
-        <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-            <strong class="text-amber-300">2. Dúvidas sobre a Autoexclusão (Medo de ser definitivo para sempre):</strong>
-            <p class="mt-1 italic text-slate-200">"Entendo perfeitamente o seu receio, [Nome]. A autoexclusão é uma ferramenta séria e segura criada para proteger você. Dependendo da modalidade, você pode optar por pausas temporárias (cooling-off) ou exclusões de longo prazo. O foco é dar o tempo necessário para você retomar o controle, e nossa equipe e a EBAC estão prontas para te apoiar."</p>
-        </div>
+        <div id="quiz-feedback" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
 
-        <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-            <strong class="text-amber-300">3. Resistência ou Negação ("Foi só azar"):</strong>
-            <p class="mt-1 italic text-slate-200">"[Nome], respeito totalmente a sua posição e entendo que dias ruins de jogo acontecem. Nossa intenção nunca é julgar, mas zelar pela sua tranquilidade financeira e emocional. É por isso que oferecemos ferramentas gratuitas de limite e o suporte da EBAC — para que você decida quando parar e mantenha sempre o controle da situação, sem estresse."</p>
-        </div>
-    </div>
-</div>
-
-    <!-- Tomada de Decisão -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
-            <span class="text-xs font-bold text-blue-400 uppercase">Em caso de dúvida</span>
-            <p class="text-xs text-slate-300">Se o relato é confuso ou se o cliente oscila muito, consulte seu supervisor imediatamente. Não finalize o atendimento sem seguir o protocolo.</p>
-        </div>
-        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl space-y-2">
-            <span class="text-xs font-bold text-red-400 uppercase">Se o cliente retornar</span>
-            <p class="text-xs text-slate-300">Caso retorne pedindo reativação ou tirando dúvidas após o bloqueio: <strong>não prossiga</strong>. Marque o @Gerente no atendimento.</p>
-        </div>
-    </div>
-
-    <!-- Lembretes de Ouro -->
-    <div class="bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl space-y-1">
-        <span class="text-xs font-bold text-amber-400 uppercase">⚠️ Lembretes de Ouro</span>
-        <p class="text-xs text-slate-300">Não julgue, seja consistente com a Portaria 1.231/2024 e lembre-se de que a consulta ao histórico é sua melhor ferramenta de proteção.</p>
-    </div>
-</section>
- <main>
-
-   <!-- Categoria de Quiz Diário Independente -->
-<div id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
-    <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
-        <span class="text-sm font-bold text-cyan-400 uppercase">🏆 Quiz Diário Dinâmico: Transtorno de Jogo & Compliance</span>
-        <p class="text-xs text-slate-300 mt-1">O programa gera o desafio do dia automaticamente com base no manual. Identifique-se, responda em 30s e dispute o ranking!</p>
-    </div>
-    
-    <div class="bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-lg text-cyan-300 text-xs font-semibold">
-        Status: <span id="quiz-status-texto">Aguardando identificação</span>
-    </div>
-
-    <!-- Área Interativa do Quiz -->
-    <div id="quiz-container" class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 space-y-3">
-        <div id="quiz-intro" class="space-y-3">
-            <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome ou Apelido no Atendimento:</label>
-            <input type="text" id="atendente-nome" placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
-        </div>
-
-        <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e a questão gerada automaticamente não revelará a resposta após o envio.</p>
-        <button onclick="window.iniciarQuizGerado()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2">
-            🚀 Gerar e Iniciar Quiz de Hoje
-        </button>
-    </div>
-
-    <div id="quiz-perguntas-box" class="hidden space-y-3">
-        <div class="flex justify-between items-center text-xs text-slate-400">
-            <span id="quiz-timer" class="font-bold text-amber-400 text-sm">⏱️ 30s</span>
-            <span id="atendente-identificado" class="text-cyan-300 font-semibold"></span>
-        </div>
-        <p id="quiz-enunciado" class="text-xs font-bold text-slate-100 text-base"></p>
-        <div id="quiz-opcoes" class="space-y-2">
-            <!-- As opções geradas serão injetadas via JS -->
-        </div>
-    </div>
-
-    <div id="quiz-feedback" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
-
-    <!-- Ranking dos 30 Dias -->
-    <div class="space-y-2 pt-2">
-        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">🏆 Ranking Geral (Últimos 30 Dias)</span>
-        <div class="bg-slate-950/60 rounded-xl p-3 border border-slate-800 space-y-2 text-xs">
-            <div class="flex items-center justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
-                <span>🥇 1º Lugar (Emissão de Certificado Exclusivo)</span>
-                <span id="ranking-1">Sincronizando Firebase...</span>
-            </div>
-            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
-                <span>🥈 2º Lugar</span>
-                <span id="ranking-2">Sincronizando Firebase...</span>
-            </div>
-            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
-                <span>🥉 3º Lugar</span>
-                <span id="ranking-3">Sincronizando Firebase...</span>
+        <div class="space-y-2 pt-2">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">🏆 Ranking Geral (Placar em Tempo Real)</span>
+            <div class="bg-slate-950/60 rounded-xl p-3 border border-slate-800 space-y-2 text-xs">
+                <div class="flex items-center justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
+                    <span>🥇 1º Lugar</span>
+                    <span id="ranking-pos-1">Sincronizando Firebase...</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
+                    <span>🥈 2º Lugar</span>
+                    <span id="ranking-pos-2">Sincronizando Firebase...</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
+                    <span>🥉 3º Lugar</span>
+                    <span id="ranking-pos-3">Sincronizando Firebase...</span>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</main>
+      </div>
+    </main>
+  </div>
 
-<!-- Script de Geração Dinâmica Baseada no Contexto do Código -->
-<script>
-    // Matriz de regras e conceitos extraídos do próprio manual existente no código
+  <!-- Scripts JavaScript Unificados, Corrigidos e Funcionais -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    window.switchTab = function(tabId) {
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active', 'block');
+            tab.classList.add('hidden');
+        });
+
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
+            btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'font-medium');
+        });
+
+        const targetSection = document.getElementById(`tab-${tabId}`);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('block', 'active');
+        }
+
+        const targetBtn = document.getElementById(`btn-${tabId}`);
+        if (targetBtn) {
+            targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
+            targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
+        }
+    };
+
+    window.verificarSenhaGestor = function() {
+        const senhaInput = document.getElementById('inputSenhaGestor');
+        const erroMsg = document.getElementById('erroSenha');
+        const textareaAviso = document.getElementById('avisoDiario');
+        const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+        const statusGestor = document.getElementById('statusGestor');
+
+        if (!senhaInput) return;
+
+        if (senhaInput.value === "369") {
+            if (textareaAviso) {
+                textareaAviso.removeAttribute('readonly');
+                textareaAviso.classList.remove('cursor-default');
+                textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
+            }
+            if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
+            if (statusGestor) statusGestor.classList.remove('hidden');
+            if (erroMsg) erroMsg.classList.add('hidden');
+            senhaInput.value = '';
+        } else {
+            if (erroMsg) erroMsg.classList.remove('hidden');
+            senhaInput.value = '';
+        }
+    };
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtxvlcx4BPrTO-jBgxJFC6qsRq07zhKXg",
+      authDomain: "escala-nova-d596e.firebaseapp.com",
+      databaseURL: "https://escala-nova-d596e-default-rtdb.firebaseio.com",
+      projectId: "escala-nova-d596e",
+      storageBucket: "escala-nova-d596e.firebasestorage.app",
+      messagingSenderId: "612241634323",
+      appId: "1:612241634323:web:729a8ac37184eb92b47be6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
     const conceitosManual = [
         {
             tema: "Terminologia oficial",
@@ -1492,31 +556,20 @@
             distratores: ["Apenas fechar o chat imediatamente", "Dar conselhos morais ao apostador", "Encaminhar direto para o gerente"]
         },
         {
-            tema: "Regra de retorno pós-bloqueio",
-            perguntaBase: "Segundo o protocolo de tomada de decisão, o que o atendente deve fazer caso o cliente retorne após o bloqueio preventivo?",
-            correta: "Não prosseguir com a tratativa e marcar o @Gerente",
-            distratores: ["Tentar reativar a conta por conta própria", "Explicar os motivos técnicos do banimento", "Ignorar a mensagem do usuário"]
-        },
-        {
             tema: "Conformidade Regulatória",
             perguntaBase: "Qual é a portaria oficial mencionada em nosso guia que fundamenta as exigências de Jogo Responsável?",
             correta: "Portaria SPA/MF nº 1.231/2024",
             distratores: ["Portaria Central de Jogos nº 999", "Lei Geral de Proteção de Dados de Apostas", "Norma Regulamentadora de Atendimento 45"]
-        },
-        {
-            tema: "Ferramentas de Proteção",
-            perguntaBase: "O que deve ser apresentado ao cliente que demonstra um princípio inicial de descontrole, visando dar autonomia sobre a conta?",
-            correta: "Ferramentas de Limite e o canal EBAC",
-            distratores: ["Aumento imediato de crédito para apostas", "Opções de bônus de recuperação de saldo", "Bloqueio total sem direito a saque"]
         }
     ];
 
     let quizTimerInterval;
     let tempoRestante = 30;
     let nomeAtendente = "";
-    let questaoDoDiaCorretaIndice = 0;
 
-    // Função que gera dinamicamente a pergunta combinando elementos com base na data atual
+    const hojeStr = new Date().toISOString().split('T')[0];
+    const chaveLocal = `quiz_respondido_${hojeStr}`;
+
     window.iniciarQuizGerado = function() {
         const inputNome = document.getElementById("atendente-nome").value.trim();
         if (!inputNome) {
@@ -1529,24 +582,21 @@
         document.getElementById("quiz-intro").classList.add("hidden");
         document.getElementById("quiz-pergunta-box").classList.remove("hidden");
 
-        // Algoritmo gerador baseado no dia do ano atual para selecionar e embaralhar automaticamente
         const diaDoAno = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
         const base = conceitosManual[diaDoAno % conceitosManual.length];
 
         document.getElementById("quiz-enunciado").innerText = base.perguntaBase;
 
-        // Mistura a resposta correta com os distratores dinamicamente para que mude de posição
         let opcoesEmbaralhadas = [base.correta, ...base.distratores];
         opcoesEmbaralhadas.sort(() => Math.random() - 0.5);
+
+        let indiceCorreto = opcoesEmbaralhadas.indexOf(base.correta);
 
         const divOpcoes = document.getElementById("quiz-opcoes");
         divOpcoes.innerHTML = "";
 
         opcoesEmbaralhadas.forEach((opcao, index) => {
-            if (opcao === base.correta) {
-                questaoDoDiaCorretaIndice = index;
-            }
-            divOpcoes.innerHTML += `<button onclick="window.responderQuizGerado(${index}, ${questaoDoDiaCorretaIndice})" class="w-full text-left bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-xs text-slate-200 transition-all border border-slate-700">🔹 ${opcao}</button>`;
+            divOpcoes.innerHTML += `<button onclick="window.responderQuizGerado(${index}, ${indiceCorreto})" class="w-full text-left bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-xs text-slate-200 transition-all border border-slate-700 cursor-pointer">🔹 ${opcao}</button>`;
         });
 
         tempoRestante = 30;
@@ -1562,26 +612,33 @@
         }, 1000);
     };
 
-   window.responderQuizGerado = function(selecionada, correta) {
-    clearInterval(quizTimerInterval);
-    
-    // Oculta a caixa de perguntas e mostra o feedback
-    document.getElementById("quiz-pergunta-box").classList.add("hidden");
-    const feedback = document.getElementById("quiz-feedback");
-    feedback.classList.remove("hidden");
+    window.responderQuizGerado = function(selecionada, correta) {
+        clearInterval(quizTimerInterval);
+        
+        document.getElementById("quiz-pergunta-box").classList.add("hidden");
+        const feedback = document.getElementById("quiz-feedback");
+        feedback.classList.remove("hidden");
+        document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
 
-    // Atualiza o texto de status no topo do card
-    document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
+        localStorage.setItem(chaveLocal, "true");
 
-    // Processa o acerto ou erro visualmente
-    if (selecionada === correta) {
-        feedback.className = "text-xs font-semibold p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300";
-        feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta gerada e computada no ranking em tempo real.`;
-    } else {
-        feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
-        feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> A lógica de hoje exigia atenção ao manual!`;
-    }
-};
+        let pontosGanhos = 0;
+        if (selecionada === correta) {
+            pontosGanhos = 10;
+            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300";
+            feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta! +10 pontos computados no ranking.`;
+        } else {
+            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
+            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> Mais atenção ao manual na próxima!`;
+        }
+
+        const rankingRef = ref(db, 'quiz_ranking');
+        push(rankingRef, {
+            nome: nomeAtendente,
+            pontos: pontosGanhos,
+            data: hojeStr
+        });
+    };
 
     window.fimDoTempoQuizGerado = function() {
         document.getElementById("quiz-pergunta-box").classList.add("hidden");
@@ -1590,356 +647,122 @@
         feedback.className = "text-xs font-semibold p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300";
         feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 30 segundos zerou.`;
         document.getElementById("quiz-status-texto").innerText = "Tempo esgotado";
+        localStorage.setItem(chaveLocal, "true");
     };
-</script>     
-  </div>
 
-  <!-- Scripts JavaScript do Painel -->
-  <script>
-    // Inicialização dos Ícones Lucide
-    lucide.createIcons();
-
-    // Função de Troca de Abas
-   function switchTab(tabId) {
-    // Oculta todas as abas e remove estado ativo
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.add('hidden');
-        tab.classList.remove('active');
-    });
-
-    // Reseta todos os botões do menu lateral
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
-        btn.classList.add('text-slate-300', 'font-medium');
-    });
-
-    // Ativa a aba selecionada
-    const targetTab = document.getElementById(`tab-${tabId}`);
-    if (targetTab) {
-        targetTab.classList.remove('hidden');
-        targetTab.classList.add('active');
-    }
-
-    // Destaca o botão correspondente no menu
-    const activeBtn = document.getElementById(`btn-${tabId}`);
-    if (activeBtn) {
-        activeBtn.classList.remove('text-slate-300', 'font-medium');
-        activeBtn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-lg', 'shadow-amber-500/20');
-    }
-}
-   
-    // Copia de texto de Macros pelo ID do Elemento
-    function copiarTexto(elementId) {
-      const text = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Script copiado com sucesso para a área de transferência!');
-      }).catch(err => {
-        console.error('Erro ao copiar: ', err);
-      });
-    }
-
-    // Copia direta de texto enviado por parâmetro (Tags)
-    function copiarTextoDirect(texto) {
-      navigator.clipboard.writeText(texto).then(() => {
-        alert(`Tag ${texto} copiada com sucesso!`);
-      }).catch(err => {
-        console.error('Erro ao copiar tag: ', err);
-      });
-    }
-
-    // Filtro em tempo real de Macros
-    function filtrarMacros() {
-      const query = document.getElementById('filter-macros').value.toLowerCase();
-      const cards = document.querySelectorAll('.macro-card');
-
-      cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        if (text.includes(query)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-  
-</div>
-</script>
-<script>
-    // Função global padrão (fora de módulo) para controlar as abas
-    function switchTab(tabId) {
-        // Oculta todas as seções de conteúdo
-        document.querySelectorAll('.tab-content').forEach(section => {
-            section.classList.remove('active', 'block');
-            section.classList.add('hidden');
-        });
-        
-        // Remove o destaque de todos os botões do menu
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-            btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-        });
-
-        // Exibe a seção clicada
-        const targetSection = document.getElementById('tab-' + tabId);
-        if (targetSection) {
-            targetSection.classList.remove('hidden');
-            targetSection.classList.add('block', 'active');
+    document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem(chaveLocal)) {
+            const introBox = document.getElementById("quiz-intro");
+            if (introBox) introBox.classList.add("hidden");
+            document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
+            let feedback = document.getElementById("quiz-feedback");
+            feedback.classList.remove("hidden");
+            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 mt-2";
+            feedback.innerHTML = "✅ Você já concluiu o desafio de hoje. Volte amanhã para a próxima questão de compliance!";
         }
 
-        // Destaca o botão correspondente no menu
-        const targetBtn = document.getElementById('btn-' + tabId);
-        if (targetBtn) {
-            targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-            targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-        }
-    }
-</script>
-<!-- Bloco dedicado para os Módulos do Firebase -->
-<script type="module">
-   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-  // Função de Senha do Gestor Direta e Global
-  
-window.verificarSenhaGestor = function() {
-    const senhaInput = document.getElementById('inputSenhaGestor');
-    const erroMsg = document.getElementById('erroSenha');
-    const textareaAviso = document.getElementById('avisoDiario');
-    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
-    const statusGestor = document.getElementById('statusGestor');
-
-    if (!senhaInput) return;
-
-    if (senhaInput.value === "369") {
-        if (textareaAviso) {
-            textareaAviso.removeAttribute('readonly');
-            textareaAviso.classList.remove('cursor-default');
-            textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
-        }
-
-        if (painelBotaoLimpar) {
-            painelBotaoLimpar.classList.remove('hidden');
-        }
-
-        if (statusGestor) {
-            statusGestor.classList.remove('hidden');
-        }
-
-        if (erroMsg) {
-            erroMsg.classList.add('hidden');
-        }
-
-        // Oculta o campo de senha após o login bem-sucedido (opcional)
-        senhaInput.value = '';
-    } else {
-        if (erroMsg) {
-            erroMsg.classList.remove('hidden');
-        }
-        senhaInput.value = '';
-    }
-};
-
-// Este roda sozinho assim que a página abre para bloquear o campo
-document.addEventListener('DOMContentLoaded', () => {
-    const textareaAviso = document.getElementById('avisoDiario');
-    if (textareaAviso) {
-        textareaAviso.setAttribute('readonly', true);
-        textareaAviso.classList.add('cursor-default');
-    }
-});
-
-  
-  // 1. Chave única para o dia atual (Ex: 'quiz_respondido_2026-08-07')
-const hojeStr = new Date().toISOString().split('T')[0];
-const chaveLocal = `quiz_respondido_${hojeStr}`;
-
-// Verifica ao carregar a página se já foi respondido
-document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem(chaveLocal)) {
-        bloquearQuizRespondido();
-    }
-});
-
-function bloquearQuizRespondido() {
-    const introBox = document.getElementById("quiz-intro");
-    if (introBox) introBox.classList.add("hidden");
-    
-    document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
-    
-    let feedback = document.getElementById("quiz-feedback");
-    if (!feedback) {
-        feedback = document.createElement("div");
-        feedback.id = "quiz-feedback";
-        document.getElementById("quiz-container").appendChild(feedback);
-    }
-  // 3. Listener Realtime do Ranking
-    const db = getDatabase();
-    const rankingRef = ref(db, 'quiz_ranking'); 
-
-    onValue(rankingRef, (snapshot) => {
-        const dados = snapshot.val();
-        
-        if (!dados) {
+        const rankingRef = ref(db, 'quiz_ranking');
+        onValue(rankingRef, (snapshot) => {
+            const dados = snapshot.val();
             for (let i = 1; i <= 3; i++) {
                 const el = document.getElementById(`ranking-pos-${i}`);
                 if (el) el.innerText = `${i}º Lugar - Nenhuma pontuação registrada`;
             }
-            return;
-        }
 
-        const lista = Object.values(dados).sort((a, b) => b.pontos - a.pontos);
-        for (let i = 0; i < 3; i++) {
-            const elemento = document.getElementById(`ranking-pos-${i+1}`);
-            if (elemento && lista[i]) {
-                elemento.innerText = `${i+1}º Lugar - ${lista[i].nome} (${lista[i].pontos} pts)`;
-            }
-        }
-    });
-    feedback.className = "text-xs font-semibold p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 mt-2";
-    feedback.innerHTML = "✅ Você já concluiu o desafio de hoje. Volte amanhã para a próxima questão de compliance!";
-}
-
-// 2. Correção da listagem do Ranking (Evita o travamento em "Sincronizando...")
-function atualizarRankingFirebase(snapshot) {
-    const dados = snapshot.val();
-    const posicoes = ['1º Lugar', '2º Lugar', '3º Lugar'];
-    
-    // Se o banco estiver vazio, exibe aviso limpo
-    if (!dados) {
-        for (let i = 0; i < 3; i++) {
-            const elemento = document.getElementById(`ranking-pos-${i+1}`);
-            if (elemento) elemento.innerText = `${posicoes[i]} - Nenhuma pontuação registrada`;
-        }
-        return;
-    }
-    
-    // Processa os dados reais do ranking aqui...
-}
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBtxvlcx4BPrTO-jBgxJFC6qsRq07zhKXg",
-      authDomain: "escala-nova-d596e.firebaseapp.com",
-      databaseURL: "https://escala-nova-d596e-default-rtdb.firebaseio.com",
-      projectId: "escala-nova-d596e",
-      storageBucket: "escala-nova-d596e.firebasestorage.app",
-      messagingSenderId: "612241634323",
-      appId: "1:612241634323:web:729a8ac37184eb92b47be6"
-    };
-  
-        // Exibe a seção clicada
-        const targetSection = document.getElementById('tab-' + tabId);
-        if (targetSection) {
-            targetSection.classList.remove('hidden');
-            targetSection.classList.add('block', 'active');
-        }
-
-        // Destaca o botão correspondente no menu
-        const targetBtn = document.getElementById('btn-' + tabId);
-        if (targetBtn) {
-            targetBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'font-medium');
-            targetBtn.classList.add('bg-amber-500', 'text-slate-950', 'shadow-lg', 'shadow-amber-500/20', 'font-bold');
-        }
-    };
-
-// Permite apertar Enter para enviar a senha
-document.addEventListener('DOMContentLoaded', () => {
-    const inputSenha = document.getElementById('inputSenhaGestor');
-    if (inputSenha) {
-        inputSenha.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                verificarSenhaGestor();
-            }
-        });
-    }
-});
-    
-    // Envolve o texto selecionado com uma tag de destaque maior
-    const textoFormatado = `\n[--- ${textoSelecionado.toUpperCase()} ---]\n`;
-    const novoTexto = textarea.value.substring(0, start) + textoFormatado + textarea.value.substring(end);
-    
-    textarea.value = novoTexto;
-    textarea.dispatchEvent(new Event('input')); // Sincroniza com o Firebase
-    textarea.focus();
-}
-
-// ... restante do seu código do Firebase ...
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const avisoRef = ref(db, 'dashboard/avisoDiario');
-    const textareaAviso = document.getElementById('avisoDiario');
-    const btnLimpar = document.getElementById('btnLimparAvisos');
-
-    textareaAviso.addEventListener('input', (e) => {
-        set(avisoRef, e.target.value);
-    });
-
-    btnLimpar.addEventListener('click', () => {
-        if (confirm("Deseja realmente limpar os avisos do dia para todos os atendentes?")) {
-            set(avisoRef, "");
-        }
-    });
-
-    onValue(avisoRef, (snapshot) => {
-        const valor = snapshot.val();
-        if (valor !== null && textareaAviso.value !== valor) {
-            textareaAviso.value = valor;
-        }
-    });
-// Garante que a página inicie bloqueada e configura os botões do gestor
-document.addEventListener('DOMContentLoaded', () => {
-    const textareaAviso = document.getElementById('avisoDiario');
-    const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
-    const statusGestor = document.getElementById('statusGestor');
-    const btnDesbloquear = document.getElementById('btnDesbloquearGestor');
-    const btnBloquear = document.getElementById('btnBloquearGestor');
-
-    // Estado inicial: Bloqueado
-    if (textareaAviso) {
-        textareaAviso.setAttribute('readonly', true);
-        textareaAviso.classList.add('cursor-default');
-    }
-    if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
-    if (statusGestor) statusGestor.classList.add('hidden');
-
-    // Ação do Botão Desbloquear (Senha: 369)
-    if (btnDesbloquear) {
-        btnDesbloquear.addEventListener('click', () => {
-            const senhaInput = document.getElementById('inputSenhaGestor');
-            const erroMsg = document.getElementById('erroSenha');
-
-            if (!senhaInput) return;
-
-            if (senhaInput.value === "369") {
-                if (textareaAviso) {
-                    textareaAviso.removeAttribute('readonly');
-                    textareaAviso.classList.remove('cursor-default');
-                    textareaAviso.classList.add('cursor-text', 'border-amber-500/50');
+            if (dados) {
+                const lista = Object.values(dados).sort((a, b) => b.pontos - a.pontos);
+                for (let i = 0; i < 3; i++) {
+                    const elemento = document.getElementById(`ranking-pos-${i+1}`);
+                    if (elemento && lista[i]) {
+                        elemento.innerText = `${i+1}º Lugar - ${lista[i].nome} (${lista[i].pontos} pts)`;
+                    }
                 }
-                if (painelBotaoLimpar) painelBotaoLimpar.classList.remove('hidden');
-                if (statusGestor) statusGestor.classList.remove('hidden');
-                if (erroMsg) erroMsg.classList.add('hidden');
-                senhaInput.value = '';
-            } else {
-                if (erroMsg) erroMsg.classList.remove('hidden');
-                senhaInput.value = '';
             }
         });
-    }
 
-    // Ação do Botão Bloquear de Volta
-    if (btnBloquear) {
-        btnBloquear.addEventListener('click', () => {
-            if (textareaAviso) {
-                textareaAviso.setAttribute('readonly', true);
-                textareaAviso.classList.remove('cursor-text', 'border-amber-500/50');
-                textareaAviso.classList.add('cursor-default');
+        const textareaAviso = document.getElementById('avisoDiario');
+        const painelBotaoLimpar = document.getElementById('painelBotaoLimpar');
+        const statusGestor = document.getElementById('statusGestor');
+        const btnDesbloquear = document.getElementById('btnDesbloquearGestor');
+        const btnBloquear = document.getElementById('btnBloquearGestor');
+        const inputSenha = document.getElementById('inputSenhaGestor');
+
+        if (textareaAviso) {
+            textareaAviso.setAttribute('readonly', true);
+            textareaAviso.classList.add('cursor-default');
+        }
+        if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
+        if (statusGestor) statusGestor.classList.add('hidden');
+
+        if (inputSenha) {
+            inputSenha.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') verificarSenhaGestor();
+            });
+        }
+
+        if (btnDesbloquear) {
+            btnDesbloquear.addEventListener('click', verificarSenhaGestor);
+        }
+
+        if (btnBloquear) {
+            btnBloquear.addEventListener('click', () => {
+                if (textareaAviso) {
+                    textareaAviso.setAttribute('readonly', true);
+                    textareaAviso.classList.remove('cursor-text', 'border-amber-500/50');
+                    textareaAviso.classList.add('cursor-default');
+                }
+                if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
+                if (statusGestor) statusGestor.classList.add('hidden');
+            });
+        }
+
+        const avisoRef = ref(db, 'dashboard/avisoDiario');
+        const btnLimpar = document.getElementById('btnLimparAvisos');
+
+        if (textareaAviso) {
+            textareaAviso.addEventListener('input', (e) => {
+                set(avisoRef, e.target.value);
+            });
+        }
+
+        if (btnLimpar) {
+            btnLimpar.addEventListener('click', () => {
+                if (confirm("Deseja realmente limpar os avisos do dia para todos os atendentes?")) {
+                    set(avisoRef, "");
+                }
+            });
+        }
+
+        onValue(avisoRef, (snapshot) => {
+            const valor = snapshot.val();
+            if (valor !== null && textareaAviso && textareaAviso.value !== valor) {
+                textareaAviso.value = valor;
             }
-            if (painelBotaoLimpar) painelBotaoLimpar.classList.add('hidden');
-            if (statusGestor) statusGestor.classList.add('hidden');
         });
-    }
-});
-</script>
-                
+    });
+
+    window.copiarTexto = function(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => alert('Script copiado com sucesso!'));
+    };
+
+    window.copiarTextoDirect = function(texto) {
+      navigator.clipboard.writeText(texto).then(() => alert(`Tag ${texto} copiada com sucesso!`));
+    };
+
+    window.filtrarMacros = function() {
+      const query = document.getElementById('filter-macros').value.toLowerCase();
+      document.querySelectorAll('.macro-card').forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(query) ? 'block' : 'none';
+      });
+    };
+
+    window.filtrarProtocolos = function() {
+      const termo = document.getElementById('searchProtocolo').value.toLowerCase();
+      document.querySelectorAll('.card-protocolo').forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(termo) ? 'flex' : 'none';
+      });
+    };
+  </script>
 </body>
 </html>
