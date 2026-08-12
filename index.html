@@ -296,6 +296,86 @@
         </div>
       </section>
       </section>
+      <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) & MANUAL FINANCEIRO -->
+      <section id="tab-macros" class="tab-content space-y-6">
+        <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="text-2xl font-black text-white flex items-center gap-3">
+              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i> Biblioteca Oficial de Respostas Rápidas (Macros) & Gestão Financeira
+            </h2>
+            <p class="text-sm text-slate-400 mt-1">Copie scripts validados com um clique e consulte os procedimentos financeiros avançados.</p>
+          </div>
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
+            <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-72 focus:outline-none focus:border-amber-500 font-medium">
+          </div>
+        </div>
+
+        <!-- Seção de Macros -->
+        <div id="macros-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito</span>
+              <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Depósito de Terceiros / CPF Divergente</h4>
+            <p id="macro-1" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas ao mesmo CPF cadastrado em seu perfil na plataforma.
+            </p>
+          </div>
+        </div>
+
+        <!-- Anexo: Diretrizes Operacionais de Saques, Depósitos e Métricas (GGR / Turnover) -->
+        <div class="mt-8 border-t border-slate-800 pt-6 space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <i data-lucide="wallet" class="w-6 h-6 text-emerald-400"></i> Manual Operacional: Saques, Depósitos, GGR & Avaliação Financeira
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">Diretrizes de análise e conduta do atendente no Backoffice para transações e métricas de conta.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> 1. Pilares da Análise Financeira
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Toda movimentação está atrelada ao KYC verificado. Utilize IDs exclusivos para rastreamento e analise o comportamento financeiro recente do usuário antes de repassar respostas finais.
+              </p>
+            </div>
+
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
+                <i data-lucide="arrow-down-left" class="w-4 h-4"></i> 2. Módulo de Saques e Prazos
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Saques em análise envolvem verificação de rollover (AML) ou instabilidade no gateway. Oriente o cliente a manter chaves Pix cadastradas estritamente em seu próprio CPF.
+              </p>
+            </div>
+
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i> 3. Depósitos e Conciliação Pix
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Para atrasos de Pix, exija comprovante oficial com código EndToEnd. Depósitos de terceiros geram estorno automático obrigatório por conformidade corporativa.
+              </p>
+            </div>
+
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center gap-2 text-cyan-400 font-bold text-sm">
+                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> 4. Turnover vs. GGR (Regra de Ouro)
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                <strong>Turnover:</strong> Volume total de apostas. <br>
+                <strong>GGR:</strong> Receita bruta da casa. <br>
+                <em>Atenção:</em> <strong>Nunca mencione GGR ou lucros/prejuízos da empresa ao apostador.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
 
       <!-- TAB 3: TAGS DO BLIP DESK (COMPLETA COM TODAS AS HASHTAGS) -->
       <section id="tab-tags-blip" class="tab-content space-y-6">
