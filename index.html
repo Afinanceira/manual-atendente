@@ -296,14 +296,14 @@
         </div>
       </section>
      
-      <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) & MANUAL FINANCEIRO -->
+     <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) & MANUAL FINANCEIRO AVANÇADO -->
       <section id="tab-macros" class="tab-content space-y-6">
         <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
           <div>
             <h2 class="text-2xl font-black text-white flex items-center gap-3">
-              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i> Biblioteca Oficial de Respostas Rápidas (Macros)
+              <i data-lucide="copy" class="w-7 h-7 text-amber-500"></i> Biblioteca Oficial de Respostas Rápidas (Macros) & Guia Transacional
             </h2>
-            <p class="text-sm text-slate-400 mt-1">Copie scripts validados com um clique e agilize seu tempo de resposta.</p>
+            <p class="text-sm text-slate-400 mt-1">Scripts validados, protocolos antifraude, compliance bancário, rastreio de chaves e gestão de fluxos de pagamento.</p>
           </div>
           <div class="relative">
             <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
@@ -311,67 +311,149 @@
           </div>
         </div>
 
+        <!-- CONTAINER DE MACROS AMPLIADO (GRID DE SCRIPTS) -->
         <div id="macros-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- MACRO 1: Depósito de Terceiros / CPF Divergente -->
           <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
             <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito Divergente</span>
               <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
               </button>
             </div>
             <h4 class="font-bold text-white text-sm">Depósito de Terceiros / CPF Divergente</h4>
             <p id="macro-1" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
-              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas ao mesmo CPF cadastrado em seu perfil na plataforma.
+              Olá! Para a sua segurança e em conformidade com as regulamentações vigentes de combate à fraude, aceitamos apenas depósitos vindos de contas bancárias vinculadas estritamente ao mesmo CPF cadastrado em seu perfil na plataforma. Valores de contas de terceiros passam por estorno automático.
             </p>
           </div>
+
+          <!-- MACRO 2: Atraso Pix & Comprovante EndToEnd -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 uppercase">Financeiro / Conciliação Pix</span>
+              <button onclick="copiarTexto('macro-2')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Solicitação de Comprovante EndToEnd (Pix)</h4>
+            <p id="macro-2" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Olá! Para que possamos rastrear e conciliar o seu depósito Pix junto ao nosso gateway bancário com agilidade, por gentileza nos envie o comprovante oficial contendo o código EndToEnd (identificador único da transação).
+            </p>
+          </div>
+
+          <!-- MACRO 3: Análise MED (Mecanismo Especial de Devolução) -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-rose-500/10 text-rose-400 rounded border border-rose-500/20 uppercase">Compliance / Segurança MED</span>
+              <button onclick="copiarTexto('macro-3')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Notificação MED / Contestação Bancária</h4>
+            <p id="macro-3" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Prezado(a), identificamos uma contestação de transação via Mecanismo Especial de Devolução (MED) oriunda da instituição financeira de origem. Sua conta encontra-se sob análise preventiva de segurança do setor de compliance enquanto auditamos os fluxos.
+            </p>
+          </div>
+
+          <!-- MACRO 4: Validação KYC e Regularidade CPF -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20 uppercase">KYC / Regularidade Cadastral</span>
+              <button onclick="copiarTexto('macro-4')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Inconsistência de Dados / CPF Irregular</h4>
+            <p id="macro-4" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Olá! Verificamos uma divergência nos dados cadastrais ou na regularidade do seu CPF junto aos órgãos competentes. Para liberar movimentações e saques, precisamos que envie um documento de identidade válido com foto para atualização do seu KYC.
+            </p>
+          </div>
+
+          <!-- MACRO 5: Chaves Pix Bloqueadas / Incompatíveis -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20 uppercase">Saques / Chave Pix Incompatível</span>
+              <button onclick="copiarTexto('macro-5')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Chave Pix Bloqueada ou Divergente para Saque</h4>
+            <p id="macro-5" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Seu pedido de saque retornou devido a uma incompatibilidade ou bloqueio na chave Pix informada. Certifique-se de cadastrar uma chave Pix vinculada diretamente ao seu CPF e titularidade aprovada no cadastro da plataforma.
+            </p>
+          </div>
+
+          <!-- MACRO 6: Análise de Rollover e Regra AML -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Saques / Rollover & AML</span>
+              <button onclick="copiarTexto('macro-6')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Saque Retido por Falta de Rollover</h4>
+            <p id="macro-6" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Olá! Conforme as políticas de prevenção à lavagem de dinheiro (AML) e regras regulatórias, o saldo de depósitos precisa cumprir o requisito mínimo de apostas (rollover) antes de ser liberado para solicitação de saque.
+            </p>
+          </div>
+
         </div>
 
+        <!-- MANUAL FINANCEIRO OPERACIONAL AVANÇADO -->
         <div class="mt-8 border-t border-slate-800 pt-6 space-y-4">
           <div class="border-b border-slate-800 pb-3">
             <h3 class="text-xl font-bold text-white flex items-center gap-2">
-              <i data-lucide="wallet" class="w-6 h-6 text-emerald-400"></i> Manual Operacional: Saques, Depósitos, GGR & Avaliação Financeira
+              <i data-lucide="wallet" class="w-6 h-6 text-emerald-400"></i> Manual Operacional Avançado: Transações, MED, KYC & Compliance Bancário
             </h3>
-            <p class="text-xs text-slate-400 mt-1">Diretrizes de análise e conduta do atendente no Backoffice para transações e métricas de conta.</p>
+            <p class="text-xs text-slate-400 mt-1">Guia de procedimentos passo a passo para auditoria de comprovantes, contestações e validações no Backoffice.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Bloco 1: Mecanismo Especial de Devolução (MED) e Contestações -->
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center gap-2 text-rose-400 font-bold text-sm">
+                <i data-lucide="shield-alert" class="w-4 h-4"></i> 1. O que é o MED e Como Funciona
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                O <strong>MED (Mecanismo Especial de Devolução)</strong> é uma ferramenta do Banco Central para reverter Pix em casos de suspeita de fraude ou golpe. Quando um banco de origem aciona o MED, a instituição receptora (gateway da casa) congela preventivamente os fundos vinculados. <em>Conduta do atendente:</em> Nunca confirme prazos de liberação de saldo sob MED sem antes consultar o parecer do setor de Risco e Compliance no Backoffice.
+              </p>
+            </div>
+
+            <!-- Bloco 2: Auditoria de Comprovantes de Depósito e Devolução -->
             <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
               <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-                <i data-lucide="shield-check" class="w-4 h-4"></i> 1. Pilares da Análise Financeira
+                <i data-lucide="file-check" class="w-4 h-4"></i> 2. Anatomia de Comprovantes (Pix e Estornos)
               </div>
               <p class="text-xs text-slate-300 leading-relaxed">
-                Toda movimentação está atrelada ao KYC verificado. Utilize IDs exclusivos para rastreamento e analise o comportamento financeiro recente do usuário antes de repassar respostas finais.
+                Um comprovante legítimo de depósito Pix possui obrigatoriamente a linha de <strong>ID da Transação (EndToEnd)</strong>, CNPJ/Razão Social do provedor de pagamento da casa e dados do pagador idênticos ao cadastro. Comprovantes de devolução bancária indicam estorno por falha na conta destino ou divergência de titularidade. Sempre valide o código EndToEnd no painel antes de abrir chamado N3.
               </p>
             </div>
 
+            <!-- Bloco 3: Validação de KYC e Regularidade de CPF -->
             <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-              <div class="flex items-center gap-2 text-blue-400 font-bold text-sm">
-                <i data-lucide="arrow-down-left" class="w-4 h-4"></i> 2. Módulo de Saques e Prazos
+              <div class="flex items-center gap-2 text-purple-400 font-bold text-sm">
+                <i data-lucide="user-check" class="w-4 h-4"></i> 3. Consulta de CPF, KYC e Bloqueios
               </div>
               <p class="text-xs text-slate-300 leading-relaxed">
-                Saques em análise envolvem verificação de rollover (AML) ou instabilidade no gateway. Oriente o cliente a manter chaves Pix cadastradas estritamente em seu próprio CPF.
+                O processo de <strong>KYC (Know Your Customer)</strong> assegura que a identidade informada corresponda à pessoa real. Se o CPF constar como irregular na Receita Federal ou divergente no validador interno, o sistema bloqueia automaticamente novas transações financeiras. O atendente deve orientar a regularização documental estritamente pelos canais oficiais de suporte seguro.
               </p>
             </div>
 
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
-              <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
-                <i data-lucide="arrow-up-right" class="w-4 h-4"></i> 3. Depósitos e Conciliação Pix
-              </div>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Para atrasos de Pix, exija comprovante oficial com código EndToEnd. Depósitos de terceiros geram estorno automático obrigatório por conformidade corporativa.
-              </p>
-            </div>
-
+            <!-- Bloco 4: Métodos de Saque, Depósito e Regra de Ouro (GGR/Turnover) -->
             <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
               <div class="flex items-center gap-2 text-cyan-400 font-bold text-sm">
-                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> 4. Turnover vs. GGR (Regra de Ouro)
+                <i data-lucide="bar-chart-3" class="w-4 h-4"></i> 4. Métodos de Pagamento & Turnover vs. GGR
               </div>
               <p class="text-xs text-slate-300 leading-relaxed">
-                <strong>Turnover:</strong> Volume total de apostas. <br>
-                <strong>GGR:</strong> Receita bruta da casa. <br>
-                <em>Atenção:</em> <strong>Nunca mencione GGR ou lucros/prejuízos da empresa ao apostador.</strong>
+                Os depósitos e saques ocorrem primordialmente via Pix padronizado nas marcas. 
+                <br>• <strong>Turnover:</strong> Volume total de apostas exigidas para liberação de saques promocionais.
+                <br>• <strong>GGR (Gross Gaming Revenue):</strong> Métrica de receita bruta interna da casa. 
+                <br><em>Atenção Absoluta:</em> <strong>Jamais cite termos de GGR ou lucros/prejuízos corporativos ao apostador.</strong>
               </p>
             </div>
+
           </div>
         </div>
       </section>
