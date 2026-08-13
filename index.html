@@ -774,31 +774,163 @@
 
       <!-- TAB 4: PROTOCOLOS CRÍTICOS -->
       <section id="tab-protocolos" class="tab-content space-y-6">
-        <div class="border-b border-slate-800 pb-4 flex items-center justify-between">
+
+        <!-- Cabeçalho do Módulo -->
+        <div class="border-b border-slate-800 pb-4 flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
-              <i data-lucide="shield-alert" class="w-6 h-6 text-red-400"></i> Central de Protocolos Críticos & Mitigação de Risco
+              <i data-lucide="shield-alert" class="w-6 h-6 text-red-400"></i>
+              Central de Protocolos Críticos & Excelência no Atendimento
             </h2>
-            <p class="text-xs text-slate-400 mt-1">Procedimentos operacionais de alta severidade.</p>
+            <p class="text-xs text-slate-400 mt-1">Guia estratégico avançado para otimização de TMR/TMA, condução de clientes impacientes e humanização técnica.</p>
           </div>
+          
+          <!-- Busca Rápida -->
           <div>
-            <input type="text" id="searchProtocolo" placeholder="Buscar protocolo..." onkeyup="filtrarProtocolos()" class="bg-slate-900 border border-slate-800 text-xs text-slate-200 px-3 py-2 rounded-lg outline-none focus:border-red-500 w-64">
+            <input type="text" id="searchProtocolo" placeholder="Buscar protocolo ou tag..." onkeyup="filtrarProtocolos()" class="bg-slate-900 border border-slate-800 text-xs text-slate-200 px-3 py-2 rounded-lg outline-none focus:border-red-500 w-64">
           </div>
         </div>
 
+        <!-- Seção de Diretrizes Estratégicas de Espera e Otimização de TMR -->
+        <div class="bg-gradient-to-r from-slate-900 to-slate-950 p-5 rounded-xl border border-slate-800 space-y-3 shadow-lg">
+          <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+            <i data-lucide="zap" class="w-4 h-4"></i> Estratégia de Ouro: Como Gerenciar o Tempo de Espera (TMR) com Empatia Ativa
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            O segredo para manter o cliente calmo durante análises complexas no Backoffice não é apenas pedir para ele aguardar, mas **dar visibilidade do processo**. Clientes impacientes geram reincidência de chamados e esticar o TMA sem comunicação fere a métrica operacional. Utilize a técnica de <em>Espera Estruturada</em> dividida em três atos:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
+            <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800 space-y-1">
+              <span class="font-bold text-emerald-400">1. O Retorno Imediato</span>
+              <p class="text-slate-400">Valide o sentimento do cliente em até 30 segundos, informando exatamente qual checagem está sendo executada no sistema.</p>
+            </div>
+            <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800 space-y-1">
+              <span class="font-bold text-amber-400">2. A Janela de Espera (Pausas)</span>
+              <p class="text-slate-400">Ao solicitar um instante para consultar logs, utilize intervalos realistas (ex: <em>"Peço gentileza de 2 minutos para validar os registros"</em>).</p>
+            </div>
+            <div class="bg-slate-950/80 p-3 rounded-lg border border-slate-800 space-y-1">
+              <span class="font-bold text-cyan-400">3. A Retomada Proativa</span>
+              <p class="text-slate-400">Se a consulta demorar mais que o previsto, retorne ao chat antes que o cliente questione, demonstrando que ele não foi esquecido.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards de Protocolos -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="protocolosGrid">
+
+          <!-- CARD 1: CLIENTES IMPACIENTES & GESTÃO DE ANSIEDADE -->
           <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-red-500/50 transition-all">
             <div>
               <div class="flex items-center justify-between mb-2">
-                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Crítico</span>
+                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Conduta e Agilidade</span>
+                <i data-lucide="timer" class="w-4 h-4 text-red-400"></i>
               </div>
-              <h3 class="text-sm font-bold text-white mb-1">🧠 Jogo Responsável & Autoexclusão</h3>
-              <p class="text-xs text-slate-400 mb-3">Ativação imediata em relatos de vício ou compulsão.</p>
+              <h3 class="text-sm font-bold text-white mb-1">⚡ Lidar com Clientes Impacientes & Redução de TMR</h3>
+              <p class="text-xs text-slate-400 mb-3">Técnicas criativas para desarmar a irritação inicial, estruturar micro-pausas e guiar o apostador sem gerar atritos.</p>
+              
+              <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1.5 mb-3 border border-slate-800">
+                <p class="font-bold text-red-400">📋 Guia Prático de Ação:</p>
+                <p>• <strong>Desarme sem defensividade:</strong> Nunca diga "já estou indo" de forma seca. Use frases humanizadas como: <em>"Compreendo a sua pressa com essa transação, estou com o seu painel aberto e priorizando agora mesmo."</em></p>
+                <p>• <strong>Fracionamento de Espera:</strong> Em vez de um "aguarde 5 minutos", que causa ansiedade, divida em blocos informativos transparentes.</p>
+              </div>
+
               <div class="flex flex-wrap gap-1.5 mb-3">
-                <button onclick="copiarTextoDirect('#ludopatia-bloqueio')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50 cursor-pointer">#ludopatia-bloqueio</button>
+                <button onclick="copiarTextoDirect('aguarde-1')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#aguarde-1</button>
+                <button onclick="copiarTextoDirect('aguarde-2')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#aguarde-2</button>
+                <button onclick="copiarTextoDirect('aguarde-3')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#aguarde-3</button>
               </div>
             </div>
+
+            <button onclick="copiarTextoDirect('Compreendo perfeitamente o seu desejo de agilidade. Estou analisando o seu histórico de transações neste exato momento para darmos uma solução rápida. Peço apenas 2 minutinhos de sua gentileza para cruzar esses dados no sistema, ok?')" class="w-full bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 text-xs py-2 rounded-lg font-medium transition-all cursor-pointer">
+              Copiar Script de Contenção de Impaciência
+            </button>
           </div>
+
+          <!-- CARD 2: TRANSAÇÕES FINANCEIRAS & ATRASOS DE GATEWAY -->
+          <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-amber-500/50 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase tracking-wider">Nível 2 - Alta Demanda</span>
+                <i data-lucide="wallet" class="w-4 h-4 text-amber-400"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">💸 Oscilações de Pix, Depósitos e Saques</h3>
+              <p class="text-xs text-slate-400 mb-3">Como guiar o cliente frustrado por instabilidades bancárias temporárias mantendo a credibilidade da marca.</p>
+              
+              <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1.5 mb-3 border border-slate-800">
+                <p class="font-bold text-amber-400">📋 Diretriz Operacional:</p>
+                <p>• <strong>Transparência Técnica:</strong> Explique de forma simples que a rede bancária passa por picos de atualização.</p>
+                <p>• <strong>Coleta de Provas:</strong> Oriente o envio do código EndToEnd sem gerar burocracia excessiva.</p>
+                <p>• <strong>Previsibilidade:</strong> Estabeleça expectativas reais baseadas nos prazos dos provedores de pagamento.</p>
+              </div>
+
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                <button onclick="copiarTextoDirect('deposito-direto-prazo')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#deposito-direto-prazo</button>
+                <button onclick="copiarTextoDirect('deposito-devolvido-24h')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#deposito-devolvido-24h</button>
+                <button onclick="copiarTextoDirect('nitido-comprovante')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#nitido-comprovante</button>
+              </div>
+            </div>
+
+            <button onclick="copiarTextoDirect('Identifiquei o seu comprovante por aqui. As instituições financeiras e o sistema Pix passam por janelas de compensação automatizada. Já acionei a verificação manual com o nosso gateway para acelerar a compensação em seu saldo.')" class="w-full bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 border border-amber-500/30 text-xs py-2 rounded-lg font-medium transition-all cursor-pointer">
+              Copiar Script de Alinhamento Financeiro
+            </button>
+          </div>
+
+          <!-- CARD 3: CONDUTA DIANTE DE OFENSAS & EXaltação -->
+          <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-blue-500/50 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider">Nível 3 - Postura & Limites</span>
+                <i data-lucide="shield-check" class="w-4 h-4 text-blue-400"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">🛡️ Gestão de Crise & Clientes Exaltados</h3>
+              <p class="text-xs text-slate-400 mb-3">Protocolo de resiliência emocional do atendente, mantendo a serenidade profissional frente a insultos e ameaças vazias.</p>
+              
+              <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1.5 mb-3 border border-slate-800">
+                <p class="font-bold text-blue-400">📋 Conduta Humanizada e Firme:</p>
+                <p>• <strong>Despersonalização:</strong> Lembre-se de que a raiva é direcionada à situação sistêmica, e não à sua pessoa.</p>
+                <p>• <strong>Foco na Solução:</strong> Redirecione o foco do cliente do desabafo emocional para os passos lógicos de resolução do chamado.</p>
+              </div>
+
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                <button onclick="copiarTextoDirect('desrespeito-1')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#desrespeito-1</button>
+                <button onclick="copiarTextoDirect('desrespeito-2')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded border border-slate-700/50">#desrespeito-2</button>
+                <button onclick="copiarTextoDirect('desrespeito-3')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded border border-slate-700/50">#desrespeito-3</button>
+              </div>
+            </div>
+
+            <button onclick="copiarTextoDirect('Entendo perfeitamente a sua frustração com o ocorrido e estou aqui justamente para te ajudar a solucionar essa questão da melhor forma. Para avançarmos com o suporte, peço apenas que mantenhamos a cordialidade no chat.')" class="w-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs py-2 rounded-lg font-medium transition-all cursor-pointer">
+              Copiar Script de Resgate da Cordialidade
+            </button>
+          </div>
+
+          <!-- CARD 4: ESCALONAÇÃO & RESOLUÇÃO COMPLEXA -->
+          <div class="card-protocolo bg-[#070a12] border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-purple-500/50 transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-[10px] font-bold uppercase tracking-wider">Nível 1 - Eficiência Operacional</span>
+                <i data-lucide="cpu" class="w-4 h-4 text-purple-400"></i>
+              </div>
+              <h3 class="text-sm font-bold text-white mb-1">🎯 Resolução de Ponta a Ponta & Transição de Filas</h3>
+              <p class="text-xs text-slate-400 mb-3">Estratégias para evitar o "ping-pong" de atendimentos, garantindo que o cliente sinta segurança total no suporte prestado.</p>
+              
+              <div class="bg-slate-900/80 rounded-lg p-3 text-[11px] text-slate-300 space-y-1.5 mb-3 border border-slate-800">
+                <p class="font-bold text-purple-400">📋 Diretriz de Excelência:</p>
+                <p>• <strong>Empatia Prospectiva:</strong> Antecipe a próxima dúvida lógica do usuário antes que ele precise perguntar.</p>
+                <p>• <strong>Registro Limpo:</strong> Utilize as tags corretas para que o próximo nível tenha todo o contexto da dor do cliente.</p>
+              </div>
+
+              <div class="flex flex-wrap gap-1.5 mb-3">
+                <button onclick="copiarTextoDirect('avaliação-resolvido-em-atendimento')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2 py-1 rounded border border-slate-700/50">#avaliação-resolvido-em-atendimento</button>
+                <button onclick="copiarTextoDirect('feedback')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded border border-slate-700/50">#feedback</button>
+                <button onclick="copiarTextoDirect('despedida')" class="font-mono text-[11px] text-yellow-400 bg-slate-800 hover:bg-slate-700 px-2.5 py-1 rounded border border-slate-700/50">#despedida</button>
+              </div>
+            </div>
+
+            <button onclick="copiarTextoDirect('Para garantir que tudo fique perfeito e você não precise retornar sobre esse mesmo assunto, já realizei a checagem completa do seu perfil. Há mais alguma dúvida ou ponto em que eu possa auxiliar hoje?')" class="w-full bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 border border-purple-500/30 text-xs py-2 rounded-lg font-medium transition-all cursor-pointer">
+              Copiar Script de Encerramento Eficiente
+            </button>
+          </div>
+
         </div>
       </section>
 
