@@ -1046,11 +1046,11 @@
         </div>
       </section>
 
-      <!-- TAB: QUIZ & RANKING DIÁRIO -->
+     <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
       <div id="tab-quiz-diario" class="tab-content max-w-4xl mx-auto space-y-6 mb-6">
         <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
-            <span class="text-sm font-bold text-cyan-400 uppercase">🏆 Quiz Diário Dinâmico: Transtorno de Jogo & Compliance</span>
-            <p class="text-xs text-slate-300 mt-1">O programa gera o desafio do dia automaticamente com base no manual. Identifique-se, responda em 30s e dispute o ranking!</p>
+            <span class="text-sm font-bold text-cyan-400 uppercase">🏆 Quiz Diário: Acumulação de Pontos para Certificado Mensal</span>
+            <p class="text-xs text-slate-300 mt-1">Responda ao desafio diário exclusivo gerado para você. Acumule pontos ao longo do mês para conquistar o certificado de excelência!</p>
         </div>
         
         <div class="bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-lg text-cyan-300 text-xs font-semibold inline-block">
@@ -1063,7 +1063,7 @@
                 <input type="text" id="atendente-nome" placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
             </div>
 
-            <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e a questão gerada automaticamente.</p>
+            <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e sua questão personalizada será carregada.</p>
             <button onclick="window.iniciarQuizGerado()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2 cursor-pointer">
                 🚀 Gerar e Iniciar Quiz de Hoje
             </button>
@@ -1081,19 +1081,11 @@
         <div id="quiz-feedback" class="hidden text-xs font-semibold p-3 rounded-lg"></div>
 
         <div class="space-y-2 pt-2">
-            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">🏆 Ranking Geral (Placar em Tempo Real)</span>
-            <div class="bg-slate-950/60 rounded-xl p-3 border border-slate-800 space-y-2 text-xs">
-                <div class="flex items-center justify-between p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 font-bold">
-                    <span>🥇 1º Lugar</span>
-                    <span id="ranking-pos-1">Sincronizando Firebase...</span>
-                </div>
-                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
-                    <span>🥈 2º Lugar</span>
-                    <span id="ranking-pos-2">Sincronizando Firebase...</span>
-                </div>
-                <div class="flex items-center justify-between p-2 rounded-lg bg-slate-800/60 text-slate-300">
-                    <span>🥉 3º Lugar</span>
-                    <span id="ranking-pos-3">Sincronizando Firebase...</span>
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">📊 Placar de Acumulação Mensal (Soma de Pontos)</span>
+            <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800 space-y-3 text-xs">
+                <p class="text-[11px] text-slate-400">Lista completa de pontuação acumulada dos colaboradores para apuração do certificado:</p>
+                <div id="tabela-pontuacoes-mensal" class="space-y-1.5 divide-y divide-slate-900">
+                    <span class="text-slate-500 italic">Sincronizando banco de dados...</span>
                 </div>
             </div>
         </div>
@@ -1101,10 +1093,10 @@
     </main>
   </div>
 
-  <!-- Scripts JavaScript Unificados, Corrigidos e Funcionais -->
+  <!-- Scripts JavaScript Unificados com Soma de Pontos e Questões Variadas por Usuário -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, set, onValue, push, get, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     window.switchTab = function(tabId) {
         document.querySelectorAll('.tab-content').forEach(tab => {
@@ -1168,7 +1160,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Array de questões com variação diária aprimorada para o Quiz
+    // Banco ampliado de questões para garantir variação dinâmica
     const conceitosManual = [
         {
             tema: "Terminologia oficial",
@@ -1199,6 +1191,18 @@
             perguntaBase: "Como o atendente deve traduzir para o cliente final um termo de backoffice como 'Aguardando Feed / Opta'?",
             correta: "Aguardando a consolidação das estatísticas oficiais do evento",
             distratores: ["O provedor externo quebrou", "Erro grave no sistema da casa", "O bilhete foi anulado definitivamente"]
+        },
+        {
+            tema: "Gestão de Espera",
+            perguntaBase: "Qual é a técnica recomendada para gerenciar o tempo de espera (TMR) com apostadores impacientes sem perder a qualidade?",
+            correta: "Espera Estruturada com janelas transparentes e micro-pausas informativas",
+            distratores: ["Deixar o cliente sem resposta até achar a solução", "Informar prazos longos genéricos sem retorno", "Encerrar o chat imediatamente"]
+        },
+        {
+            tema: "Segurança de Dados",
+            perguntaBase: "Qual é a regra corporativa fundamental ao lidar com comprovantes e dados financeiros de terceiros?",
+            correta: "Exigir documento oficial com EndToEnd e vedar contas de terceiros",
+            distratores: ["Aceitar qualquer print enviado no chat", "Liberar saques para contas de parentes", "Ignorar a validação de CPF"]
         }
     ];
 
@@ -1221,8 +1225,13 @@
         document.getElementById("quiz-intro").classList.add("hidden");
         document.getElementById("quiz-pergunta-box").classList.remove("hidden");
 
-        const diaDoAno = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-        const base = conceitosManual[diaDoAno % conceitosManual.length];
+        // Sistema de variação: index único baseado na soma dos caracteres do nome + data atual
+        let hashNome = 0;
+        for (let i = 0; i < nomeAtendente.length; i++) {
+            hashNome += nomeAtendente.charCodeAt(i);
+        }
+        const indiceQuestao = (hashNome + new Date().getDate()) % conceitosManual.length;
+        const base = conceitosManual[indiceQuestao];
 
         document.getElementById("quiz-enunciado").innerText = base.perguntaBase;
 
@@ -1251,7 +1260,7 @@
         }, 1000);
     };
 
-    window.responderQuizGerado = function(selecionada, correta) {
+    window.responderQuizGerado = async function(selecionada, correta) {
         clearInterval(quizTimerInterval);
         
         document.getElementById("quiz-pergunta-box").classList.add("hidden");
@@ -1265,28 +1274,56 @@
         if (selecionada === correta) {
             pontosGanhos = 10;
             feedback.className = "text-xs font-semibold p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300";
-            feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta! +10 pontos computados no ranking.`;
+            feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta! +10 pontos somados ao seu total mensal.`;
         } else {
             feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
-            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> Mais atenção ao manual na próxima!`;
+            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> Mais atenção ao manual na próxima! (0 pts hoje)`;
         }
 
-        const rankingRef = ref(db, 'quiz_ranking');
-        push(rankingRef, {
-            nome: nomeAtendente,
-            pontos: pontosGanhos,
-            data: hojeStr
-        });
+        // Sistema de Soma de Pontos Acumulados no Firebase por Colaborador
+        const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
+        const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
+        
+        try {
+            const snapshot = await get(userRef);
+            let pontosAtuais = 0;
+            if (snapshot.exists()) {
+                pontosAtuais = snapshot.val().pontos || 0;
+            }
+            await set(userRef, {
+                nome: nomeAtendente,
+                pontos: pontosAtuais + pontosGanhos,
+                ultimaAtualizacao: hojeStr
+            });
+        } catch (error) {
+            console.error("Erro ao atualizar pontuação:", error);
+        }
     };
 
-    window.fimDoTempoQuizGerado = function() {
+    window.fimDoTempoQuizGerado = async function() {
         document.getElementById("quiz-pergunta-box").classList.add("hidden");
         const feedback = document.getElementById("quiz-feedback");
         feedback.classList.remove("hidden");
         feedback.className = "text-xs font-semibold p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300";
-        feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 30 segundos zerou.`;
+        feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 30 segundos zerou. (0 pts hoje)`;
         document.getElementById("quiz-status-texto").innerText = "Tempo esgotado";
         localStorage.setItem(chaveLocal, "true");
+
+        // Garante o registro do usuário mesmo sem pontuação no dia para aparecer no painel mensal
+        const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
+        const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
+        try {
+            const snapshot = await get(userRef);
+            if (!snapshot.exists()) {
+                await set(userRef, {
+                    nome: nomeAtendente,
+                    pontos: 0,
+                    ultimaAtualizacao: hojeStr
+                });
+            }
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -1297,26 +1334,39 @@
             let feedback = document.getElementById("quiz-feedback");
             feedback.classList.remove("hidden");
             feedback.className = "text-xs font-semibold p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 mt-2";
-            feedback.innerHTML = "✅ Você já concluiu o desafio de hoje. Volte amanhã para a próxima questão de compliance!";
+            feedback.innerHTML = "✅ Você já concluiu o desafio de hoje. Volte amanhã para somar mais pontos rumo ao certificado!";
         }
 
-        const rankingRef = ref(db, 'quiz_ranking');
-        onValue(rankingRef, (snapshot) => {
+        // Leitura e Renderização da Tabela de Soma Acumulada Mensal
+        const pontuacoesRef = ref(db, 'quiz_pontuacoes');
+        onValue(pontuacoesRef, (snapshot) => {
             const dados = snapshot.val();
-            for (let i = 1; i <= 3; i++) {
-                const el = document.getElementById(`ranking-pos-${i}`);
-                if (el) el.innerText = `${i}º Lugar - Nenhuma pontuação registrada`;
+            const containerTabela = document.getElementById('tabela-pontuacoes-mensal');
+            if (!containerTabela) return;
+
+            if (!dados) {
+                containerTabela.innerHTML = `<span class="text-slate-500 italic">Nenhuma pontuação registrada ainda neste mês.</span>`;
+                return;
             }
 
-            if (dados) {
-                const lista = Object.values(dados).sort((a, b) => b.pontos - a.pontos);
-                for (let i = 0; i < 3; i++) {
-                    const elemento = document.getElementById(`ranking-pos-${i+1}`);
-                    if (elemento && lista[i]) {
-                        elemento.innerText = `${i+1}º Lugar - ${lista[i].nome} (${lista[i].pontos} pts)`;
-                    }
-                }
-            }
+            // Transforma o objeto do Firebase em array e ordena do maior para o menor acumulado
+            const listaColaboradores = Object.values(dados).sort((a, b) => b.pontos - a.pontos);
+            
+            containerTabela.innerHTML = "";
+            listaColaboradores.forEach((colab, index) => {
+                let badgeCor = index === 0 ? "text-amber-400 font-bold bg-amber-500/10 border-amber-500/20" : "text-slate-300 bg-slate-900 border-slate-800";
+                let iconePos = index === 0 ? "👑" : `${index + 1}º`;
+
+                containerTabela.innerHTML += `
+                    <div class="flex items-center justify-between p-2 rounded-lg border ${badgeCor}">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 text-center font-bold">${iconePos}</span>
+                            <span class="text-white font-medium">${colab.nome}</span>
+                        </div>
+                        <span class="font-bold text-cyan-400">${colab.pontos} pontos acumulados</span>
+                    </div>
+                `;
+            });
         });
 
         const textareaAviso = document.getElementById('avisoDiario');
