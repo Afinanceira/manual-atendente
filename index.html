@@ -223,6 +223,48 @@
           </div>
         </div>
 
+        <!-- Bloco Novo: Padrão de Comunicação Orientado a CSAT e TPR -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <i data-lucide="award" class="w-4 h-4 text-amber-400"></i> Padrão de Comunicação Orientado a CSAT e TPR
+          </h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
+              <span class="font-bold text-amber-400 block text-sm">1. Agilidade de Retenção e Gestão de Tempo (TMR / TPR)</span>
+              <ul class="list-disc list-inside space-y-1.5 text-slate-400">
+                <li><strong>Aviso Imediato de Análise:</strong> Utilizar frases rápidas como "Já estou verificando para você, só um instante por favor" para sinalizar atenção imediata e pausar a contagem de espera sem gerar silêncio no chat.</li>
+                <li><strong>Atualizações de Status Periódicas:</strong> Se a consulta no sistema demorar mais que o previsto, enviar mensagens curtas de posicionamento (ex.: "Continuo analisando seu cadastro, já te trago o retorno") para manter a sensação de acompanhamento e evitar que o cliente abandone o chat ou dê nota baixa no CSAT.</li>
+              </ul>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
+              <span class="font-bold text-blue-400 block text-sm">2. Atendimento Humanizado e Focado na Satisfação (CSAT)</span>
+              <ul class="list-disc list-inside space-y-1.5 text-slate-400">
+                <li><strong>Acolhimento sem Enrolação:</strong> Receber o apostador tratando-o pelo nome e confirmando o motivo do contato de forma direta, mostrando que o caso está sendo tratado com prioridade.</li>
+                <li><strong>Explicativo Amigável:</strong> Informar o motivo da pendência ou da regra sem usar tom punitivo, garantindo que o cliente entenda o processo e saia satisfeito com a clareza da orientação.</li>
+              </ul>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
+              <span class="font-bold text-emerald-400 block text-sm">3. Resolutividade sem Atrito</span>
+              <ul class="list-disc list-inside space-y-1.5 text-slate-400">
+                <li><strong>Orientação Clara para o Próximo Passo:</strong> Antes de encerrar, indicar exatamente o que o apostador precisa fazer ou aguardar, reduzindo a ansiedade e garantindo que o problema seja resolvido na mesma interação.</li>
+                <li><strong>Checagem de Satisfação:</strong> Finalizar com uma confirmação simples se a dúvida foi resolvida, incentivando uma avaliação positiva ao término do chamado.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2 mt-4">
+            <span class="font-bold text-cyan-400 block text-sm">Passos para Facilitar na Prática</span>
+            <ul class="list-disc list-inside space-y-1.5 text-xs text-slate-400">
+              <li><strong>Macros Rápidas de Espera (Bypass de TMR):</strong> Atalhos de um clique para mensagens de retenção ("Aguarde um instante enquanto checo no sistema"), garantindo Agilidade no TPR sem exigir digitação manual.</li>
+              <li><strong>Modelos Flexíveis de Resposta:</strong> Blocos de texto pré-prontos para as dúvidas mais frequentes, que o operador possa personalizar rapidamente com os dados do cliente antes de enviar.</li>
+              <li><strong>Transição Suave para Avaliação:</strong> Mensagem de encerramento amigável que conecta a ajuda prestada à pesquisa de satisfação (CSAT).</li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Bloco 2: Diretrizes de Conduta Escrita -->
         <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3">
           <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
@@ -271,11 +313,6 @@
                   <td class="p-3 text-emerald-300 font-semibold">"Estamos aguardando a consolidação das estatísticas oficiais do evento pela federação."</td>
                 </tr>
                 <tr>
-                  <td class="p-3 text-rose-400 font-mono">Erro no Gateway / Webhook Pix</td>
-                  <td class="p-3">Oscilação ou atraso na comunicação da API bancária com a plataforma.</td>
-                  <td class="p-3 text-emerald-300 font-semibold">"Identificamos uma oscilação temporária na rede bancária do processador de pagamentos."</td>
-                </tr>
-                <tr>
                   <td class="p-3 text-rose-400 font-mono">Compliance / Análise Antifraude</td>
                   <td class="p-3">Verificação de identidade, duplicidade de contas ou conformidade regulatória.</td>
                   <td class="p-3 text-emerald-300 font-semibold">"Sua conta está passando por uma verificação periódica padrão de segurança e conformidade."</td>
@@ -296,7 +333,7 @@
         </div>
       </section>
 
-     <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) & MANUAL FINANCEIRO AVANÇADO -->
+   <!-- TAB 2: RESPOSTAS RÁPIDAS (MACROS) & MANUAL FINANCEIRO AVANÇADO -->
       <section id="tab-macros" class="tab-content space-y-6">
         <div class="flex flex-wrap justify-between items-center gap-4 border-b border-slate-800 pb-4">
           <div>
@@ -305,9 +342,19 @@
             </h2>
             <p class="text-sm text-slate-400 mt-1">Scripts validados, protocolos antifraude, compliance bancário, rastreio de chaves e gestão de fluxos de pagamento.</p>
           </div>
-          <div class="relative">
-            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
-            <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-72 focus:outline-none focus:border-amber-500 font-medium">
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Filtros por Tag no Topo -->
+            <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 p-1 rounded-xl">
+              <button onclick="filtrarPorTag('todos')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 transition cursor-pointer">Todos</button>
+              <button onclick="filtrarPorTag('retencao')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 transition cursor-pointer">Retenção / TPR</button>
+              <button onclick="filtrarPorTag('encaminhamento')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 transition cursor-pointer">Encaminhamentos</button>
+              <button onclick="filtrarPorTag('orientacao')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 transition cursor-pointer">Orientação Geral</button>
+              <button onclick="filtrarPorTag('instabilidade')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:bg-slate-800 transition cursor-pointer">Instabilidades</button>
+            </div>
+            <div class="relative">
+              <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
+              <input type="text" id="filter-macros" onkeyup="filtrarMacros()" placeholder="Buscar por palavra-chave..." class="bg-slate-900 border border-slate-700 pl-9 pr-4 py-2 rounded-xl text-xs text-white w-60 focus:outline-none focus:border-amber-500 font-medium">
+            </div>
           </div>
         </div>
 
@@ -315,7 +362,7 @@
         <div id="macros-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
           <!-- MACRO 1: Depósito de Terceiros / CPF Divergente -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="orientacao">
             <div class="flex justify-between items-center">
               <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Financeiro / Depósito Divergente</span>
               <button onclick="copiarTexto('macro-1')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
@@ -329,7 +376,7 @@
           </div>
 
           <!-- MACRO 2: Atraso Pix & Comprovante EndToEnd -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="orientacao">
             <div class="flex justify-between items-center">
               <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 uppercase">Financeiro / Conciliação Pix</span>
               <button onclick="copiarTexto('macro-2')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
@@ -343,7 +390,7 @@
           </div>
 
           <!-- MACRO 3: Análise MED (Mecanismo Especial de Devolução) -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="instabilidade">
             <div class="flex justify-between items-center">
               <span class="text-[10px] font-bold px-2 py-0.5 bg-rose-500/10 text-rose-400 rounded border border-rose-500/20 uppercase">Compliance / Segurança MED</span>
               <button onclick="copiarTexto('macro-3')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
@@ -357,7 +404,7 @@
           </div>
 
           <!-- MACRO 4: Validação KYC e Regularidade CPF -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="orientacao">
             <div class="flex justify-between items-center">
               <span class="text-[10px] font-bold px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded border border-purple-500/20 uppercase">KYC / Regularidade Cadastral</span>
               <button onclick="copiarTexto('macro-4')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
@@ -371,7 +418,7 @@
           </div>
 
           <!-- MACRO 5: Chaves Pix Bloqueadas / Incompatíveis -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="orientacao">
             <div class="flex justify-between items-center">
               <span class="text-[10px] font-bold px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded border border-cyan-500/20 uppercase">Saques / Chave Pix Incompatível</span>
               <button onclick="copiarTexto('macro-5')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
@@ -384,20 +431,77 @@
             </p>
           </div>
 
-          <!-- MACRO 6: Análise de Rollover e Regra AML -->
-          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition">
+          <!-- MACRO 7: Retenção / TPR - Aviso Imediato de Análise -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="retencao">
             <div class="flex justify-between items-center">
-              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Saques / Rollover & AML</span>
-              <button onclick="copiarTexto('macro-6')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Retenção / TPR</span>
+              <button onclick="copiarTexto('macro-7')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
               </button>
             </div>
-            <h4 class="font-bold text-white text-sm">Saque Retido por Falta de Rollover</h4>
-            <p id="macro-6" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
-              Olá! Conforme as políticas de prevenção à lavagem de dinheiro (AML) e regras regulatórias, o saldo de depósitos precisa cumprir o requisito mínimo de apostas (rollover) antes de ser liberado para solicitação de saque.
+            <h4 class="font-bold text-white text-sm">Aviso Imediato de Análise (Espera)</h4>
+            <p id="macro-7" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Já estou verificando para você, só um instante por favor.
             </p>
           </div>
 
+          <!-- MACRO 8: Retenção / TPR - Atualização de Status Periódica -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="retencao">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded border border-amber-500/20 uppercase">Retenção / TPR</span>
+              <button onclick="copiarTexto('macro-8')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Atualização de Status Periódica</h4>
+            <p id="macro-8" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Continuo analisando seu cadastro, já te trago o retorno.
+            </p>
+          </div>
+
+          <!-- MACRO 9: Encaminhamento Geral para Análise Técnica -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="encaminhamento">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Encaminhamentos / E-mail</span>
+              <button onclick="copiarTexto('macro-9')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Encaminhamento Geral para Análise Técnica</h4>
+            <p id="macro-9" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Sua solicitação foi registrada e encaminhada para a nossa equipe de análise responsável. Assim que a verificação for concluída, a atualização será enviada diretamente para o seu e-mail cadastrado.
+            </p>
+          </div>
+
+          <!-- MACRO 10: Notificação de Fila / Análise Especializada -->
+          <div class="macro-card bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 hover:border-amber-500/50 transition" data-categoria="encaminhamento">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20 uppercase">Encaminhamentos / E-mail</span>
+              <button onclick="copiarTexto('macro-10')" class="text-xs bg-amber-500 text-slate-950 font-bold hover:bg-amber-400 px-3 py-1 rounded-lg transition flex items-center gap-1.5 shadow cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Script
+              </button>
+            </div>
+            <h4 class="font-bold text-white text-sm">Notificação de Fila / Análise Especializada</h4>
+            <p id="macro-10" class="text-xs text-slate-300 bg-slate-950 p-3 rounded-lg border border-slate-800/80 font-mono leading-relaxed">
+              Como o seu caso exige uma checagem detalhada no sistema, já registrei todos os dados para o analista responsável. Por favor, fique atento à sua caixa de entrada, pois o retorno da nossa equipe será enviado por e-mail.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Seção de Ação do Atendente (Fluxo com Envio ao Suporte) -->
+        <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-3 mt-6">
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            <i data-lucide="list-checks" class="w-4 h-4 text-amber-400"></i> Ação do Atendente: Fluxo de Encaminhamento ao Suporte
+          </h3>
+          <p class="text-xs text-slate-400">Siga rigorosamente estas etapas antes de finalizar o atendimento que necessita de checagem aprofundada:</p>
+          <ul class="list-disc list-inside space-y-1.5 text-xs text-slate-300">
+            <li>Identificar o tipo de solicitação do apostador.</li>
+            <li>Coletar os dados essenciais (ID do usuário, e-mail de contato, comprovante/print do erro ou código da transação).</li>
+            <li>Confirmar se o e-mail do usuário está atualizado no cadastro.</li>
+            <li>Preencher o formulário/ticket interno de registro com as informações coletadas.</li>
+            <li>Enviar o caso para a fila do Analista/Suporte e orientar o cliente a aguardar a resposta via e-mail.</li>
+          </ul>
         </div>
 
         <!-- MANUAL FINANCEIRO OPERACIONAL AVANÇADO -->
@@ -458,7 +562,7 @@
         </div>
       </section>
 
-      <!-- TAB 3: TAGS DO BLIP DESK (COMPLETA COM TODAS AS HASHTAGS) -->
+    <!-- TAB 3: TAGS DO BLIP DESK (COMPLETA COM TODAS AS HASHTAGS) -->
       <section id="tab-tags-blip" class="tab-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
           <h2 class="text-2xl font-black text-white flex items-center gap-3">
