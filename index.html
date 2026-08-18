@@ -1671,7 +1671,7 @@
         </div>
       </section>
 
-      <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
+     <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
       <section id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
         <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
@@ -1699,7 +1699,7 @@
                 <input type="text" id="atendente-nome" placeholder="Ex: João Silva" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-500">
             </div>
 
-            <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>30 segundos</strong> será disparado e sua questão personalizada do dia será carregada.</p>
+            <p class="text-xs text-slate-300">⚠️ <strong>Atenção:</strong> Ao iniciar, o cronômetro de <strong>40 segundos</strong> será disparado e sua questão personalizada do dia será carregada. O desafio é único por dia!</p>
             <button onclick="window.iniciarQuizGerado()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2 cursor-pointer">
                 🚀 Gerar e Iniciar Quiz de Hoje
             </button>
@@ -1707,7 +1707,7 @@
 
         <div id="quiz-pergunta-box" class="hidden space-y-3 bg-slate-900/90 p-4 rounded-xl border border-slate-700">
             <div class="flex justify-between items-center text-xs text-slate-400">
-                <span id="quiz-timer" class="font-bold text-amber-400 text-sm">⏱️ 30s</span>
+                <span id="quiz-timer" class="font-bold text-amber-400 text-sm">⏱️ 40s</span>
                 <span id="atendente-identificado" class="text-cyan-300 font-semibold"></span>
             </div>
             <p id="quiz-enunciado" class="text-xs font-bold text-slate-100 text-sm"></p>
@@ -1719,7 +1719,7 @@
         <div class="space-y-2 pt-2">
             <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">📊 Placar de Acumulação Mensal (Soma de Pontos)</span>
             <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800 space-y-3 text-xs">
-                <p class="text-[11px] text-slate-400">Lista completa de pontuação acumulada dos colaboradores para apuração do certificado:</p>
+                <p class="text-[11px] text-slate-400">Lista completa de pontuação acumulada dos colaboradores para apuração do certificado e sorteios:</p>
                 <div id="tabela-pontuacoes-mensal" class="space-y-1.5 divide-y divide-slate-900">
                     <span class="text-slate-500 italic">Sincronizando banco de dados...</span>
                 </div>
@@ -1796,6 +1796,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    // Banco de Questões Altamente Ampliado e Divergente
     const conceitosManual = [
         {
             tema: "Terminologia oficial",
@@ -1850,35 +1851,89 @@
             perguntaBase: "Qual dado passou a ser estritamente obrigatório em todas as tratativas relacionadas a bônus e promoções nas casas?",
             correta: "ID do usuário",
             distratores: ["Apenas o e-mail cadastrado", "Endereço residencial", "Chave Pix principal"]
+        },
+        {
+            tema: "Reação Obrigatória de Validação",
+            perguntaBase: "Após enviar a mensagem de autorização de um analista em um registro, qual emoji o autorizador deve usar na mensagem para confirmar?",
+            correta: "💡 (lâmpada)",
+            distratores: ["✅ (check verde)", "🔥 (fogo)", "⭐ (estrela)"]
+        },
+        {
+            tema: "Grupos Operacionais de Saldo",
+            perguntaBase: "Assuntos referentes a SALDO NEGATIVO devem ser inseridos obrigatoriamente em qual grupo de atendimento?",
+            correta: "Divergência de Saldo",
+            distratores: ["Questões Gerais", "Validação KYC", "Suporte VIP"]
+        },
+        {
+            tema: "Grupos Operacionais de Validação",
+            perguntaBase: "Qualquer assunto referente a validação de cadastro deve ser inserido estritamente em qual grupo?",
+            correta: "Validação KYC",
+            distratores: ["Divergência de Saldo", "Questões Gerais", "Backoffice Financeiro"]
+        },
+        {
+            tema: "Orientações sobre Suspensão do Site",
+            perguntaBase: "Caso um cliente questione sobre a suspensão do site, qual postura oficial o atendente deve adotar?",
+            correta: "Informar que a empresa segue em pleno funcionamento e adotou as medidas judiciais cabíveis",
+            distratores: ["Explicar detalhes jurídicos complexos do processo", "Concordar que o site pode fechar em breve", "Oferecer reembolso imediato por cautela"]
+        },
+        {
+            tema: "Regra de Eventos Adiados",
+            perguntaBase: "Qual é o prazo regulamentar padrão aplicado pelas marcas para partidas de apostas esportivas suspensas ou adiadas?",
+            correta: "24h a 48h",
+            distratores: ["2 horas", "7 dias úteis", "12 horas"]
+        },
+        {
+            tema: "Anatomia de Mercados 90 Min",
+            perguntaBase: "As apostas no mercado 1X2, gols e escanteios valem estritamente para qual período da partida?",
+            correta: "Tempo regulamentar (90 minutos + acréscimos)",
+            distratores: ["Incluindo prorrogação e pênaltis", "Apenas o primeiro tempo", "Até o apito final da prorrogação"]
         }
     ];
 
     let quizTimerInterval;
-    let tempoRestante = 30;
+    let tempoRestante = 40;
     let nomeAtendente = "";
 
     const hojeStr = new Date().toISOString().split('T')[0];
-    const chaveLocal = `quiz_respondido_${hojeStr}`;
 
-    window.iniciarQuizGerado = function() {
+    window.iniciarQuizGerado = async function() {
         const inputNome = document.getElementById("atendente-nome").value.trim();
         if (!inputNome) {
             alert("Por favor, digite seu nome ou apelido para participar do ranking!");
             return;
         }
         nomeAtendente = inputNome;
-        document.getElementById("atendente-identificado").innerText = `Atendente: ${nomeAtendente}`;
+        const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
+        
+        // Verificação estrita no Firebase para impedir múltiplas tentativas no mesmo dia
+        const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
+        try {
+            const snapshot = await get(userRef);
+            if (snapshot.exists() && snapshot.val().ultimaAtualizacao === hojeStr) {
+                alert("⚠️ Você já concluiu o seu desafio de hoje! O quiz diário permite apenas uma tentativa por dia para preservar a justiça do ranking.");
+                document.getElementById("quiz-status-texto").innerText = "Respondido hoje (Bloqueado)";
+                document.getElementById("quiz-intro").classList.add("hidden");
+                let feedback = document.getElementById("quiz-feedback");
+                feedback.classList.remove("hidden");
+                feedback.className = "text-xs font-semibold p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 mt-2";
+                feedback.innerHTML = `⚠️ <strong>${nomeAtendente}</strong>, você já participou hoje. Volte amanhã para somar novos pontos!`;
+                return;
+            }
+        } catch (e) {
+            console.error("Erro ao verificar status diário:", e);
+        }
 
+        document.getElementById("atendente-identificado").innerText = `Atendente: ${nomeAtendente}`;
         document.getElementById("quiz-intro").classList.add("hidden");
         document.getElementById("quiz-pergunta-box").classList.remove("hidden");
 
-        // Variação diária baseada na data atual (YYYY-MM-DD) somada ao nome para garantir pergunta diferente por dia sem repetir aleatoriamente a esmo
+        // Algoritmo de divergência profunda combinando nome do atendente com a data real
         let hashNome = 0;
         for (let i = 0; i < nomeAtendente.length; i++) {
             hashNome += nomeAtendente.charCodeAt(i);
         }
         const diaDoAno = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
-        const indiceQuestao = (hashNome + diaDoAno) % conceitosManual.length;
+        const indiceQuestao = (hashNome + diaDoAno * 13) % conceitosManual.length;
         const base = conceitosManual[indiceQuestao];
 
         document.getElementById("quiz-enunciado").innerText = base.perguntaBase;
@@ -1895,7 +1950,7 @@
             divOpcoes.innerHTML += `<button onclick="window.responderQuizGerado(${index}, ${indiceCorreto})" class="w-full text-left bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg text-xs text-slate-200 transition-all border border-slate-700 cursor-pointer">🔹 ${opcao}</button>`;
         });
 
-        tempoRestante = 30;
+        tempoRestante = 40;
         document.getElementById("quiz-timer").innerText = `⏱️ ${tempoRestante}s`;
 
         quizTimerInterval = setInterval(() => {
@@ -1916,8 +1971,6 @@
         feedback.classList.remove("hidden");
         document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
 
-        localStorage.setItem(chaveLocal, "true");
-
         let pontosGanhos = 0;
         if (selecionada === correta) {
             pontosGanhos = 10;
@@ -1925,7 +1978,7 @@
             feedback.innerHTML = `✅ <strong>Parabéns, ${nomeAtendente}!</strong> Resposta Correta! +10 pontos somados ao seu total mensal.`;
         } else {
             feedback.className = "text-xs font-semibold p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300";
-            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> Mais atenção ao manual na próxima! (0 pts hoje)`;
+            feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> Sua data foi atualizada, mas seus pontos anteriores foram mantidos intactos.`;
         }
 
         const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
@@ -1937,7 +1990,7 @@
             if (snapshot.exists()) {
                 pontosAtuais = snapshot.val().pontos || 0;
             }
-            // Atualiza apenas os pontos, mantendo o nome registrado sem duplicar cadastro
+            // Atualiza a data de hoje para bloquear nova tentativa, somando pontos se acertou ou mantendo o saldo se errou
             await set(userRef, {
                 nome: nomeAtendente,
                 pontos: pontosAtuais + pontosGanhos,
@@ -1953,21 +2006,22 @@
         const feedback = document.getElementById("quiz-feedback");
         feedback.classList.remove("hidden");
         feedback.className = "text-xs font-semibold p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300";
-        feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 30 segundos zerou. (0 pts hoje)`;
+        feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 40 segundos zerou. Sua data foi registrada, mas seus pontos anteriores foram preservados.`;
         document.getElementById("quiz-status-texto").innerText = "Tempo esgotado";
-        localStorage.setItem(chaveLocal, "true");
 
         const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
         const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
         try {
             const snapshot = await get(userRef);
-            if (!snapshot.exists()) {
-                await set(userRef, {
-                    nome: nomeAtendente,
-                    pontos: 0,
-                    ultimaAtualizacao: hojeStr
-                });
+            let pontosAtuais = 0;
+            if (snapshot.exists()) {
+                pontosAtuais = snapshot.val().pontos || 0;
             }
+            await set(userRef, {
+                nome: nomeAtendente,
+                pontos: pontosAtuais,
+                ultimaAtualizacao: hojeStr
+            });
         } catch (e) {
             console.error(e);
         }
@@ -1993,16 +2047,6 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-        if (localStorage.getItem(chaveLocal)) {
-            const introBox = document.getElementById("quiz-intro");
-            if (introBox) introBox.classList.add("hidden");
-            document.getElementById("quiz-status-texto").innerText = "Respondido hoje";
-            let feedback = document.getElementById("quiz-feedback");
-            feedback.classList.remove("hidden");
-            feedback.className = "text-xs font-semibold p-3 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 mt-2";
-            feedback.innerHTML = "✅ Você já concluiu o desafio de hoje. Volte amanhã para somar mais pontos rumo ao certificado!";
-        }
-
         const pontuacoesRef = ref(db, 'quiz_pontuacoes');
         onValue(pontuacoesRef, (snapshot) => {
             const dados = snapshot.val();
