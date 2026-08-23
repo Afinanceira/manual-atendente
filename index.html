@@ -1656,7 +1656,7 @@
         </div>
       </section>
 
-     <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
+    <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
       <section id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
         <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
@@ -1703,10 +1703,27 @@
 
         <div class="space-y-2 pt-2">
             <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">📊 Placar de Acumulação Mensal (Soma de Pontos)</span>
-            <div class="bg-slate-950/60 rounded-xl p-4 border border-slate-800 space-y-3 text-xs">
-                <p class="text-[11px] text-slate-400">Lista completa de pontuação acumulada dos colaboradores para apuração do certificado e sorteios:</p>
-                <div id="tabela-pontuacoes-mensal" class="space-y-1.5 divide-y divide-slate-900">
-                    <span class="text-slate-500 italic">Sincronizando banco de dados...</span>
+            <div class="bg-slate-950/60 rounded-xl overflow-hidden border border-slate-800 text-xs">
+                <div class="p-3 bg-slate-900 border-b border-slate-800 text-slate-400 font-semibold flex justify-between">
+                    <span>Lista completa de pontuação acumulada e critério de tempo (desempate)</span>
+                    <span class="text-cyan-400">Tempo Real</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs text-slate-300">
+                        <thead class="bg-slate-950 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                            <tr>
+                                <th class="p-3">Atendente</th>
+                                <th class="p-3">Pontuação Total</th>
+                                <th class="p-3">Tempo Restante (s)</th>
+                                <th class="p-3">Última Atualização</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-pontuacoes-mensal" class="divide-y divide-slate-800">
+                            <tr>
+                                <td colspan="4" class="p-4 text-center text-slate-500 italic">Sincronizando banco de dados...</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -1888,9 +1905,9 @@
             return;
         }
         nomeAtendente = inputNome;
-        const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
         
-        // Verificação estrita no Firebase para impedir múltiplas tentativas no mesmo dia
+        const sanitizarNome = nomeAtendente.toLowerCase().trim().replace(/[^a-z0-9]/g, "_");
+        
         const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
         try {
             const snapshot = await get(userRef);
@@ -1912,10 +1929,9 @@
         document.getElementById("quiz-intro").classList.add("hidden");
         document.getElementById("quiz-pergunta-box").classList.remove("hidden");
 
-        // Algoritmo de divergência profunda combinando nome do atendente com a data real
         let hashNome = 0;
-        for (let i = 0; i < nomeAtendente.length; i++) {
-            hashNome += nomeAtendente.charCodeAt(i);
+        for (let i = 0; i < sanitizarNome.length; i++) {
+            hashNome += sanitizarNome.charCodeAt(i);
         }
         const diaDoAno = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
         const indiceQuestao = (hashNome + diaDoAno * 13) % conceitosManual.length;
@@ -1966,20 +1982,24 @@
             feedback.innerHTML = `❌ <strong>${nomeAtendente}, resposta incorreta.</strong> Sua data foi atualizada, mas seus pontos anteriores foram mantidos intactos.`;
         }
 
-        const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
+        const sanitizarNome = nomeAtendente.toLowerCase().trim().replace(/[^a-z0-9]/g, "_");
         const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
+        const dataHoraAtual = new Date().toLocaleString('pt-BR');
 
         try {
             const snapshot = await get(userRef);
             let pontosAtuais = 0;
             if (snapshot.exists()) {
-                pontosAtuais = snapshot.val().pontos || 0;
+                pontosAtuais = Number(snapshot.val().pontos) || 0;
             }
-            // Atualiza a data de hoje para bloquear nova tentativa, somando pontos se acertou ou mantendo o saldo se errou
             await set(userRef, {
-                nome: nomeAtendente,
+                nome: nomeAtendente.trim(),
                 pontos: pontosAtuais + pontosGanhos,
-                ultimaAtualizacao: hojeStr
+                tempoRestanteSegundos: Math.max(0, tempoRestante),
+                tempoRestante: `${Math.max(0, tempoRestante)}s`,
+                ultimaAtualizacao: hojeStr,
+                dataHora: dataHoraAtual,
+                timestamp: Date.now()
             });
         } catch (error) {
             console.error("Erro ao atualizar pontuação:", error);
@@ -1994,25 +2014,30 @@
         feedback.innerHTML = `⏰ <strong>Tempo Esgotado, ${nomeAtendente}!</strong> O cronômetro de 40 segundos zerou. Sua data foi registrada, mas seus pontos anteriores foram preservados.`;
         document.getElementById("quiz-status-texto").innerText = "Tempo esgotado";
 
-        const sanitizarNome = nomeAtendente.replace(/[.#$\/\[\]]/g, "_");
+        const sanitizarNome = nomeAtendente.toLowerCase().trim().replace(/[^a-z0-9]/g, "_");
         const userRef = ref(db, `quiz_pontuacoes/${sanitizarNome}`);
+        const dataHoraAtual = new Date().toLocaleString('pt-BR');
+
         try {
             const snapshot = await get(userRef);
             let pontosAtuais = 0;
             if (snapshot.exists()) {
-                pontosAtuais = snapshot.val().pontos || 0;
+                pontosAtuais = Number(snapshot.val().pontos) || 0;
             }
             await set(userRef, {
-                nome: nomeAtendente,
+                nome: nomeAtendente.trim(),
                 pontos: pontosAtuais,
-                ultimaAtualizacao: hojeStr
+                tempoRestanteSegundos: 0,
+                tempoRestante: '0s',
+                ultimaAtualizacao: hojeStr,
+                dataHora: dataHoraAtual,
+                timestamp: Date.now()
             });
         } catch (e) {
             console.error(e);
         }
     };
 
-    // Função de Admin para apagar o histórico / placar a cada 30 dias com senha 369
     window.limparHistoricoQuizAdmin = async function() {
         const senhaAdmin = document.getElementById("senhaAdminQuiz").value.trim();
         if (senhaAdmin !== "369") {
@@ -2031,34 +2056,72 @@
         }
     };
 
+    function processarEUnificarRanking(snapshotDados) {
+        let mapColaboradores = {};
+        
+        snapshotDados.forEach((childSnapshot) => {
+            const item = childSnapshot.val();
+            if (item && item.nome) {
+                const chaveUnica = item.nome.trim().toLowerCase().replace(/[^a-z0-9]/g, "_");
+                const pontosItem = Number(item.pontos) || 0;
+
+                if (!mapColaboradores[chaveUnica]) {
+                    mapColaboradores[chaveUnica] = {
+                        nome: item.nome.trim(),
+                        pontos: pontosItem,
+                        tempoRestanteSegundos: Number(item.tempoRestanteSegundos) || 0,
+                        tempoRestante: item.tempoRestante || '0s',
+                        dataHora: item.dataHora || '',
+                        timestamp: item.timestamp || 0,
+                        ultimaAtualizacao: item.ultimaAtualizacao || ''
+                    };
+                } else {
+                    mapColaboradores[chaveUnica].pontos += pontosItem;
+                    if ((item.timestamp || 0) > mapColaboradores[chaveUnica].timestamp) {
+                        mapColaboradores[chaveUnica].tempoRestante = item.tempoRestante || mapColaboradores[chaveUnica].tempoRestante;
+                        mapColaboradores[chaveUnica].tempoRestanteSegundos = item.tempoRestanteSegundos || mapColaboradores[chaveUnica].tempoRestanteSegundos;
+                        mapColaboradores[chaveUnica].dataHora = item.dataHora || mapColaboradores[chaveUnica].dataHora;
+                        mapColaboradores[chaveUnica].timestamp = item.timestamp || mapColaboradores[chaveUnica].timestamp;
+                        mapColaboradores[chaveUnica].nome = item.nome.trim();
+                        mapColaboradores[chaveUnica].ultimaAtualizacao = item.ultimaAtualizacao || mapColaboradores[chaveUnica].ultimaAtualizacao;
+                    }
+                }
+            }
+        });
+
+        let lista = Object.values(mapColaboradores);
+        // Ordena por pontuação (maior) e usa o tempo restante em segundos como critério de desempate
+        lista.sort((a, b) => b.pontos !== a.pontos ? b.pontos - a.pontos : (b.tempoRestanteSegundos || 0) - (a.tempoRestanteSegundos || 0));
+        return lista;
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const pontuacoesRef = ref(db, 'quiz_pontuacoes');
         onValue(pontuacoesRef, (snapshot) => {
             const dados = snapshot.val();
-            const containerTabela = document.getElementById('tabela-pontuacoes-mensal');
-            if (!containerTabela) return;
+            const tableBody = document.getElementById('tabela-pontuacoes-mensal');
+            if (!tableBody) return;
 
             if (!dados) {
-                containerTabela.innerHTML = `<span class="text-slate-500 italic">Nenhuma pontuação registrada ainda neste ciclo.</span>`;
+                tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-500 italic">Nenhuma pontuação registrada ainda neste ciclo.</td></tr>`;
                 return;
             }
 
-            const listaColaboradores = Object.values(dados).sort((a, b) => b.pontos - a.pontos);
+            const listaColaboradores = processarEUnificarRanking(snapshot);
 
-            containerTabela.innerHTML = "";
-            listaColaboradores.forEach((colab, index) => {
-                let badgeCor = index === 0 ? "text-amber-400 font-bold bg-amber-500/10 border-amber-500/20" : "text-slate-300 bg-slate-900 border-slate-800";
-                let iconePos = index === 0 ? "👑" : `${index + 1}º`;
-
-                containerTabela.innerHTML += `
-                    <div class="flex items-center justify-between p-2 rounded-lg border ${badgeCor}">
-                        <div class="flex items-center gap-2">
-                            <span class="w-6 text-center font-bold">${iconePos}</span>
-                            <span class="text-white font-medium">${colab.nome}</span>
-                        </div>
-                        <span class="font-bold text-cyan-400">${colab.pontos} pontos acumulados</span>
-                    </div>
+            tableBody.innerHTML = "";
+            listaColaboradores.forEach((entry) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-900/50 transition border-b border-slate-800";
+                const pts = entry.pontos || 0;
+                const notaColor = pts > 0 ? 'text-emerald-400' : 'text-red-400';
+                tr.innerHTML = `
+                    <td class="p-3 font-semibold text-white">${entry.nome}</td>
+                    <td class="p-3 font-bold ${notaColor}">${pts} pts</td>
+                    <td class="p-3 font-mono text-amber-300 font-bold">${entry.tempoRestante || '0s'}</td>
+                    <td class="p-3 text-slate-500">${entry.dataHora || 'N/A'}</td>
                 `;
+                tableBody.appendChild(tr);
             });
         });
 
