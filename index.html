@@ -1656,7 +1656,7 @@
         </div>
       </section>
 
-    <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
+   <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
       <section id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
         <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
@@ -1798,97 +1798,97 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Banco de Questões Altamente Ampliado e Divergente
+    // Banco de Questões Altamente Avançado, Técnico e Difícil
     const conceitosManual = [
         {
-            tema: "Terminologia oficial",
-            perguntaBase: "De acordo com as novas diretrizes internas e técnicas do nosso manual, qual terminologia devemos adotar obrigatoriamente para nos referirmos aos casos de risco?",
-            correta: "Transtorno de Jogo",
-            distratores: ["Vício em apostas", "Compulsão lúdica simples", "Problema de jogo leve"]
+            tema: "Compliance & MED (Mecanismo Especial de Devolução)",
+            perguntaBase: "Durante uma contestação de transação via MED, o cliente exige a liberação imediata do saldo retido preventivamente alegando que foi erro do banco dele. Qual deve ser a conduta técnica estrita do atendente?",
+            correta: "Explicar que o bloqueio preventivo decorre de protocolo antifraude regulamentado, manter a restrição ativa e jamais estipular prazos arbitrários sem parecer formal do Backoffice.",
+            distratores: ["Realizar a liberação manual se o cliente enviar um print do extrato bancário confirmando a titularidade.", "Orientar o apostador a registrar um boletim de ocorrência para acelerar o desbloqueio em até 2 horas.", "Instruir o cliente a realizar um novo depósito de igual valor para compensar a pendência no sistema."]
         },
         {
-            tema: "Consulta de histórico",
-            perguntaBase: "Antes de tomar qualquer decisão ou finalizar um atendimento sensível, qual é a conduta obrigatória destacada no método de ação?",
-            correta: "Consultar o histórico de atendimentos anteriores",
-            distratores: ["Apenas fechar o chat imediatamente", "Dar conselhos morais ao apostador", "Encaminhar direto para o gerente"]
+            tema: "Tratativa de Compulsão & Jogo Responsável",
+            perguntaBase: "Um apostador entra em contato visivelmente alterado, afirmando que perdeu todo o salário e exigindo o reembolso integral de suas apostas sob ameaça de denúncia aos órgãos reguladores. Como o atendente deve proceder de acordo com as diretrizes da Portaria SPA/MF?",
+            correta: "Aplicar imediatamente o protocolo de autoexclusão preventiva por dependência, demonstrar empatia neutra sem prometer ressarcimento financeiro e abster-se de qualquer estímulo comercial.",
+            distratores: ["Oferecer um bônus de recuperação de 50% no próximo depósito para tentar reter o cliente na plataforma.", "Efetuar o estorno parcial das últimas 5 apostas perdidas para evitar acionamentos jurídicos.", "Argumentar que a casa não se responsabiliza por perdas e encerrar o chat sumariamente."]
         },
         {
-            tema: "Conformidade Regulatória",
-            perguntaBase: "Qual é a portaria oficial mencionada em nosso guia que fundamenta as exigências de Jogo Responsável?",
-            correta: "Portaria SPA/MF nº 1.231/2024",
-            distratores: ["Portaria Central de Jogos nº 999", "Lei Geral de Proteção de Dados de Apostas", "Norma Regulamentadora de Atendimento 45"]
+            tema: "Anatomia de Transações & Validação de Comprovantes",
+            perguntaBase: "Em uma auditoria de conciliação de depósito via Pix, um comprovante é apresentado sem o código EndToEnd (ID transacional), mas com o nome e CPF corretos do titular. Qual é o procedimento operacional mandatório?",
+            correta: "Recusar o comprovante para fins de crédito manual, pois a ausência do EndToEnd impede o rastreio e a validação de liquidação junto ao gateway de pagamento.",
+            distratores: ["Aprovar o crédito imediatamente caso o valor coincida com o saldo pendente no extrato do operador.", "Solicitar uma selfie do cliente segurando o documento de identidade para validar a transação.", "Encaminhar o comprovante para o grupo de Suporte VIP para liberação discricionária."]
         },
         {
-            tema: "Tratativa Comercial Crítica",
-            perguntaBase: "Ao lidar com um cliente que manifesta indícios de perda de controle ou autodenuncia de compulsão, qual conduta comercial é estritamente proibida?",
-            correta: "Oferecer bônus, cashback ou tentar retenção comercial",
-            distratores: ["Efetivar o bloqueio imediato", "Demonstrar empatia neutra", "Encaminhar para canais de suporte"]
+            tema: "Gestão de Saldo Negativo & Transbordo",
+            perguntaBase: "Um usuário apresenta saldo negativo em sua carteira após o cancelamento retroativo de um bilhete liquidado erroneamente por falha de feed estatístico. Qual canal e procedimento devem ser aplicados?",
+            correta: "Direcionar o caso estritamente para o grupo 'Divergência de Saldo' no Backoffice, aguardando a auditoria de logs antes de prestar esclarecimentos conclusivos ao usuário.",
+            distratores: ["Cobrar o valor negativo via chat e orientar o cliente a depositar para zerar a conta.", "Realizar um ajuste manual de crédito por cortesia comercial para encerrar o atendimento rápido.", "Zerar o saldo negativo automaticamente utilizando a verba de marketing da operação."]
         },
         {
-            tema: "Dicionário de Atendimento",
-            perguntaBase: "Como o atendente deve traduzir para o cliente final um termo de backoffice como 'Aguardando Feed / Opta'?",
-            correta: "Aguardando a consolidação das estatísticas oficiais do evento",
-            distratores: ["O provedor externo quebrou", "Erro grave no sistema da casa", "O bilhete foi anulado definitivamente"]
+            tema: "Regras de Mercados Esportivos (Regulamento 90 Minutos)",
+            perguntaBase: "Um cliente aposta no mercado 'Total de Gols - Mais de 2.5' em uma partida eliminatória que termina empatada em 1x1 no tempo regulamentar e vai para a prorrogação, onde saem mais 2 gols. Qual é o status oficial do bilhete?",
+            correta: "Perdido (Lost), visto que os mercados principais de apostas esportivas valem estritamente para o tempo regulamentar (90 minutos mais acréscimos), salvo exceções explícitas no mercado.",
+            distratores: ["Vencedor (Won), pois os gols marcados na prorrogação integram o placar total do confronto.", "Anulado (Void), com reembolso integral do valor apostado devido à alteração no formato da partida.", "Pendente, aguardando a homologação final da comissão de arbitragem da federação."]
         },
         {
-            tema: "Gestão de Espera",
-            perguntaBase: "Qual é a técnica recomendada para gerenciar o tempo de espera (TMR) com apostadores impacientes sem perder a qualidade?",
-            correta: "Espera Estruturada com janelas transparentes e micro-pausas informativas",
-            distratores: ["Deixar o cliente sem resposta até achar a solução", "Informar prazos longos genéricos sem retorno", "Encerrar o chat imediatamente"]
+            tema: "Protocolos de Backoffice & Termos Técnicos",
+            perguntaBase: "O backoffice status indica 'Settlement Delayed - Manual Review Required' em um bilhete de alto valor. Como o atendente deve traduzir e orientar o apostador sem violar os protocolos de segurança?",
+            correta: "Explicar de forma transparente que a aposta está em análise padrão de conformidade e segurança dos dados do evento, sem estipular prazos fechados.",
+            distratores: ["Informar que o sistema sofreu uma pane geral e que o dinheiro será estornado em 10 minutos.", "Acusar o cliente de tentativa de manipulação de resultado (match-fixing) diretamente no chat.", "Garantir que o pagamento será liberado em até 2 horas úteis pelo gerente financeiro."]
         },
         {
-            tema: "Segurança de Dados",
-            perguntaBase: "Qual é a regra corporativa fundamental ao lidar com comprovantes e dados financeiros de terceiros?",
-            correta: "Exigir documento oficial com EndToEnd e vedar contas de terceiros",
-            distratores: ["Aceitar qualquer print enviado no chat", "Liberar saques para contas de parentes", "Ignorar a validação de CPF"]
+            tema: "Prevenção à Fraude & Contas de Terceiros",
+            perguntaBase: "Identifica-se que um depósito de alta expressividade foi efetuado a partir de uma conta bancária PJ de titularidade de uma empresa terceira em nome do apostador PF. Qual é a diretriz regulatória aplicável?",
+            correta: "Bloqueio preventivo por infração às normas de PLD (Prevenção à Lavagem de Dinheiro) e recusa do depósito, com estorno obrigatório para a conta de origem.",
+            distratores: ["Aceitar o depósito mediante envio de contrato social da empresa comprovando sociedade.", "Permitir o uso dos fundos desde que o cliente envie uma autorização assinada com firma reconhecida.", "Converter o saldo para bônus de cassino para mitigar o risco regulatório."]
         },
         {
-            tema: "Procedimento de Validação",
-            perguntaBase: "Ao criar um registro autorizado por alguém da Qualidade ou Backoffice, qual deve ser o primeiro envio obrigatório no tópico?",
-            correta: "Mensagem informando 'Autorizado por @[nome do agente]'",
-            distratores: ["Enviar apenas o print do chat", "Avisar no grupo de avisos gerais", "Aguardar 24h sem marcação"]
+            tema: "Procedimentos de Registro & Tags Operacionais",
+            perguntaBase: "Ao escalar uma tratativa complexa que exigiu validação prévia de um analista sênior, qual é a formatação textual obrigatória na primeira linha do tópico de registro?",
+            correta: "Inserir obrigatoriamente a menção 'Autorizado por @[nome do analista]' seguida da evidência técnica.",
+            distratores: ["Colocar apenas o ID do bilhete em negrito sem mencionar o autorizador.", "Enviar um print cortado da conversa do Teams com o superior.", "Anotar o nome do analista apenas no campo de observações internas do sistema."]
         },
         {
-            tema: "Regra de Promoções",
-            perguntaBase: "Qual dado passou a ser estritamente obrigatório em todas as tratativas relacionadas a bônus e promoções nas casas?",
-            correta: "ID do usuário",
-            distratores: ["Apenas o e-mail cadastrado", "Endereço residencial", "Chave Pix principal"]
+            tema: "Política de Bônus e Rollover (Turnover)",
+            perguntaBase: "Um cliente reclama que não consegue sacar seus ganhos obtidos através de um bônus de boas-vindas, mesmo tendo saldo disponível. Qual conceito técnico o atendente deve esclarecer?",
+            correta: "O cumprimento integral dos requisitos de apostas (rollover/turnover), especificando o multiplicador de volume e odds mínimas exigidas pelo regulamento da promoção.",
+            distratores: ["Explicar que a casa retém 50% de taxa administrativa em todos os saques de bônus.", "Dizer que o saldo de bônus é apenas ilustrativo e nunca pode ser convertido em dinheiro real.", "Afirmar que o sistema travou o saque por excesso de lucro do usuário."]
         },
         {
-            tema: "Reação Obrigatória de Validação",
-            perguntaBase: "Após enviar a mensagem de autorização de um analista em um registro, qual emoji o autorizador deve usar na mensagem para confirmar?",
+            tema: "Tratativa de Partidas Suspensas ou Adiadas",
+            perguntaBase: "Uma partida de futebol válida pelo campeonato nacional é interrompida aos 35 minutos do primeiro tempo e não é retomada nas 36 horas seguintes. Segundo o padrão regulamentar, o que acontece com as apostas pendentes?",
+            correta: "São consideradas suspensas/adiadas, aplicando-se a regra corporativa padrão de reembolso ou validação dentro da janela de 24h a 48h conforme os termos e condições.",
+            distratores: ["O bilhete é liquidado com base no placar parcial do momento da interrupção.", "Todas as apostas são dadas como perdidas automaticamente por encerramento prematuro.", "O valor apostado é doado para o fundo de desenvolvimento da liga esportiva."]
+        },
+        {
+            tema: "Conformidade com a Portaria SPA/MF nº 1.231/2024",
+            perguntaBase: "Qual é o principal foco estrutural exigido pelas diretrizes da Portaria SPA/MF nº 1.231/2024 no tocante à operação das plataformas de apostas autorizadas no Brasil?",
+            correta: "A implementação rigorosa de políticas de Jogo Responsável, integridade financeira, combate à lavagem de dinheiro e proteção de dados dos apostadores.",
+            distratores: ["A desoneração total de impostos federais para apostadores de alta renda (VIP).", "A liberação irrestrita de publicidade de apostas em horário infantil na televisão aberta.", "A proibição de uso de gateways de pagamento nacionais em transações de iGaming."]
+        },
+        {
+            tema: "Gestão de Incidentes em Jogos de Cassino (Crash / Instantâneos)",
+            perguntaBase: "Um usuário relata que o jogo de crash (ex: Aviator/Mines) travou no meio de uma rodada vencedora com multiplicador alto devido a uma queda momentânea de conexão na ponta dele. Qual deve ser a posição técnica do suporte?",
+            correta: "Explicar que o resultado da rodada é processado e validado de forma imutável pelo servidor do provedor via RNG/hash criptográfico, independentemente da oscilação de tela do cliente.",
+            distratores: ["Realizar o pagamento manual do multiplicador máximo almejado para preservar o bom relacionamento.", "Culpar a operadora de internet do cliente e oferecer 10 rodadas grátis como compensação.", "Reembolsar o valor da aposta principal multiplicado por dez como cortesia gerencial."]
+        },
+        {
+            tema: "Identificação e Registro de Casos Críticos",
+            perguntaBase: "Qual emoji regulamentar o analista sênior/autorizador deve obrigatoriamente utilizar para reagir à mensagem de validação de um procedimento sensível no canal interno?",
             correta: "💡 (lâmpada)",
-            distratores: ["✅ (check verde)", "🔥 (fogo)", "⭐ (estrela)"]
+            distratores: ["✅ (check verde)", "🔥 (fogo)", "⭐ (estrela dourada)"]
         },
         {
-            tema: "Grupos Operacionais de Saldo",
-            perguntaBase: "Assuntos referentes a SALDO NEGATIVO devem ser inseridos obrigatoriamente em qual grupo de atendimento?",
-            correta: "Divergência de Saldo",
-            distratores: ["Questões Gerais", "Validação KYC", "Suporte VIP"]
+            tema: "Diretrizes de Comunicação Corporativa (Avisos de Sistema)",
+            perguntaBase: "Diante de questionamentos em massa no chat sobre instabilidades temporárias no provedor de pagamentos Pix, qual postura oficial a equipe deve transmitir?",
+            correta: "Manter a serenidade, informar que a equipe de engenharia financeira já atua na normalização da rota e assegurar que nenhum recurso será perdido.",
+            distratores: ["Aconselhar os clientes a migrarem para concorrentes até o sistema voltar ao normal.", "Afirmar que o banco central bloqueou definitivamente as contas da empresa.", "Ignorar os chamados e fechar os chats pendentes sem resposta."]
         },
         {
-            tema: "Grupos Operacionais de Validação",
-            perguntaBase: "Qualquer assunto referente a validação de cadastro deve ser inserido estritamente em qual grupo?",
-            correta: "Validação KYC",
-            distratores: ["Divergência de Saldo", "Questões Gerais", "Backoffice Financeiro"]
-        },
-        {
-            tema: "Orientações sobre Suspensão do Site",
-            perguntaBase: "Caso um cliente questione sobre a suspensão do site, qual postura oficial o atendente deve adotar?",
-            correta: "Informar que a empresa segue em pleno funcionamento e adotou as medidas judiciais cabíveis",
-            distratores: ["Explicar detalhes jurídicos complexos do processo", "Concordar que o site pode fechar em breve", "Oferecer reembolso imediato por cautela"]
-        },
-        {
-            tema: "Regra de Eventos Adiados",
-            perguntaBase: "Qual é o prazo regulamentar padrão aplicado pelas marcas para partidas de apostas esportivas suspensas ou adiadas?",
-            correta: "24h a 48h",
-            distratores: ["2 horas", "7 dias úteis", "12 horas"]
-        },
-        {
-            tema: "Anatomia de Mercados 90 Min",
-            perguntaBase: "As apostas no mercado 1X2, gols e escanteios valem estritamente para qual período da partida?",
-            correta: "Tempo regulamentar (90 minutos + acréscimos)",
-            distratores: ["Incluindo prorrogação e pênaltis", "Apenas o primeiro tempo", "Até o apito final da prorrogação"]
+            tema: "Análise de Risco de Contas Múltiplas (Multi-accounting)",
+            perguntaBase: "Durante a verificação de identidade (KYC), nota-se que dois CPFs diferentes utilizam exatamente o mesmo dispositivo móvel, a mesma rede Wi-Fi e o mesmo cartão de crédito para depósitos. Qual classificação de risco isso aciona?",
+            correta: "Indício forte de multi-accounting e fraude estruturada, exigindo o bloqueio cautelar imediato de ambas as contas para análise aprofundada de segurança.",
+            distratores: ["Trata-se de uma prática perfeitamente legal para famílias que compartilham a mesma residência.", "Aprovar as contas imediatamente para incentivar o volume cruzado de apostas conjuntas.", "Solicitar apenas que um dos usuários altere a senha para regularizar o acesso."]
         }
     ];
 
@@ -1898,13 +1898,24 @@
 
     const hojeStr = new Date().toISOString().split('T')[0];
 
+    // Função para padronizar nomes parecidos (ex: "Karla M" e "Karla M.")
+    function padronizarNomeColaborador(nome) {
+        if (!nome) return "";
+        let nomeLimpo = nome.trim();
+        const nomeLower = nomeLimpo.toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (nomeLower === "karlam" || nomeLower === "karla m") {
+            return "Karla M.";
+        }
+        return nomeLimpo;
+    }
+
     window.iniciarQuizGerado = async function() {
         const inputNome = document.getElementById("atendente-nome").value.trim();
         if (!inputNome) {
             alert("Por favor, digite seu nome ou apelido para participar do ranking!");
             return;
         }
-        nomeAtendente = inputNome;
+        nomeAtendente = padronizarNomeColaborador(inputNome);
         
         const sanitizarNome = nomeAtendente.toLowerCase().trim().replace(/[^a-z0-9]/g, "_");
         
@@ -1993,7 +2004,7 @@
                 pontosAtuais = Number(snapshot.val().pontos) || 0;
             }
             await set(userRef, {
-                nome: nomeAtendente.trim(),
+                nome: nomeAtendente,
                 pontos: pontosAtuais + pontosGanhos,
                 tempoRestanteSegundos: Math.max(0, tempoRestante),
                 tempoRestante: `${Math.max(0, tempoRestante)}s`,
@@ -2025,7 +2036,7 @@
                 pontosAtuais = Number(snapshot.val().pontos) || 0;
             }
             await set(userRef, {
-                nome: nomeAtendente.trim(),
+                nome: nomeAtendente,
                 pontos: pontosAtuais,
                 tempoRestanteSegundos: 0,
                 tempoRestante: '0s',
@@ -2062,12 +2073,13 @@
         snapshotDados.forEach((childSnapshot) => {
             const item = childSnapshot.val();
             if (item && item.nome) {
-                const chaveUnica = item.nome.trim().toLowerCase().replace(/[^a-z0-9]/g, "_");
+                const nomePadronizado = padronizarNomeColaborador(item.nome);
+                const chaveUnica = nomePadronizado.toLowerCase().trim().replace(/[^a-z0-9]/g, "_");
                 const pontosItem = Number(item.pontos) || 0;
 
                 if (!mapColaboradores[chaveUnica]) {
                     mapColaboradores[chaveUnica] = {
-                        nome: item.nome.trim(),
+                        nome: nomePadronizado,
                         pontos: pontosItem,
                         tempoRestanteSegundos: Number(item.tempoRestanteSegundos) || 0,
                         tempoRestante: item.tempoRestante || '0s',
@@ -2082,7 +2094,7 @@
                         mapColaboradores[chaveUnica].tempoRestanteSegundos = item.tempoRestanteSegundos || mapColaboradores[chaveUnica].tempoRestanteSegundos;
                         mapColaboradores[chaveUnica].dataHora = item.dataHora || mapColaboradores[chaveUnica].dataHora;
                         mapColaboradores[chaveUnica].timestamp = item.timestamp || mapColaboradores[chaveUnica].timestamp;
-                        mapColaboradores[chaveUnica].nome = item.nome.trim();
+                        mapColaboradores[chaveUnica].nome = nomePadronizado;
                         mapColaboradores[chaveUnica].ultimaAtualizacao = item.ultimaAtualizacao || mapColaboradores[chaveUnica].ultimaAtualizacao;
                     }
                 }
@@ -2090,7 +2102,6 @@
         });
 
         let lista = Object.values(mapColaboradores);
-        // Ordena por pontuação (maior) e usa o tempo restante em segundos como critério de desempate
         lista.sort((a, b) => b.pontos !== a.pontos ? b.pontos - a.pontos : (b.tempoRestanteSegundos || 0) - (a.tempoRestanteSegundos || 0));
         return lista;
     }
