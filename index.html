@@ -1656,7 +1656,7 @@
         </div>
       </section>
 
-   <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
+  <!-- TAB: QUIZ & ACUMULAÇÃO DE PONTOS MENSAIS -->
       <section id="tab-quiz-diario" class="tab-content hidden max-w-4xl mx-auto space-y-6 mb-6">
         <div class="w-full max-w-4xl bg-slate-900/80 border border-slate-800 p-5 rounded-xl space-y-4 mb-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
@@ -1898,14 +1898,19 @@
 
     const hojeStr = new Date().toISOString().split('T')[0];
 
-    // Função para padronizar nomes parecidos (ex: "Karla M" e "Karla M.")
+    // Função para unificar variações e corrigir nomes de colaboradores (Karla M. e Lorraynne Lima)
     function padronizarNomeColaborador(nome) {
         if (!nome) return "";
         let nomeLimpo = nome.trim();
         const nomeLower = nomeLimpo.toLowerCase().replace(/[^a-z0-9]/g, "");
+        
         if (nomeLower === "karlam" || nomeLower === "karla m") {
             return "Karla M.";
         }
+        if (nomeLower === "lorraynne" || nomeLower === "lorraynnelima" || nomeLower === "lorrayne") {
+            return "Lorraynne Lima";
+        }
+        
         return nomeLimpo;
     }
 
